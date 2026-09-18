@@ -1,6 +1,6 @@
 # VNR Reservation and Management System
 
-A web-based reservation and management system for Villa Natividad Resort & Events Place, developed as a capstone project. The system replaces manual booking processes (phone calls, walk-ins, messaging apps) with an online platform for guests to browse accommodations, book reservations, and pay via GCash, Maya, or QR Ph, alongside an admin portal for managing bookings, rooms, cottages, and reports.
+A web-based reservation and management system for Villa Natividad Resort & Events Place, developed as a project. The system replaces manual booking processes (phone calls, walk-ins, messaging apps) with an online platform for guests to browse accommodations, book reservations, and pay via GCash, Maya, or QR Ph, alongside an admin portal for managing bookings, rooms, cottages, and reports.
 
 ## Tech Stack
 
