@@ -19,7 +19,7 @@ A web-based reservation and management system for Villa Natividad Resort & Event
 
 Developed by a 4-member team at Bulacan Agricultural State College (BASC).
 
-- Ileto, Cyrus L. - Customer UI Developer
+- Ileto, Cyrus L. - Customer UI Developer & Backend
 - Pangan, Kier V. - Backend/Database Lead
 - Santiago, Jarred Grant M. - Documentation Lead
 - Santos, John Marco A. - Admin UI Developer
