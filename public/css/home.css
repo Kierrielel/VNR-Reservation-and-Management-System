@@ -1,0 +1,41 @@
+html { scroll-behavior: smooth; }
+
+
+.main,
+.welcome,
+.highlights,
+.reviews,
+.about {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+.main {
+    color: #fff;
+    background:
+        linear-gradient(rgba(66,169,219,.55), rgba(66,169,219,.55)),
+        url('../images/villa-bg.jpg') center / cover no-repeat;
+}
+
+.highlights { background: #f2f2f2; }
+
+/* Main Content */
+.main-content h1 {
+    font-family: Georgia, serif;
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px black;
+}
+.main-content p{
+    padding-top: 15px;
+    font-family: Arial, sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    text-shadow: 1px 1px 5px black;
+
+}

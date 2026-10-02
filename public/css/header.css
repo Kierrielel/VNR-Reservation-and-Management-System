@@ -1,0 +1,101 @@
+
+    .vnr-navbar {
+        background: #ffffff;
+        padding: 0.9rem 2rem;
+        position: relative;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .vnr-navbar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -4px;
+        height: 4px;
+        background: #2699c2;
+    }
+
+    .vnr-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        text-decoration: none;
+    }
+
+    .vnr-brand-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #35a7d1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .vnr-brand-icon svg { width: 22px; height: 22px; fill: #ffffff; }
+
+    .vnr-brand-text {
+        font-family: 'Mrs Saint Delafield', cursive;
+        font-size: 2rem;
+        color: #1d6f86;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .vnr-nav .nav-link {
+        color: #495057;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.4rem 0.9rem;
+    }
+
+    .vnr-nav .nav-link.active,
+    .vnr-nav .nav-link:active,
+    .vnr-nav .nav-link:focus {
+        color: #2699c2;
+        position: relative;
+    }
+
+    .vnr-nav .nav-link.active::after,
+    .vnr-nav .nav-link:active::after,
+    .vnr-nav .nav-link:focus::after {
+        content: "";
+        position: absolute;
+        left: 0.9rem;
+        right: 0.9rem;
+        bottom: -2px;
+        height: 2px;
+        background: #2699c2;
+    }
+
+    .vnr-welcome {
+        color: #495057;
+        font-size: 0.9rem;
+        font-weight: 500;
+        white-space: nowrap;
+    }
+
+    .btn-vnr-outline,
+    .btn-vnr-fill {
+        border-radius: 999px;
+        padding: 0.5rem 1.4rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        white-space: nowrap;
+    }
+
+    .btn-vnr-outline {
+        background: #ffffff;
+        color: #2699c2;
+        border: 2px solid #2699c2;
+    }
+    .btn-vnr-outline:hover { background: #eef8fc; color: #2699c2; }
+
+    .btn-vnr-fill {
+        background: #2fa6d1;
+        color: #ffffff;
+        border: 2px solid #2fa6d1;
+    }
+    .btn-vnr-fill:hover { background: #2590b8; border-color: #2590b8; color: #fff; }
