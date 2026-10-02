@@ -1,0 +1,6 @@
+<section id="gallery">
+
+    <h2>Gallery</h2>
+
+    
+</section>
