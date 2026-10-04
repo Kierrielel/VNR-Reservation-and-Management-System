@@ -13,9 +13,12 @@ class EventPackage extends Model
         'name',
         'price',
         'hours',
-        'inclusions',
         'image',
         'status',
+    ];
+    
+    protected $casts = [
+        'inclusions' => 'array',
     ];
 
     public function bookings()
