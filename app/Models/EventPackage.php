@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class EventPackage extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'price',
@@ -16,5 +18,8 @@ class EventPackage extends Model
         'status',
     ];
 
-    use HasFactory;
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }

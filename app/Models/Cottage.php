@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cottage extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'type',
@@ -17,5 +19,8 @@ class Cottage extends Model
         'status',
     ];
 
-    use HasFactory;
+    public function bookings()
+    {
+        return $this->belongsToMany(Booking::class, 'booking_cottage');
+    }
 }
