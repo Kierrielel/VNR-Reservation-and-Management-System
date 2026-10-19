@@ -1,3 +1,4 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Mrs+Saint+Delafield&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
@@ -37,7 +38,7 @@
                 @else
                     <a href="{{ route('login') }}" class="btn btn-vnr-outline">Login</a>
                 @endauth
-                <a href="#" class="btn btn-vnr-fill">Book Now</a>
+               <a href="{{ route('book') }}" class="btn btn-vnr-fill">Book Now</a>
             </div>
         </div>
     </div>

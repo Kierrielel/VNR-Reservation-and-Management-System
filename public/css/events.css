@@ -1,0 +1,389 @@
+/* ===== SIGNATURE VENUES SECTION ===== */
+#venues {
+    padding: 60px 40px;
+    background: #f2f2f2;
+    text-align: center;
+}
+
+#venues h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    margin-bottom: 40px;
+}
+
+.venues-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.venue-card {
+    background: #faf8f3;
+    border-radius: 16px;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.venue-image {
+    height: 240px;
+    overflow: hidden;
+}
+
+.venue-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM on hover */
+.venue-card:hover .venue-image img {
+    transform: scale(1.1);
+}
+
+.venue-info {
+    padding: 25px;
+}
+
+.venue-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.venue-title h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    margin: 0;
+}
+
+.venue-badge {
+    background: #34a8e0;
+    color: white;
+    font-size: 10px;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+.venue-info p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.venue-link {
+    color: #34a8e0;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.venue-link:hover {
+    text-decoration: underline;
+}
+
+
+/* ===== REMARKABLE EVENTS SECTION ===== */
+#events {
+    padding: 60px 40px;
+    text-align: center;
+}
+
+#events h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+}
+
+.events-subtitle {
+    max-width: 500px;
+    margin: 15px auto 40px;
+    color: #555;
+}
+
+.events-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.event-card {
+    position: relative;
+    height: 340px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.event-card-wide {
+    grid-column: 1 / 3;
+}
+
+.event-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+/* ZOOM on hover */
+.event-card:hover img {
+    transform: scale(1.1);
+}
+
+.event-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 60px 20px 20px;
+    text-align: left;
+    color: white;
+    background: linear-gradient(to top, rgba(52, 168, 224, 0.95), transparent);
+}
+
+.event-text h3 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    margin: 0 0 5px;
+}
+
+.event-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+
+/* ===== PHONE ===== */
+@media (max-width: 700px) {
+    #venues,
+    #events {
+        padding: 40px 20px;
+    }
+
+    .venues-grid,
+    .events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .event-card-wide {
+        grid-column: auto;
+    }
+
+    .event-card {
+        height: 260px;
+    }
+}
+
+/* ===== EVENT PACKAGES SECTION ===== */
+#packages {
+    padding: 70px 20px 90px;
+    background: #f7f7f7;
+    text-align: center;
+}
+
+#packages h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+}
+
+.packages-subtitle {
+    max-width: 450px;
+    margin: 15px auto 60px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* 3 cards in a row */
+.packages-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    max-width: 1050px;
+    margin: 0 auto;
+    align-items: center;   /* lets the middle card be taller */
+}
+
+/* Fade-in animation when the page loads */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Normal card (Silver and Bronze) */
+.package-card {
+    position: relative;
+    background: #efeee8;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 35px 30px;
+    text-align: left;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 0.7s ease;
+}
+
+/* Lift up when hovering */
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.package-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin: 0 0 10px;
+}
+
+.package-desc {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    min-height: 42px;      /* keeps the prices lined up */
+}
+
+.package-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: bold;
+    color: #1d3b2a;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);   /* thin line under the price */
+}
+
+.package-price span {
+    font-family: sans-serif;
+    font-size: 13px;
+    font-weight: normal;
+    color: #666;
+}
+
+/* Feature list */
+.package-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 40px;
+}
+
+.package-features li {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+/* Check mark inside a small circle */
+.package-features li::before {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    border-radius: 50%;
+    background: rgba(184, 144, 11, 0.15);
+    color: #b8900b;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* Select button */
+.package-btn {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    border: 2px solid #2d4a3a;
+    border-radius: 30px;
+    color: #222;
+    text-decoration: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.package-btn:hover {
+    background: #2d4a3a;
+    color: white;
+}
+
+/* Gold card (blue, taller, and slightly bigger) */
+.package-popular {
+    background: linear-gradient(160deg, #5db4e0, #3d96c8);
+    border: none;
+    color: white;
+    padding: 50px 30px;
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(61, 150, 200, 0.4);
+}
+
+.package-popular:hover {
+    transform: scale(1.05) translateY(-10px);
+    box-shadow: 0 20px 40px rgba(61, 150, 200, 0.5);
+}
+
+.package-popular .package-desc,
+.package-popular .package-price,
+.package-popular .package-price span {
+    color: white;
+}
+
+.package-popular .package-price {
+    border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.package-popular .package-features li::before {
+    background: rgba(255, 255, 255, 0.25);
+    color: #ffe082;
+}
+
+.package-popular .package-btn {
+    background: #ffe082;
+    border-color: #ffe082;
+    color: #222;
+}
+
+.package-popular .package-btn:hover {
+    background: #ffd54f;
+    border-color: #ffd54f;
+}
+
+/* MOST POPULAR label */
+.package-badge {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #b8900b;
+    color: white;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 6px 22px;
+    border-radius: 20px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+}
+
+/* Phone: one card per row */
+@media (max-width: 800px) {
+    .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .package-desc {
+        min-height: auto;
+    }
+}
