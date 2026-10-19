@@ -1,4 +1,4 @@
-/* ===== SIGNATURE VENUES SECTION ===== */
+
 #venues {
     padding: 60px 40px;
     background: #f2f2f2;
@@ -39,7 +39,6 @@
     transition: transform 0.5s ease;
 }
 
-/* ZOOM on hover */
 .venue-card:hover .venue-image img {
     transform: scale(1.1);
 }
@@ -86,8 +85,6 @@
     text-decoration: underline;
 }
 
-
-/* ===== REMARKABLE EVENTS SECTION ===== */
 #events {
     padding: 60px 40px;
     text-align: center;
@@ -131,7 +128,6 @@
     transition: transform 0.5s ease;
 }
 
-/* ZOOM on hover */
 .event-card:hover img {
     transform: scale(1.1);
 }
@@ -158,8 +154,6 @@
     font-size: 14px;
 }
 
-
-/* ===== PHONE ===== */
 @media (max-width: 700px) {
     #venues,
     #events {
@@ -180,7 +174,6 @@
     }
 }
 
-/* ===== EVENT PACKAGES SECTION ===== */
 #packages {
     padding: 70px 20px 90px;
     background: #f7f7f7;
@@ -199,17 +192,16 @@
     line-height: 1.6;
 }
 
-/* 3 cards in a row */
+
 .packages-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
     max-width: 1050px;
     margin: 0 auto;
-    align-items: center;   /* lets the middle card be taller */
+    align-items: center;  
 }
 
-/* Fade-in animation when the page loads */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -221,7 +213,6 @@
     }
 }
 
-/* Normal card (Silver and Bronze) */
 .package-card {
     position: relative;
     background: #efeee8;
@@ -234,7 +225,6 @@
     animation: fadeUp 0.7s ease;
 }
 
-/* Lift up when hovering */
 .package-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
@@ -251,7 +241,7 @@
     color: #555;
     line-height: 1.5;
     margin-bottom: 20px;
-    min-height: 42px;      /* keeps the prices lined up */
+    min-height: 42px;      
 }
 
 .package-price {
@@ -261,7 +251,7 @@
     color: #1d3b2a;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);   /* thin line under the price */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);  
 }
 
 .package-price span {
@@ -271,7 +261,6 @@
     color: #666;
 }
 
-/* Feature list */
 .package-features {
     list-style: none;
     padding: 0;
@@ -285,7 +274,6 @@
     margin-bottom: 16px;
 }
 
-/* Check mark inside a small circle */
 .package-features li::before {
     content: "✓";
     display: inline-flex;
@@ -301,7 +289,6 @@
     font-weight: bold;
 }
 
-/* Select button */
 .package-btn {
     display: block;
     text-align: center;
@@ -320,7 +307,6 @@
     color: white;
 }
 
-/* Gold card (blue, taller, and slightly bigger) */
 .package-popular {
     background: linear-gradient(160deg, #5db4e0, #3d96c8);
     border: none;
@@ -361,7 +347,6 @@
     border-color: #ffd54f;
 }
 
-/* MOST POPULAR label */
 .package-badge {
     position: absolute;
     top: -14px;
@@ -376,7 +361,7 @@
     box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
 }
 
-/* Phone: one card per row */
+/* Phone */
 @media (max-width: 800px) {
     .packages-grid {
         grid-template-columns: 1fr;

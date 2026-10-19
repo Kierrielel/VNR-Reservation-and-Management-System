@@ -9,14 +9,14 @@
     </div>
 </section>
 
-{{-- ========== OUR SIGNATURE VENUES ========== --}}
+
 <section id="venues">
 
     <h2>Our Signature Venues</h2>
 
     <div class="venues-grid">
 
-        {{-- Swimming Pool --}}
+
         <div class="venue-card">
             <div class="venue-image">
                 <img src="{{ asset('images/pool2.jpg') }}" alt="Swimming Pool">
@@ -38,7 +38,6 @@
             </div>
         </div>
 
-        {{-- Event Pavilion --}}
         <div class="venue-card">
             <div class="venue-image">
                 <img src="{{ asset('images/deb2.jpg') }}" alt="Event Pavilion">
@@ -64,7 +63,6 @@
 </section>
 
 
-{{-- ========== REMARKABLE EVENTS ========== --}}
 <section id="events">
 
     <h2>Remarkable Events</h2>
@@ -103,7 +101,7 @@
 
 </section>
 
-{{-- ========== EVENT PACKAGES ========== --}}
+
 <section id="packages">
 
     <h2>Event Packages</h2>
@@ -112,9 +110,7 @@
         fully bespoke experience.
     </p>
 
-    {{--
-        BACKEND here
-    --}}
+    {{-- backend --}}
 
     <div class="packages-grid">
 
@@ -131,11 +127,10 @@
                 <li>Basic Floral Styling</li>
             </ul>
 
-            {{-- BACKEND NOTE 2: link this button to the booking page, e.g. route('booking.create', ['package' => 'silver']) --}}
             <a href="#" class="package-btn">SELECT SILVER</a>
         </div>
 
-        {{-- Gold (most popular) --}}
+  
         <div class="package-card package-popular">
             <span class="package-badge">MOST POPULAR</span>
 
@@ -151,14 +146,13 @@
                 <li>Basic Light &amp; Sound Setup</li>
             </ul>
 
-            {{-- BACKEND NOTE 2: same as above, for the Gold package --}}
             <a href="#" class="package-btn">SELECT GOLD</a>
         </div>
 
         {{-- Bronze --}}
         <div class="package-card">
             <h3>Bronze</h3>
-            <p class="package-desc">Unrivaled luxury and complete customization.</p>
+            <p class="package-desc">Unrivaled luxury and complete customizations.</p>
 
             <p class="package-price">₱15k <span>/ Starting</span></p>
 
@@ -168,7 +162,6 @@
                 <li>Tables &amp; Chairs Access</li>
             </ul>
 
-            {{-- BACKEND NOTE 2: same as above, for the Bronze package --}}
             <a href="#" class="package-btn">SELECT BRONZE</a>
         </div>
 
