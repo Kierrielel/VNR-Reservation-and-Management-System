@@ -1,0 +1,28 @@
+.admin-navbar{
+    background: #ffffff;
+    padding: 1.5rem 2rem;
+    position: relative;
+    font-family: 'Poppins', sans-serif;
+    border-bottom: 1px solid black;
+    }
+
+.vnr-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-decoration: none;
+    }
+
+.vnr-brand-text {
+    font-family: 'Mrs Saint Delafield', cursive;
+    font-size: 2.5rem;
+    color: #009eca;
+    letter-spacing: .2rem;
+    line-height: 1;
+}
+.vnr-brand-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #343d3f;
+    line-height: 1;
+}

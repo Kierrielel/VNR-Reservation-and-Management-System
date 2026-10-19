@@ -1,0 +1,224 @@
+html { scroll-behavior: smooth; }
+
+.admin-container{
+    min-height: calc(100vh - 70px);
+    display: flex;
+    flex-direction: row;
+    background-color: #FFFFFF;
+}     
+
+.admin-dashboard{
+     flex: 1;
+}
+.dashboard-content{
+    display:flex;
+    flex-direction: column;
+}
+.dashboard-info{
+    display: flex;
+    padding: 25px 50px 50px 50px;
+    flex-direction: column;
+}
+
+.dashboard-title{
+    font-weight: 700;
+}
+.dashboard-greet{
+    font-weight:600;
+    font-style: SemiBold;
+    font-size: 50px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #368DB7;
+}
+.dashboard-desc{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #6B6B6B;
+    padding-left: 10px;
+    padding-top: -5px;
+}
+
+.totals-cont{
+    margin-top: -40px;
+    display:flex;
+    flex-direction: row;
+    gap: 45px;
+    padding: 25px 50px 50px 60px;
+
+}
+.info-cont{
+    .flex-item {
+         min-width: 0; 
+    }
+    padding: 15px 0px 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
+    min-height: 200px;
+    min-width: 228px;
+    display:flex;
+    flex-direction: column;
+    font-weight: 500;
+
+}
+
+.analytics-cont{
+    margin-top: -40px;
+    display: flex;
+    flex-direction: row;
+    gap: 55px;
+    padding: 25px 50px 50px 60px;
+}
+.rev-analytics-cont{
+    min-width: 678px;
+    min-height: 418px;
+    padding: 15px 0px 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
+}
+.analytics-title{
+    font-weight: 700;
+    font-size: larger;
+}
+.occupancy-alert-cont{
+    text-align: center;
+    min-width: 320px;
+    min-height: 418px;
+    padding: 15px 0px 15px 0px;
+    border-radius: 10px;
+    background-color: #3779B2;
+    color: #FFFFFF;
+}
+.occupancy-alert-title{
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+.cottage-occupancy{
+    font-size: larger;
+    font-weight: 600;
+}
+
+.recent-book-cont{
+    margin-top: -40px;
+    display: flex;
+    flex-direction: row;
+    padding: 25px 50px 50px 60px;
+
+}
+.recent-book-info{
+    min-width: 1050px;
+    min-height: 363px;
+    padding: 15px 0px 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
+}
+.recent-bookings{
+    color: #368DB7;
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.admin-sidebar{
+    background-color: #F0F0F0;
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
+    width: 280px;
+
+}
+
+.sidebar_content{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.sidebar-title{
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #6B6B6B;
+    line-height: 1;
+}
+.sidebar-options {
+    color: #26323C;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-height: calc(100vh - 200px);
+    margin: 25px 10px 0px 35px;
+
+
+}
+
+.sidebar-logout{
+    flex: 1;
+    margin: 25px 0px 0px 50px;
+    font-size: 1.3rem;
+}
+.auth-logout-btn{
+    border: none;
+}
+
+
+
+
+
+
+/*SVG Floats*/
+
+.dashboard-logo{
+    float: left;
+    width: 18px;
+    height: 18px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.rooms-logo{
+    float: left;
+    width: 20px;
+    height: 14px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.booking-logo{
+    float: left;
+    width: 20px;
+    height: 19.5px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.announce-logo{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.reviews-logo{
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.reports-logo{
+    float: left;
+    width: 18.75px;
+    height: 18.75px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.settings-logo{
+    float: left;
+    width: 19.04px;
+    height: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
+.logout-logo{
+    float: left;
+    width: 33px;
+    height: 35px;
+    margin-right: 20px;
+    margin-top: 5px;
+}
