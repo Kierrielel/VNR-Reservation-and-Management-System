@@ -1,8 +1,5 @@
 @include('LoginReg.include.header')
 
-<link href="{{ asset('css/home.css') }}" rel="stylesheet">
-
-
 <main>
     <div class="page-section" data-page="home">
         @include('LoginReg.include.home.main-home')
@@ -27,6 +24,9 @@
 
     <div class="page-section" data-page="gallery">
         @include('LoginReg.include.home.gallery')
+    </div>
+    <div class="page-section" data-page="book">
+        @include('LoginReg.include.home.book')
     </div>
 </main>
 
@@ -54,3 +54,5 @@
     window.addEventListener('popstate', () => showPage(location.hash.slice(1) || 'home'));
     showPage(location.hash.slice(1) || 'home');
 </script>
+
+@include('LoginReg.include.footer')

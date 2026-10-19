@@ -60,7 +60,7 @@ body {
 }
 
 .auth-image-text {
-    position: relative; /* sits above the ::before overlay */
+    position: relative;
     z-index: 1;
     color: #ffffff;
 }
@@ -180,7 +180,7 @@ body {
 
 .auth-description {
     margin: 0 0 24px 0;
-    max-width: 38ch; /* keeps the paragraph from stretching too wide */
+    max-width: 38ch;
     font-size: 0.9rem;
     line-height: 1.6;
     color: var(--vn-muted);
