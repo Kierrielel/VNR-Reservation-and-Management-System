@@ -1,0 +1,92 @@
+.vnr-footer {
+    position: relative;
+    background-color: #3aa9e0;      
+    color: #fff;
+    padding: 50px 0 20px;
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+}
+
+.vnr-footer::before {
+    content: "";
+    position: absolute;
+    inset: 0;                                              
+    background-image: url('../images/footer-pattern.jpg');
+    background-size: 800px;                                
+    mix-blend-mode: multiply;                              
+    opacity: 0.25;                                        
+}
+
+.vnr-footer .container {
+    position: relative;
+    z-index: 1;
+}
+
+.vnr-footer-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 1.2;
+}
+
+.vnr-footer-text {
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+.vnr-footer-copy {
+    font-size: 0.9rem;
+    margin-top: 40px;
+    opacity: 0.9;
+}
+
+.vnr-footer h5 {
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.vnr-footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.vnr-footer li {
+    margin-bottom: 12px;
+}
+
+.vnr-footer a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.vnr-footer a:hover {
+    text-decoration: underline;
+}
+
+.vnr-footer .vnr-socials a {
+    font-size: 1.3rem;
+    margin-right: 12px;
+}
+
+/* phones */
+@media (max-width: 576px) {
+    .vnr-footer {
+        padding: 35px 0 15px;
+        text-align: center;        
+    }
+
+    .vnr-footer-title {
+        font-size: 1.6rem;      
+    }
+
+    .vnr-footer-copy {
+        margin-top: 20px;
+        font-size: 0.8rem;
+    }
+
+    .vnr-footer::before {
+        background-size: 260px;      
+    }
+}

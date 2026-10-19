@@ -1,7 +1,8 @@
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
-
-.main,
+.main, .main-amenities,.main-accommodations,.main-events, .main-galleryy,
 .welcome,
 .highlights,
 .reviews,
@@ -18,11 +19,39 @@ html { scroll-behavior: smooth; }
 .main {
     color: #fff;
     background:
-        linear-gradient(rgba(66,169,219,.55), rgba(66,169,219,.55)),
-        url('../images/villa-bg.jpg') center / cover no-repeat;
+        linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
+        url("../images/villa-bg.jpg") center / cover no-repeat;
 }
 
-.highlights { background: #f2f2f2; }
+.main-amenities {
+    color: #fff;
+    background:
+        linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
+        url("../images/pool2.jpg") center / cover no-repeat !important;
+}
+
+.main-accommodations {
+    color: #fff;
+    background:
+        linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
+        url("../images/nippa.jpg") center / cover no-repeat !important;
+}
+.main-events {
+    color: #fff;
+    background:
+        linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
+        url("../images/event.jpg") center / cover no-repeat !important;
+}
+.main-galleryy {
+    color: #fff;
+    background:
+        linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
+        url("../images/garden2.jpg") center / cover no-repeat !important;
+}
+
+.highlights {
+    background: #f2f2f2;
+}
 
 /* Main Content */
 .main-content h1 {
@@ -31,11 +60,315 @@ html { scroll-behavior: smooth; }
     font-weight: bold;
     text-shadow: 1px 1px 1px black;
 }
-.main-content p{
-    padding-top: 15px;
-    font-family: Arial, sans-serif;
-    font-weight: 700;
-    font-size: 20px;
-    text-shadow: 1px 1px 5px black;
 
+.about-divider {
+    width: 100px;
+    height: 3px;
+    margin: 15px auto;
+    background: white;
+}
+
+/* SECOND SECTION - WELCOME */
+
+.welcome {
+    background: #fff;
+    gap: 0.5rem;
+}
+
+.welcome-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    color: #b8174f;
+    margin: 0;
+}
+
+.welcome-tagline {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.75rem, 2vw, 0.95rem);
+    color: #b8174f;
+}
+
+.welcome-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    line-height: 1.7;
+    max-width: 850px;
+    text-align: justify;
+    margin-top: 3rem;
+}
+
+.btn-learn {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 1rem 3rem;
+    margin-top: 2rem;
+    border-radius: 6px;
+    border: 2px solid #42a9db;
+
+    background: #42a9db;
+    color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+
+    transition:
+        background 0.3s,
+        color 0.3s;
+}
+
+.btn-learn:hover {
+    background: #fff;
+    color: #42a9db;
+}
+
+/* phones */
+@media (max-width: 600px) {
+    .welcome-text {
+        text-align: justify;
+    }
+    .btn-learn {
+        padding: 0.8rem 2rem;
+    }
+    .welcome-title {
+        font-size: 25px;
+    }
+}
+
+/* Third Section */
+
+/* THIRD SECTION - HIGHLIGHTS */
+
+.highlights-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #42a9db;
+    margin-bottom: 5rem;
+}
+
+.highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+    width: 100%;
+    max-width: 1300px !important;
+}
+
+.highlight-card {
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: box-shadow 0.4s ease;
+}
+
+.highlight-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.highlight-card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.highlight-card:hover img {
+    transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+    .highlights-grid {
+        grid-template-columns: 1fr;
+    }
+    .highlights-title {
+        margin-bottom: 2.5rem;
+    }
+    .highlights-title {
+        font-size: 20px;
+    }
+}
+
+/* FOURTH SECTION REVIEW */
+/* FOURTH SECTION - REVIEWS */
+
+.reviews-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #42a9db;
+    margin-bottom: 2rem;
+}
+
+.reviews-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px !important;
+    padding: 1rem 1.5rem;
+    background: #f2f1ed;
+    border-radius: 10px;
+}
+
+.reviews-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.rating-number {
+    font-family: "Playfair Display", serif;
+    font-size: 3rem;
+    color: #42a9db;
+}
+
+.rating-stars {
+    font-size: 2rem;
+    color: #d6336c;
+}
+
+.rating-count {
+    font-family: "Poppins", sans-serif;
+    font-size: 0.8rem;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem;
+    width: 100%;
+    max-width: 1200 !important;
+    margin: 2.5rem 0;
+}
+
+.review-card {
+    min-height: 260px;
+    padding: 1.5rem;
+    background: #f7f6f2;
+    border-radius: 10px;
+    text-align: left;
+    transition:
+        transform 0.3s,
+        box-shadow 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-blue {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.7rem 1.8rem;
+    border-radius: 6px;
+    border: 2px solid #42a9db;
+    background: #42a9db;
+    color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+    transition:
+        background 0.3s,
+        color 0.3s;
+}
+
+.btn-blue:hover {
+    background: #fff;
+    color: #42a9db;
+}
+
+.review-modal {
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.review-modal .modal-header,
+.review-modal .modal-footer {
+    border: none;
+}
+
+.review-modal .modal-title {
+    font-family: "Playfair Display", serif;
+    color: #42a9db;
+}
+
+.review-modal label {
+    display: block;
+    margin-top: 1rem;
+    font-family: "Playfair Display", serif;
+    text-align: left;
+}
+
+.review-modal .form-control {
+    border-radius: 12px;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating label {
+    margin: 0;
+    font-size: 2.2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #d6336c;
+}
+
+/* phones */
+@media (max-width: 768px) {
+    .reviews-grid {
+        grid-template-columns: 1fr;
+    }
+    .reviews-summary {
+        justify-content: center;
+        text-align: center;
+    }
+    .reviews-title {
+        font-size: 28px;
+    }
+}
+
+/* FIFTH SECTION - ABOUT */
+
+.about {
+    background: #f2f2f2;
+}
+
+.about-title {
+    font-family: "Playfair Display", serif;
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #42a9db;
+    margin-bottom: 2rem;
+}
+
+.about-text {
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    line-height: 1.7;
+    color: #0b5d8c;
+    max-width: 850px;
+    text-align: justify;
+}
+
+/* phones */
+@media (max-width: 600px) {
+    .about-text {
+        text-align: justify;
+    }
 }

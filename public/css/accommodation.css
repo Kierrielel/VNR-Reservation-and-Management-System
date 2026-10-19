@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+.acc-section {
+    background: white;
+    padding: 70px 40px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.acc-eyebrow {
+    font-size: 13px;
+    letter-spacing: 2px;
+    font-weight: 600;
+    color: #9aa5b1;
+}
+
+.acc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: #1f1f1f;
+    margin-bottom: 15px;
+}
+
+.acc-subtitle {
+    max-width: 700px;
+    margin: 0 auto 50px;
+    color: #9aa5b1;
+    line-height: 1.7;
+}
+
+
+.acc-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    text-align: left;
+}
+
+
+.acc-card {
+    background: #faf8f3;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.acc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.acc-img {
+    height: 240px;
+    overflow: hidden;
+}
+
+.acc-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+
+.acc-card:hover .acc-img img {
+    transform: scale(1.1);
+}
+
+.acc-body {
+    padding: 30px 28px 28px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.acc-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.acc-head h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: #1f1f1f;
+}
+
+.acc-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #1f1f1f;
+}
+
+.acc-price small {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    color: #9aa5b1;
+}
+
+
+.acc-desc {
+    flex: 1;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #3a3a3a;
+    margin-bottom: 20px;
+}
+
+.acc-features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.acc-features li {
+    font-size: 13px;
+    font-weight: 500;
+    color: #3a3a3a;
+}
+
+.acc-features i {
+    margin-right: 8px;
+    color: #1f1f1f;
+}
+
+
+.acc-btn {
+    display: block;
+    text-align: center;
+    background: #3fa9dc;
+    color: white;
+    text-decoration: none;
+    padding: 13px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: 0.3s;
+    border: 2px solid #42a9db;
+}
+
+
+.acc-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    color:#3fa9dc;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+.gal-section {
+    background: white;
+    padding: 60px 40px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.gal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+}
+
+.gal-subtitle {
+    max-width: 600px;
+    color: #9aa5b1;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.gal-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1fr 1fr;
+    grid-auto-rows: 220px;
+    gap: 12px;
+}
+
+.gal-item {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+
+.gal-tall {
+    grid-row: span 2;
+}
+
+.gal-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+
+.gal-item:hover img {
+    transform: scale(1.1);
+}
+
+
+/* =========================
+   PHONE / TABLET
+   ========================= */
+@media (max-width: 900px) {
+    .acc-section,
+    .gal-section {
+        padding: 50px 20px;
+    }
+
+    .acc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gal-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .acc-title,
+    .gal-title {
+        font-size: 36px;
+    }
+}
