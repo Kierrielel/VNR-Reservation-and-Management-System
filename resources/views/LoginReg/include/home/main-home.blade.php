@@ -1,6 +1,9 @@
 <link href="{{ asset('css/home.css') }}?v={{ filemtime(public_path('css/home.css')) }}" rel="stylesheet">
 
+
+
 <section id="home" class="main">
+
     <div class="main-content">
         <h1>Villa Natividad’s Resort &amp; Events Place</h1>
           <div class="about-divider"></div>
@@ -31,7 +34,7 @@
     </div>
 </section>
 
-<section class="reviews">
+<section class="reviews" id="reviews">
     @include('LoginReg.include.home.reviews')
 </section>
 

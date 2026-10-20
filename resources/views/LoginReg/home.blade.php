@@ -35,11 +35,17 @@
     const pages = document.querySelectorAll('.page-section');
     const links = document.querySelectorAll('.vnr-nav .nav-link');
 
+    // TO BACK AT THE REVIEW ONCE SUBMITTED A REVIEW
     function showPage(name) {
-        if (![...pages].some(p => p.dataset.page === name)) name = 'home';
+        const showReviews = name === 'reviews';
+        if (showReviews || ![...pages].some(p => p.dataset.page === name)) name = 'home';
         pages.forEach(p => p.classList.toggle('d-none', p.dataset.page !== name));
         links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + name));
-        window.scrollTo(0, 0);
+        if (showReviews) {
+            document.getElementById('reviews').scrollIntoView();
+        } else {
+            window.scrollTo(0, 0);
+        }
     }
 
     links.forEach(link => {
@@ -53,6 +59,14 @@
 
     window.addEventListener('popstate', () => showPage(location.hash.slice(1) || 'home'));
     showPage(location.hash.slice(1) || 'home');
+
+    // ALERT FADE IN OUT
+    document.querySelectorAll('.review-alert-success').forEach(alert => {
+        window.setTimeout(() => {
+            alert.style.opacity = '0';
+            window.setTimeout(() => alert.remove(), 300);
+        }, 4000);
+    });
 </script>
 
 @include('LoginReg.include.footer')
