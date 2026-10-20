@@ -41,13 +41,12 @@ class AuthManager extends Controller
         $request->validate([
           'name' => 'required',
           'email' => 'required|email|unique:users',
-          'password' => 'required|confirmed',
+          'password' => 'required|confirmed'
         ]);
 
         $data['name'] = $request->name;
         $data['email'] = $request->email;
         $data['password'] = Hash::make($request->password);
-        $data['role'] = 'guest';
         $user = User::create($data);
 
         if(!$user){

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('type')->nullable();
             $table->integer('capacity');
             $table->decimal('price_day', 10, 2);
-            $table->decimal('price_overnight', 10, 2)->nullable();
+            $table->decimal('price_overnight', 10, 2);
             $table->string('image')->nullable();
             $table->string('status')->default('available');
             $table->timestamps();
