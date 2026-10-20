@@ -1,6 +1,7 @@
 @include('Admin.include.admin-header')
 
 <link href="{{ asset('css/admin-dashboard.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/admin-reviews.css') }}">
 
 <div class="admin-container">
 
@@ -24,10 +25,13 @@
                     <img src="../images/announce.svg" class="announce-logo" alt="Announcement Logo" width="24px" height="24px">
                     <span class="sidebar-title-announcements">Announcements</span>
                 </div>
-                <div class="reviews-logo-cont">
+
+                <a href="{{ route('admin.reviews.index') }}" 
+                     class="reviews-logo-cont {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
                     <img src="../images/reviews.svg" class="reviews-logo" alt="Reviews Logo" width="24px" height="24px">
                     <span class="sidebar-title-reviews">Reviews</span>
-                </div>
+                </a>
+                
                 <div class="reports-logo-cont">
                     <img src="../images/reports.svg" class="reports-logo" alt="Reports Logo" width="18.75px" height="18.75px">
                     <span class="sidebar-title-reports">Reports</span>
@@ -47,46 +51,53 @@
     </aside>
 
     <main class="admin-dashboard">
-        <div class="dashboard-content">
-            <div class="dashboard-info">
-                <span class="dashboard-title">ADMIN DASHBOARD</span>
-                <span class="dashboard-greet">Welcome back, Admin!</span>
-                <span class="dashboard-desc">Welcome back, Admin. Here's what's happening today</span>
-            </div>
-            <div class="totals-cont">
-                <div class="info-cont">
-                    <span class="total-bookings-title">TOTAL BOOKINGS</span>
+        
+        @if (!request()->routeIs('admin.reviews.*'))
+            <div class="dashboard-content">
+                <div class="dashboard-info">
+                    <span class="dashboard-title">ADMIN DASHBOARD</span>
+                    <span class="dashboard-greet">Welcome back, Admin!</span>
+                    <span class="dashboard-desc">Welcome back, Admin. Here's what's happening today</span>
+                </div>
+                <div class="totals-cont">
+                    <div class="info-cont">
+                        <span class="total-bookings-title">TOTAL BOOKINGS</span>
 
-                </div>
-                <div class="info-cont">
-                    <span class="total-rev-title">TOTAL REVENUE</span>
+                    </div>
+                    <div class="info-cont">
+                        <span class="total-rev-title">TOTAL REVENUE</span>
 
-                </div>
-                <div class="info-cont">
-                    <span class="pending-title">PENDING</span>
+                    </div>
+                    <div class="info-cont">
+                        <span class="pending-title">PENDING</span>
 
-                </div>
-                <div class="info-cont">
-                    <span class="avail-cottage-title">AVAILABLE COTTAGE/ROOM</span>
+                    </div>
+                    <div class="info-cont">
+                        <span class="avail-cottage-title">AVAILABLE COTTAGE/ROOM</span>
 
+                    </div>
+                </div>
+                <div class="analytics-cont">
+                    <div class="rev-analytics-cont">
+                        <span class="analytics-title"> Revenue Analytics </span>
+                    </div>
+                    <div class="occupancy-alert-cont">
+                        <span class="occupancy-alert-title"> Occupancy Alert </span>
+                        <br>
+                        <span class="cottage-occupancy"> Cottage Occupancy</span>
+                    </div>
+                </div>
+                <div class="recent-book-cont">
+                    <div class="recent-book-info">
+                        <span class="recent-bookings"> Recent Bookings</span>
+                    </div>
                 </div>
             </div>
-            <div class="analytics-cont">
-                <div class="rev-analytics-cont">
-                    <span class="analytics-title"> Revenue Analytics </span>
-                </div>
-                <div class="occupancy-alert-cont">
-                    <span class="occupancy-alert-title"> Occupancy Alert </span>
-                    <br>
-                    <span class="cottage-occupancy"> Cottage Occupancy</span>
-                </div>
-            </div>
-            <div class="recent-book-cont">
-                <div class="recent-book-info">
-                    <span class="recent-bookings"> Recent Bookings</span>
-                </div>
-            </div>
-        </div>
+        @endif
+
+        @if (request()->routeIs('admin.reviews.*'))
+            @include('Admin.include.review')
+        @endif
         
     </main>
 
