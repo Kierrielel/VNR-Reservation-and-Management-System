@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
 }
@@ -10,40 +9,32 @@ body {
     background: #fff;
 }
 
-.admin-rating-summary {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    padding: 20px 28px;
-    background: #f1efec;
-    margin-bottom: 20px;
+.reviews-page {
+    padding: 30px 40px;
+    width: 100%;
 }
 
-.admin-rating-number {
+.reviews-title {
     font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 600;
-    line-height: 1;
-    color: #3fa9db;
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0 0 24px;
 }
-
-.admin-rating-stars {
-    font-size: 34px;
-    letter-spacing: 6px;
-    line-height: 1;
-}
-
-.admin-rating-count {
-    font-family: 'Poppins', sans-serif;
-    font-size: 16px;
-    color: #333;
-}
-
-.reviews-box {
-    border: 1px solid #ddd;
+.reviews-card {
     background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+    margin-bottom: 24px;
 }
 
+.reviews-card-header {
+    background: #f3f3f3;
+    padding: 18px 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+}
 
 .reviews-top {
     display: flex;
@@ -51,15 +42,6 @@ body {
     align-items: center;
     flex-wrap: wrap;
     gap: 12px;
-    padding: 20px;
-    border-bottom: 1px solid #ddd;
-}
-
-.reviews-top h2 {
-    margin: 0;
-    font-family: 'Playfair Display', serif;
-    font-weight: 400;
-    font-size: 24px;
 }
 
 .reviews-filters {
@@ -71,23 +53,53 @@ body {
 .reviews-filters button {
     padding: 8px 14px;
     border: 1px solid #bbb;
+    border-radius: 3px;
     background: #fff;
+    font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    font-weight: 400;
     cursor: pointer;
 }
 
-.reviews-list {
-    padding: 0 24px;
-}
-
-.review-item {
-    border: 1px solid #ddd;
-    border-top: none;
+.admin-rating-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
     padding: 24px;
 }
 
-.review-item:first-child {
-    border-top: 1px solid #ddd;
+.admin-rating-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    color: #3fa9db;
+}
+
+.admin-rating-summary .admin-rating-stars {
+    font-size: 30px;
+    letter-spacing: 4px;
+    line-height: 1;
+}
+
+.admin-rating-count {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #333;
+}
+
+.reviews-list {
+    padding: 0;
+}
+
+.review-item {
+    padding: 24px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.review-item:last-child {
+    border-bottom: none;
 }
 
 .review-guest {
@@ -108,6 +120,7 @@ body {
     justify-content: center;
     font-size: 20px;
     font-weight: 600;
+    flex-shrink: 0;
 }
 
 .review-guest h3 {
@@ -145,6 +158,7 @@ body {
 .btn-draft {
     padding: 8px 16px;
     border: 1px solid #aaa;
+    border-radius: 3px;
     background: #fff;
     font-size: 13px;
     cursor: pointer;
@@ -153,7 +167,6 @@ body {
 .btn-draft:hover {
     background: #f3f3f3;
 }
-
 
 .review-response {
     background: #f1f1f1;
@@ -197,30 +210,76 @@ body {
     color: #777;
 }
 
-/*  Phone */
-@media (max-width: 768px) {
-    .admin-wrapper {
-        flex-direction: column;
-    }
+.draft-box summary {
+    display: inline-block;
+    list-style: none;
+}
 
-    .admin-sidebar {
-        width: 100%;
-    }
+.draft-box summary::-webkit-details-marker {
+    display: none;
+}
 
-    .admin-content {
-        padding: 0 12px 20px;
-    }
+.draft-box form {
+    margin-top: 12px;
+}
 
-    .reviews-list {
-        padding: 0 10px;
-    }
+.draft-box textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.btn-delete {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 8px 16px;
+    background: #fff;
+    border: 1px solid #d11a1a;
+    border-radius: 3px;
+    color: #d11a1a;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn-delete:hover {
+    background: #d11a1a;
+    color: #fff;
+}
+
+.btn-delete:active {
+    background: #a31616;
+    border-color: #a31616;
+}
+
+.btn-delete,
+.btn-delete:hover {
+    text-decoration: none;
+}
+
+.btn-save {
+    margin-top: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 3px;
+    background: #3ca5da;
+    color: #fff;
+    cursor: pointer;
+}
+
+.reviews-pages {
+    padding: 16px 24px;
+    border-top: 1px solid #e5e5e5;
 }
 
 
-
-/* success / error messages */
 .flash {
-    margin: 16px 0;
+    margin: 0 0 16px;
     padding: 12px 16px;
     border-radius: 4px;
     font-size: 14px;
@@ -237,36 +296,39 @@ body {
 }
 
 
-.draft-box summary {
-    display: inline-block;
-    list-style: none;   
-}
+@media (max-width: 768px) {
+    .reviews-page {
+        padding: 16px 12px;
+    }
 
-.draft-box summary::-webkit-details-marker {
-    display: none;
-}
+    .reviews-title {
+        font-size: 30px;
+        margin-bottom: 16px;
+    }
 
-.draft-box form {
-    margin-top: 12px;
-}
+    .reviews-card-header {
+        padding: 14px 16px;
+        font-size: 18px;
+    }
 
-.draft-box textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #bbb;
-    font-family: inherit;
-    font-size: 14px;
-}
+    .admin-rating-summary {
+        padding: 16px;
+        gap: 12px;
+    }
 
-.btn-save {
-    margin-top: 8px;
-    padding: 8px 16px;
-    border: none;
-    background: #3ca5da;
-    color: #fff;
-    cursor: pointer;
-}
+    .admin-rating-number {
+        font-size: 38px;
+    }
 
-.reviews-pages {
-    padding: 16px 24px;
+    .admin-rating-summary .admin-rating-stars {
+        font-size: 24px;
+    }
+
+    .review-item {
+        padding: 16px;
+    }
+
+    .reviews-pages {
+        padding: 12px 16px;
+    }
 }
