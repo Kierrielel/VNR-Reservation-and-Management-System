@@ -134,13 +134,16 @@ html { scroll-behavior: smooth; }
     background-color: #F0F0F0;
     box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
     width: 280px;
+    flex: 0 0 280px;
     flex-shrink: 0;
-    min-height: calc(100vh - 70px);
 
     position: sticky;
-    top: 0;
-    height: calc(100vh - 70px);
+    top: 70px;
+    align-self: flex-start;
 
+    min-height: calc(100vh - 70px);
+    height: calc(100vh - 70px);
+    overflow-y: auto;
 }
 
 .sidebar_content{

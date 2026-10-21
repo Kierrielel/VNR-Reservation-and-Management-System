@@ -1,7 +1,5 @@
 <link href="{{ asset('css/home.css') }}?v={{ filemtime(public_path('css/home.css')) }}" rel="stylesheet">
 
-
-
 <section id="home" class="main">
 
     <div class="main-content">

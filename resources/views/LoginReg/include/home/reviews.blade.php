@@ -51,7 +51,7 @@
     @endforeach
 </div>
 
-<a href="#" class="btn-blue">See All Reviews</a>
+<a href="{{ route('reviews.index') }}" class="btn-blue">See All Reviews</a>
 
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

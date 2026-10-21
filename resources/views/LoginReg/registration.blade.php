@@ -75,9 +75,14 @@
             </form>
 
             <div class="auth-social-row">
-                <span>or Create an Account using</span>
-                <a href="#" class="auth-social-facebook" title="Sign up with Facebook">f</a>
-                <a href="#" class="auth-social-google" title="Sign up with Google">G</a>
+                <a href="#" class="auth-social-button" title="Sign up with Google">
+                    <span class="auth-social-icon auth-social-google" aria-hidden="true">G</span>
+                    <span>Google</span>
+                </a>
+                <a href="#" class="auth-social-button" title="Sign up with Facebook">
+                    <span class="auth-social-icon auth-social-facebook" aria-hidden="true">f</span>
+                    <span>Facebook</span>
+                </a>
             </div>
 
             <div class="auth-switch-link">
