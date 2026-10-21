@@ -2,6 +2,7 @@
 
 <link href="{{ asset('css/admin-dashboard.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/admin-reviews.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin-settings.css') }}">
 
 <div class="admin-container">
 
@@ -36,10 +37,11 @@
                     <img src="../images/reports.svg" class="reports-logo" alt="Reports Logo" width="18.75px" height="18.75px">
                     <span class="sidebar-title-reports">Reports</span>
                 </div>
-                <div class="sett-logo-cont">
+                <a href="{{ route('admin.settings.index') }}"
+                    class="sett-logo-cont {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                     <img src="../images/settings.svg" class="settings-logo" alt="Settings Logo" width="19.04px" height="20px">
                     <span class="sidebar-title-settings">Settings</span>
-                </div>
+                </a>
             </div>
             <div class="sidebar-logout">
                 <div class="logout-logo-cont">
@@ -52,7 +54,7 @@
 
     <main class="admin-dashboard">
         
-        @if (!request()->routeIs('admin.reviews.*'))
+        @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*'))
             <div class="dashboard-content">
                 <div class="dashboard-info">
                     <span class="dashboard-title">ADMIN DASHBOARD</span>
@@ -97,6 +99,10 @@
 
         @if (request()->routeIs('admin.reviews.*'))
             @include('Admin.include.review')
+        @endif
+
+        @if (request()->routeIs('admin.settings.*'))
+            @include('Admin.include.settings')
         @endif
         
     </main>

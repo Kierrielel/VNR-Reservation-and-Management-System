@@ -8,7 +8,7 @@ class Setting extends Model
 {
     protected $fillable = [
         'key',
-        'value'
+        'value', 'resort_name', 'contact_number', 'email', 'address', 'logo'
     ];
 
     public static function getValue(string $key, $default = null)

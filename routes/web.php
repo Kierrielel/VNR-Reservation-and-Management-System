@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ReviewController;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminSettingController;
 
 
 Route::get('/admin', function () {
@@ -28,7 +29,15 @@ Route::get('/book', function () {
     return view('LoginReg.booking');
 })->name('book');
 
+// FOR SETTINF admin
+Route::middleware(['auth', \App\Http\Middleware\AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
+    Route::post('/reviews/{review}/respond', [AdminReviewController::class, 'respond'])->name('reviews.respond');
+    Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
 
+    Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
+    Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+});
 // REVIEW AUTH
 
 // CUSTOMER: submit a review
