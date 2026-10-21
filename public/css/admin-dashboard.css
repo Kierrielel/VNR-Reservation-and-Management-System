@@ -8,7 +8,8 @@ html { scroll-behavior: smooth; }
 }     
 
 .admin-dashboard{
-     flex: 1;
+    flex: 1;
+    min-width: 0;
 }
 .dashboard-content{
     display:flex;
@@ -40,25 +41,31 @@ html { scroll-behavior: smooth; }
 
 .totals-cont{
     margin-top: -40px;
-    display:flex;
+    display: flex;
     flex-direction: row;
-    gap: 45px;
-    padding: 25px 50px 50px 60px;
+    gap: 20px;
+    padding: 25px 40px 50px 40px;
+    min-width: 0;
 
 }
 .info-cont{
-    .flex-item {
-         min-width: 0; 
-    }
+    
     padding: 15px 0px 15px 25px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
-    min-height: 200px;
-    min-width: 228px;
+    min-height: 220px;
+    min-width: 150px;
+    flex: 1;
     display:flex;
     flex-direction: column;
-    font-weight: 500;
+    font-weight: 600;
+    overflow-wrap: break-word;
 
+}
+.info-cont .result{
+    font-style: SemiBold;
+    font-family: Playfair Display;
+    font-size: 36px;
 }
 
 .analytics-cont{
@@ -66,10 +73,12 @@ html { scroll-behavior: smooth; }
     display: flex;
     flex-direction: row;
     gap: 55px;
-    padding: 25px 50px 50px 60px;
+    padding: 25px 50px 50px 40px;
+    min-width: 0;
 }
 .rev-analytics-cont{
-    min-width: 678px;
+    min-width: 0;
+    flex: 2;
     min-height: 418px;
     padding: 15px 0px 15px 25px;
     border-radius: 10px;
@@ -81,7 +90,8 @@ html { scroll-behavior: smooth; }
 }
 .occupancy-alert-cont{
     text-align: center;
-    min-width: 320px;
+    min-width: 0;
+    flex: 1;
     min-height: 418px;
     padding: 15px 0px 15px 0px;
     border-radius: 10px;
@@ -102,11 +112,13 @@ html { scroll-behavior: smooth; }
     margin-top: -40px;
     display: flex;
     flex-direction: row;
-    padding: 25px 50px 50px 60px;
+    padding: 25px 50px 50px 40px;
+    min-width: 0;
 
 }
 .recent-book-info{
-    min-width: 1050px;
+    min-width: 0;
+    width: 100%;
     min-height: 363px;
     padding: 15px 0px 15px 25px;
     border-radius: 10px;
@@ -122,13 +134,22 @@ html { scroll-behavior: smooth; }
     background-color: #F0F0F0;
     box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
     width: 280px;
+    flex-shrink: 0;
+    min-height: calc(100vh - 70px);
+
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 70px);
 
 }
 
 .sidebar_content{
+    min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    text-align: left;
+    
 
 }
 
@@ -139,6 +160,7 @@ html { scroll-behavior: smooth; }
     line-height: 1;
 }
 .sidebar-options {
+    text-decoration: none;
     color: #26323C;
     font-size: 1.3rem;
     display: flex;
@@ -146,8 +168,26 @@ html { scroll-behavior: smooth; }
     gap: 20px;
     min-height: calc(100vh - 200px);
     margin: 25px 10px 0px 35px;
+}
 
+.dashboard-logo-cont,
+.rooms-logo-cont,
+.bookings-logo-cont,
+.announce-logo-cont,
+.reviews-logo-cont,
+.reports-logo-cont,
+.sett-logo-cont,
+.logout-logo-cont {
+    display: flex;
+    align-items: center;
+}
 
+.reviews-logo-cont,
+.sett-logo-cont,
+.reviews-logo-cont:visited,
+.sett-logo-cont:visited {
+    text-decoration: none;
+    color: #26323C;
 }
 
 .sidebar-logout{
@@ -167,58 +207,68 @@ html { scroll-behavior: smooth; }
 /*SVG Floats*/
 
 .dashboard-logo{
-    float: left;
     width: 18px;
     height: 18px;
     margin-right: 20px;
-    margin-top: 5px;
 }
 .rooms-logo{
-    float: left;
     width: 20px;
     height: 14px;
     margin-right: 20px;
-    margin-top: 5px;
 }
 .booking-logo{
-    float: left;
     width: 20px;
     height: 19.5px;
     margin-right: 20px;
-    margin-top: 5px;
 }
 .announce-logo{
-    float: left;
     width: 24px;
     height: 24px;
-    margin-right: 20px;
-    margin-top: 5px;
+    margin-right: 15px;
 }
 .reviews-logo{
-    float: left;
     width: 24px;
     height: 24px;
-    margin-right: 20px;
-    margin-top: 5px;
+    margin-right: 15px;
 }
 .reports-logo{
-    float: left;
     width: 18.75px;
     height: 18.75px;
     margin-right: 20px;
-    margin-top: 5px;
 }
 .settings-logo{
-    float: left;
     width: 19.04px;
     height: 20px;
     margin-right: 20px;
-    margin-top: 5px;
 }
 .logout-logo{
-    float: left;
     width: 33px;
     height: 35px;
     margin-right: 20px;
-    margin-top: 5px;
+}
+
+
+
+/*Media Queries for Responsiveness*/
+
+@media (max-width: 1200px) {
+    .totals-cont {
+        flex-wrap: wrap;
+    }
+
+    .info-cont {
+        flex: 1 1 calc(50% - 25px);
+    }
+
+    .analytics-cont {
+        flex-wrap: wrap;
+    }
+
+    .rev-analytics-cont {
+        flex: 1 1 100%;
+    }
+
+    .occupancy-alert-cont {
+        flex: 1 1 100%;
+    }
 }

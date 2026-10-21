@@ -63,25 +63,44 @@
                 </div>
                 <div class="totals-cont">
                     <div class="info-cont">
+                        <img src="../images/total-bookings-logo.svg" class="total-bookings-logo" alt="Total Bookings Logo" width="59px" height="59px">
+                        <br>
                         <span class="total-bookings-title">TOTAL BOOKINGS</span>
+                        <br>
+                        <span class="result"> 00 </span>
 
                     </div>
                     <div class="info-cont">
+                        <img src="../images/total-revenue-logo.svg" class="total-revenue-logo" alt="Total Revenue Logo" width="59px" height="59px">
+                        <br>
                         <span class="total-rev-title">TOTAL REVENUE</span>
+                        <br>
+                        <span class="result"> ₱00.00 </span>
 
                     </div>
                     <div class="info-cont">
+                        <img src="../images/pending-logo.svg" class="pending-logo" alt="Pending Logo" width="59px" height="59px">
+                        <br>
                         <span class="pending-title">PENDING</span>
+                        <br>
+                        <span class="result"> 00 </span>
 
                     </div>
                     <div class="info-cont">
-                        <span class="avail-cottage-title">AVAILABLE COTTAGE/ROOM</span>
+                        <img src="../images/available-room-logo.svg" class="available-room-logo" alt="Available Cottage Logo" width="59px" height="59px">
+                        <span class="avail-cottage-title">AVAILABLE <br>COTTAGE/ROOM</span>
+                        <br>
+                        <span class="result"> 0/8 </span>
 
                     </div>
                 </div>
                 <div class="analytics-cont">
                     <div class="rev-analytics-cont">
                         <span class="analytics-title"> Revenue Analytics </span>
+
+                        <div class="chart-container">
+                            <canvas id="revenueChart"></canvas>
+                         </div>
                     </div>
                     <div class="occupancy-alert-cont">
                         <span class="occupancy-alert-title"> Occupancy Alert </span>
