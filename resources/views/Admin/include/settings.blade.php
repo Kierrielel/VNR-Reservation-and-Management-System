@@ -94,7 +94,7 @@
 
             <div class="notif-right">
                 <label for="notif_email">Primary Notification Email</label>
-                <input type="email" id="notif_email" value="admin@villanatividad.com">
+                <input type="email" id="notif_email" value="VillaNatividad@gmail.com">
             </div>
 
         </div>

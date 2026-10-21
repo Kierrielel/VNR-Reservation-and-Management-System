@@ -1,21 +1,21 @@
 <?php
 
 use App\Http\Controllers\AdminReviewController;
+use App\Http\Controllers\AdminSettingController;
 use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\ReviewController;
+use App\Http\Middleware\AdminOnly;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminSettingController;
-
 
 Route::get('/admin', function () {
     return view('Admin.dashboard');
 });
 
 Route::get('/', function () {
-    $reviews       = Review::latest()->take(3)->get();   
-    $reviewCount   = Review::count();                    
-    $reviewAverage = Review::avg('rating') ?? 0; 
+    $reviews = Review::latest()->take(3)->get();
+    $reviewCount = Review::count();
+    $reviewAverage = Review::avg('rating') ?? 0;
 
     return view('LoginReg.home', compact('reviews', 'reviewCount', 'reviewAverage'));
 })->name('home');
@@ -30,7 +30,7 @@ Route::get('/book', function () {
 })->name('book');
 
 // FOR SETTINF admin
-Route::middleware(['auth', \App\Http\Middleware\AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews/{review}/respond', [AdminReviewController::class, 'respond'])->name('reviews.respond');
     Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
@@ -39,12 +39,12 @@ Route::middleware(['auth', \App\Http\Middleware\AdminOnly::class])->prefix('admi
     Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
 });
 // REVIEW AUTH
-
+Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 // CUSTOMER: submit a review
-Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store')  ;
+Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
 // ADMIN ONLY: see, answer and delete reviews
-Route::middleware(['auth', \App\Http\Middleware\AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews/{review}/respond', [AdminReviewController::class, 'respond'])->name('reviews.respond');
     Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');

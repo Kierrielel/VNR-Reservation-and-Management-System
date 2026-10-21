@@ -84,6 +84,7 @@
         font-weight: 600;
         font-size: 0.9rem;
         white-space: nowrap;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
     }
 
     .btn-vnr-outline {
@@ -92,11 +93,33 @@
         border: 2px solid #2699c2;
         border: 2px solid #2fa6d1;
     }
-    .btn-vnr-outline:hover { background: #eef8fc; color: #2699c2; }
+    .btn-vnr-outline:hover {
+        background: #2fa6d1;
+        color: #ffffff;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+        transform: translateY(-1px);
+    }
 
     .btn-vnr-fill {
         background: #2fa6d1;
         color: #ffffff;
         border: 2px solid #2fa6d1;
     }
-    .btn-vnr-fill:hover { background: #2590b8; border-color: #2590b8; color: #fff; }
+    .btn-vnr-fill:hover {
+        background: #ffffff;
+        border-color: #2fa6d1;
+        color: #278bb9;
+        box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+        transform: translateY(-1px);
+    }
+
+    .btn-vnr-outline:focus-visible,
+    .btn-vnr-fill:focus-visible {
+        outline: 3px solid rgba(47, 166, 209, 0.3);
+        outline-offset: 2px;
+    }
+
+    .btn-vnr-outline:active,
+    .btn-vnr-fill:active {
+        transform: translateY(0);
+    }
