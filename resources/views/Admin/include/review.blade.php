@@ -1,5 +1,23 @@
 <div class="reviews-box">
 
+    <div class="admin-rating-summary">
+        @if ($reviewCount > 0)
+            <span class="admin-rating-number">{{ number_format($reviewAverage, 1) }}</span>
+
+            <span class="review-stars admin-rating-stars">
+                @for ($i = 1; $i <= 5; $i++)
+                    {{ $i <= round($reviewAverage) ? '★' : '☆' }}
+                @endfor
+            </span>
+
+            <span class="admin-rating-count">
+                Based on {{ $reviewCount }} {{ Str::plural('review', $reviewCount) }}
+            </span>
+        @else
+            <span class="admin-rating-count">No reviews yet</span>
+        @endif
+    </div>
+
     <div class="reviews-top">
         <h2>Recent Reviews</h2>
 

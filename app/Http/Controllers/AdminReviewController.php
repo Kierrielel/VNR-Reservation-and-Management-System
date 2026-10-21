@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
-// ADMIN side: see, answer and delete reviews
 class AdminReviewController extends Controller
 {
     // Show all reviews (newest first)
@@ -21,7 +20,10 @@ class AdminReviewController extends Controller
 
         $reviews = $query->paginate(10)->withQueryString();
 
-        return view('Admin.dashboard', compact('reviews'));
+        $reviewCount = Review::count();
+        $reviewAverage = Review::avg('rating') ?? 0;
+
+        return view('Admin.dashboard', compact('reviews', 'reviewCount', 'reviewAverage'));
     }
 
     // Save the resort's reply to a review

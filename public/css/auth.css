@@ -348,6 +348,7 @@ body {
     padding: 10px 16px;
     border-radius: 12px;
     font-size: 0.9rem;
+    transition: opacity 0.3s ease;
 }
 
 .auth-alert-error   { background: #FDECEA; color: #B3261E; }
