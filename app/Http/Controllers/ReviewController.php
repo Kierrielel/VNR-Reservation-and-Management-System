@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Auth;
 // CUSTOMER side: saves the review from the "Write a Review" modal
 class ReviewController extends Controller
 {
+    // CUSTOMER: submit a review
     public function store(Request $request)
     {
-        // 1. check the form
         $data = $request->validate([
             'rating' => 'required|integer|min:1|max:5',
             'name'   => 'required|string|max:100',
@@ -19,16 +19,24 @@ class ReviewController extends Controller
             'review' => 'required|string|max:1000',
         ]);
 
-        // 2. save it
         Review::create([
-            'user_id' => Auth::id(),          // null if not logged in
+            'user_id' => Auth::id(),
             'name'    => $data['name'],
             'email'   => $data['email'],
             'rating'  => $data['rating'],
             'comment' => $data['review'],
         ]);
 
-        // 3. go back with a message
-        return redirect()->to(route('home').'#reviews')->with('success', 'Thank you for your review!');
+        return redirect()->to(route('home') . '#reviews')->with('success', 'Thank you for your review!');
+    }
+
+    // CUSTOMER: see all reviews (read only)
+    public function index()
+    {
+        $reviews       = Review::latest()->paginate(12);
+        $reviewCount   = Review::count();
+        $reviewAverage = Review::avg('rating') ?? 0;
+
+        return view('LoginReg.include.home.all-reviews', compact('reviews', 'reviewCount', 'reviewAverage'));
     }
 }

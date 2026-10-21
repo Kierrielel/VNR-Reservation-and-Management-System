@@ -67,9 +67,14 @@
             </form>
 
             <div class="auth-social-row">
-                <span>or Log in using</span>
-                <a href="#" class="auth-social-facebook" title="Log in with Facebook">f</a>
-                <a href="#" class="auth-social-google" title="Log in with Google">G</a>
+                <a href="#" class="auth-social-button" title="Log in with Google">
+                    <span class="auth-social-icon auth-social-google" aria-hidden="true">G</span>
+                    <span>Google</span>
+                </a>
+                <a href="#" class="auth-social-button" title="Log in with Facebook">
+                    <span class="auth-social-icon auth-social-facebook" aria-hidden="true">f</span>
+                    <span>Facebook</span>
+                </a>
             </div>
 
             <div class="auth-switch-link">
