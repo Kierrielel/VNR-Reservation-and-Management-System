@@ -37,11 +37,11 @@
             @endif
 
             @if (session()->has('error'))
-                <div class="auth-alert auth-alert-error">{{ session('error') }}</div>
+                <div class="auth-alert auth-alert-error auth-alert-dismissible">{{ session('error') }}</div>
             @endif
 
             @if (session()->has('success'))
-                <div class="auth-alert auth-alert-success">{{ session('success') }}</div>
+                <div class="auth-alert auth-alert-success auth-alert-dismissible">{{ session('success') }}</div>
             @endif
 
 
@@ -91,6 +91,13 @@
         document.getElementById('btn-customer').classList.toggle('active', role === 'customer');
         document.getElementById('btn-admin').classList.toggle('active', role === 'admin');
     }
+
+    document.querySelectorAll('.auth-alert-dismissible').forEach(alert => {
+        window.setTimeout(() => {
+            alert.style.opacity = '0';
+            window.setTimeout(() => alert.remove(), 200);
+        }, 3000);
+    });
 </script>
 
 @endsection

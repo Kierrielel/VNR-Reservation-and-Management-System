@@ -10,83 +10,33 @@ body {
     background: #fff;
 }
 
-
-.admin-header {
-    padding: 14px 24px;
-    border-bottom: 1px solid #ddd;
-}
-
-.admin-logo {
-    margin: 0;
-    font-family: 'Great Vibes', cursive;
-    font-weight: 400;
-    font-size: 36px;
-    color: #1f7a9c;
-}
-
-.admin-header small {
-    font-size: 11px;
-    color: #555;
-}
-
-
-.admin-wrapper {
-    display: flex;
-    min-height: calc(100vh - 80px);
-}
-
-/* ===== Sidebar ===== */
-.admin-sidebar {
-    width: 230px;
-    background: #efefef;
-    border-right: 1px solid #ddd;
-    padding: 24px 12px;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar-label {
-    font-size: 11px;
-    color: #666;
-    margin: 0 0 16px 12px;
-}
-
-.admin-sidebar nav {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    flex: 1; /* pushes Logout to the bottom */
-}
-
-.admin-sidebar a {
+.admin-rating-summary {
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 4px;
-    color: #222;
-    text-decoration: none;
-    font-size: 15px;
+    gap: 18px;
+    padding: 20px 28px;
+    background: #f1efec;
+    margin-bottom: 20px;
 }
 
-.admin-sidebar a:hover {
-    background: #e0e0e0;
+.admin-rating-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1;
+    color: #3fa9db;
 }
 
-/* the page we are on */
-.admin-sidebar a.active {
-    background: #3ca5da;
-    color: #fff;
+.admin-rating-stars {
+    font-size: 34px;
+    letter-spacing: 6px;
+    line-height: 1;
 }
 
-.sidebar-logout {
-    margin-top: 20px;
-}
-
-/* ===== Main content ===== */
-.admin-content {
-    flex: 1;
-    padding: 0 30px 30px;
+.admin-rating-count {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: #333;
 }
 
 .reviews-box {
@@ -94,7 +44,7 @@ body {
     background: #fff;
 }
 
-/* Title row */
+
 .reviews-top {
     display: flex;
     justify-content: space-between;
@@ -126,7 +76,6 @@ body {
     cursor: pointer;
 }
 
-/* ===== One review ===== */
 .reviews-list {
     padding: 0 24px;
 }
@@ -193,7 +142,6 @@ body {
     color: #555;
 }
 
-/* Draft Response button */
 .btn-draft {
     padding: 8px 16px;
     border: 1px solid #aaa;
@@ -206,7 +154,7 @@ body {
     background: #f3f3f3;
 }
 
-/* Response box (gray) */
+
 .review-response {
     background: #f1f1f1;
     border: 1px solid #ddd;
@@ -225,7 +173,6 @@ body {
     line-height: 1.5;
 }
 
-/* Delete button (bottom right) */
 .review-bottom {
     display: flex;
     justify-content: flex-end;
@@ -250,7 +197,7 @@ body {
     color: #777;
 }
 
-/* ===== Phone ===== */
+/*  Phone */
 @media (max-width: 768px) {
     .admin-wrapper {
         flex-direction: column;
@@ -269,7 +216,7 @@ body {
     }
 }
 
-/* ===== Added for the backend version ===== */
+
 
 /* success / error messages */
 .flash {
@@ -289,10 +236,10 @@ body {
     color: #a31616;
 }
 
-/* Draft response box */
+
 .draft-box summary {
     display: inline-block;
-    list-style: none;   /* hides the default arrow */
+    list-style: none;   
 }
 
 .draft-box summary::-webkit-details-marker {
