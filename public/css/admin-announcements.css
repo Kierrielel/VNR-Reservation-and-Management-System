@@ -1,0 +1,516 @@
+.ann-page {
+    padding: 30px 40px;
+    width: 100%;
+}
+
+.ann-top {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.ann-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.ann-create-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 12px 24px;
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    background: #3fa9db;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ann-create-btn:hover {
+    background: #fff;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.ann-create-btn:focus-visible,
+.ann-btn:focus-visible,
+.ann-btn-secondary:focus-visible,
+.ann-template:focus-visible,
+.ann-pill:focus-visible,
+.ann-page .btn-delete:focus-visible,
+.ann-page .btn-save:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.ann-create-btn:active,
+.ann-btn:active,
+.ann-btn-secondary:active,
+.ann-template:active {
+    transform: translateY(0);
+}
+
+.ann-layout {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+.ann-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.ann-side {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* filters */
+.ann-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.ann-pill {
+    padding: 6px 16px;
+    border-radius: 20px;
+    background: #eee;
+    color: #333;
+    font-size: 12px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.ann-pill:hover {
+    background: #e8f4fb;
+    color: #278bb9;
+}
+
+.ann-pill.active {
+    background: #3fa9db;
+    color: #fff;
+}
+
+.ann-category-form {
+    margin-left: auto;
+    padding-top: 10px;
+
+}
+
+.ann-category-form select {
+    padding: 8px 12px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+}
+
+/* list */
+.ann-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.ann-row {
+    display: grid;
+    grid-template-columns: 2.5fr 1.2fr 1fr 1.3fr;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 24px;
+    border-bottom: 1px solid #eee;
+}
+
+.ann-head {
+    background: #e8e8e8;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ann-info {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.ann-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    background: #f5e6e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ann-info h3 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+}
+
+.ann-info p {
+    margin: 4px 0 0;
+    font-size: 12px;
+    color: #555;
+}
+
+.ann-date {
+    font-size: 13px;
+}
+
+.ann-badge {
+    padding: 3px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    border: 1px solid;
+}
+
+.ann-active {
+    background: #d9f7d9;
+    color: #1d6b34;
+    border-color: #6cc47c;
+}
+
+.ann-scheduled {
+    background: #fff0b8;
+    color: #8a6a00;
+    border-color: #e6c34d;
+}
+
+.ann-archived {
+    background: #ddd;
+    color: #555;
+    border-color: #aaa;
+}
+
+.ann-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.ann-actions form {
+    margin: 0;
+}
+
+.ann-btn {
+    padding: 8px 16px;
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    background: #3fa9db;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ann-btn:hover {
+    background: #fff;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.ann-btn-archived,
+.ann-btn-archived:hover {
+    border-color: #c7cdd1;
+    background: #eef1f3;
+    color: #66717a;
+    box-shadow: none;
+    cursor: default;
+    transform: none;
+}
+
+.ann-btn-secondary {
+    padding: 8px 18px;
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    background: #fff;
+    color: #278bb9;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ann-btn-secondary:hover {
+    background: #3fa9db;
+    color: #fff;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.ann-empty {
+    padding: 30px;
+    text-align: center;
+    color: #777;
+}
+
+.ann-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    background: #eee;
+    font-size: 13px;
+}
+
+/* side cards */
+.ann-side-card {
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ann-side-card h2 {
+    margin: 0 0 14px;
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+}
+
+.ann-reach-label {
+    margin: 0;
+    font-size: 12px;
+    color: #555;
+}
+
+.ann-reach-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: #0b6e99;
+}
+
+.ann-bar {
+    height: 8px;
+    margin: 10px 0 16px;
+    border-radius: 4px;
+    background: #ddd;
+}
+
+.ann-bar-fill {
+    width: 75%;
+    height: 100%;
+    border-radius: 4px;
+    background: #0b6e99;
+}
+
+.ann-stats {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ddd;
+    padding-top: 12px;
+}
+
+.ann-stats small {
+    display: block;
+    font-size: 12px;
+    color: #555;
+}
+
+.ann-stats strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+}
+
+.ann-template {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 14px;
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    background: #fff;
+    color: #278bb9;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ann-template:hover {
+    background: #3fa9db;
+    color: #fff;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+/* popup */
+.ann-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.ann-modal.open {
+    display: flex;
+}
+
+.ann-modal-box {
+    width: 480px;
+    max-width: 92%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 24px;
+    background: #fff;
+    border-radius: 8px;
+}
+
+.ann-modal-box h2 {
+    margin: 0 0 16px;
+    font-family: 'Playfair Display', serif;
+}
+
+.ann-modal-box label {
+    display: block;
+    margin: 12px 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.ann-modal-box input[type="text"],
+.ann-modal-box input[type="datetime-local"],
+.ann-modal-box textarea,
+.ann-modal-box select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.ann-modal-box .ann-check {
+    font-weight: 400;
+}
+
+.ann-modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.ann-modal-buttons .btn-save {
+    margin-top: 0;
+}
+
+.ann-page .btn-delete {
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ann-page .btn-delete:hover {
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.ann-page .btn-delete:active,
+.ann-modal-buttons .btn-save:active {
+    transform: translateY(0);
+}
+
+/* pagination */
+.ann-footer {
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.ann-pagination {
+    display: flex;
+    gap: 4px;
+}
+
+.ann-pagination a,
+.ann-pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background: #fff;
+    color: #333;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.ann-pagination a:hover {
+    background: #e8f4fb;
+}
+
+.ann-pagination .current {
+    background: #a9d4ea;
+    font-weight: 600;
+}
+
+.ann-pagination .disabled {
+    background: #f5f5f5;
+    color: #aaa;
+}
+
+.admin-sidebar a,
+.admin-sidebar a:hover {
+    color: inherit;
+    text-decoration: none;
+}
+
+@media (max-width: 900px) {
+    .ann-page {
+        padding: 16px 12px;
+    }
+
+    .ann-title {
+        font-size: 30px;
+    }
+
+    .ann-layout {
+        flex-direction: column;
+    }
+
+    .ann-side {
+        width: 100%;
+    }
+
+    .ann-row {
+        grid-template-columns: 1fr;
+    }
+
+    .ann-head {
+        display: none;
+    }
+}
