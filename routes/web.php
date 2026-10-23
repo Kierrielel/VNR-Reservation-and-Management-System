@@ -7,10 +7,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\AdminOnly;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
-
-Route::get('/admin', function () {
-    return view('Admin.dashboard');
-});
+use App\Http\Controllers\AdminAnnouncementController;
+use App\Http\Controllers\AnnouncementController;
 
 Route::get('/', function () {
     $reviews = Review::latest()->take(3)->get();
@@ -29,23 +27,33 @@ Route::get('/book', function () {
     return view('LoginReg.booking');
 })->name('book');
 
-// FOR SETTINF admin
+// Admin-only pages
 Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', function () {
+        return view('Admin.dashboard');
+    })->name('dashboard');
+
+    // for review
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
     Route::post('/reviews/{review}/respond', [AdminReviewController::class, 'respond'])->name('reviews.respond');
     Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
 
+    // for setting
     Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
     Route::put('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+
+        // Thus is for announcemnet
+    Route::get('/announcements', [AdminAnnouncementController::class, 'index'])->name('announcements.index');
+    Route::post('/announcements', [AdminAnnouncementController::class, 'store'])->name('announcements.store');
+    Route::patch('/announcements/{announcement}/archive', [AdminAnnouncementController::class, 'archive'])->name('announcements.archive');
+    Route::delete('/announcements/{announcement}', [AdminAnnouncementController::class, 'destroy'])->name('announcements.destroy');
+
 });
 // REVIEW AUTH
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 // CUSTOMER: submit a review
 Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
 
-// ADMIN ONLY: see, answer and delete reviews
-Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
-    Route::post('/reviews/{review}/respond', [AdminReviewController::class, 'respond'])->name('reviews.respond');
-    Route::delete('/reviews/{review}', [AdminReviewController::class, 'destroy'])->name('reviews.destroy');
-});
+// For user to get notifeid
+Route::post('/announcements/read', [AnnouncementController::class, 'markAllRead'])
+    ->middleware('auth')->name('announcements.read');
