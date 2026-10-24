@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/admin-reviews.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin-settings.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin-announcements.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin-reports.css') }}">
 
 <div class="admin-container">
 
@@ -11,10 +12,11 @@
         <div class="sidebar_content">
             <div class="sidebar-options">
                 <span class="sidebar-title">Management Tools</span>
-                <div class="dashboard-logo-cont">
+               <a href="{{ route('admin.dashboard') }}"
+                 class="dashboard-logo-cont {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                     <img src="../images/dashboard.svg" class="dashboard-logo" alt="Dashboard Logo" width="18px" height="18px">
                     <span class="sidebar-title-dashboard">Dashboard</span>
-                </div>
+                </a>
                 <div class="rooms-logo-cont">
                     <img src="../images/rooms.svg" class="rooms-logo" alt="Rooms Logo" width="20px" height="14px">
                     <span class="sidebar-title-rooms">Rooms/Cottages</span>
@@ -30,15 +32,16 @@
                 </a>
 
                 <a href="{{ route('admin.reviews.index') }}" 
-                     class="reviews-logo-cont {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
+                    class="reviews-logo-cont {{ request()->routeIs('admin.reviews.*') ? 'active' : '' }}">
                     <img src="../images/reviews.svg" class="reviews-logo" alt="Reviews Logo" width="24px" height="24px">
                     <span class="sidebar-title-reviews">Reviews</span>
                 </a>
                 
-                <div class="reports-logo-cont">
+                <a href="{{ route('admin.reports.index') }}" 
+                    class="reports-logo-cont {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
                     <img src="../images/reports.svg" class="reports-logo" alt="Reports Logo" width="18.75px" height="18.75px">
                     <span class="sidebar-title-reports">Reports</span>
-                </div>
+                </a>
                 <a href="{{ route('admin.settings.index') }}"
                     class="sett-logo-cont {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}">
                     <img src="../images/settings.svg" class="settings-logo" alt="Settings Logo" width="19.04px" height="20px">
@@ -47,17 +50,17 @@
             </div>
             <div class="sidebar-logout">
                 <div class="logout-logo-cont">
-                    <img src="../images/Logout.svg" class="logout-logo" alt="Logout Logo" width="33px" height="35px">
-                    <button type="logout" class="auth-logout-btn">Logout</button>
+                    <a href="{{ route('logout') }}" class="auth-logout-btn">
+                        <img src="../images/Logout.svg" class="logout-logo" alt="Logout Logo" width="33px" height="35px">
+                        Logout
+                    </a>
                 </div>
             </div>
         </div>
     </aside>
 
-    <main class="admin-dashboard">
-        
-       @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*'))
-
+    <main class="admin-dashboard"> 
+       @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*', 'admin.reports.*'))
             <div class="dashboard-content">
                 <div class="dashboard-info">
                     <span class="dashboard-title">ADMIN DASHBOARD</span>
@@ -113,7 +116,6 @@
                         <br>
                         <span class="cottage-occupancy-value"> 00.00%</span>
                         <br>
-                        <br>
                         <span class="cottage-occupancy-review"> Review Allocations</span>
                     </div>
                 </div>
@@ -139,6 +141,10 @@
         
         @if (request()->routeIs('admin.announcements.*'))
             @include('Admin.include.announcements')
+        @endif
+
+        @if (request()->routeIs('admin.reports.*'))
+            @include('Admin.include.reports')
         @endif
     </main>
 

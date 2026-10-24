@@ -191,6 +191,7 @@ html { scroll-behavior: smooth; }
     transition: background-color 0.2s ease, color 0.2s ease;
     text-decoration: none;
     color: #000000;
+    text-decoration: none;
 }
 
 .dashboard-logo-cont:hover,

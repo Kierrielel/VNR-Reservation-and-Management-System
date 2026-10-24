@@ -8,6 +8,7 @@ use App\Http\Middleware\AdminOnly;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAnnouncementController;
+use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\AnnouncementController;
 
 //temporary
@@ -37,6 +38,9 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
     Route::get('/', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
+    
+    // for reports
+    Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
 
     // for review
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
