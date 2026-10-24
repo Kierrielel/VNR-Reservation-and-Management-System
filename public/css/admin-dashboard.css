@@ -108,6 +108,13 @@ html { scroll-behavior: smooth; }
     font-weight: 600;
 }
 
+.cottage-occupancy-value{
+    font-family: Playfair Display;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 96px;
+    color: #FFFFFF;
+}
 .recent-book-cont{
     margin-top: -40px;
     display: flex;
@@ -120,7 +127,7 @@ html { scroll-behavior: smooth; }
     min-width: 0;
     width: 100%;
     min-height: 363px;
-    padding: 15px 0px 15px 25px;
+    padding: 15px 25px 15px 25px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
 }
@@ -128,6 +135,7 @@ html { scroll-behavior: smooth; }
     color: #368DB7;
     font-size: 35px;
     font-family: 'Times New Roman', Times, serif;
+    
 }
 
 .admin-sidebar{
@@ -136,16 +144,13 @@ html { scroll-behavior: smooth; }
     width: 280px;
     flex: 0 0 280px;
     flex-shrink: 0;
-
     position: sticky;
-    top: 70px;
+    top: 100px;
     align-self: flex-start;
-
     min-height: calc(100vh - 70px);
     height: calc(100vh - 70px);
     overflow-y: auto;
 }
-
 .sidebar_content{
     min-height: calc(100vh - 70px);
     display: flex;
@@ -183,23 +188,42 @@ html { scroll-behavior: smooth; }
 .logout-logo-cont {
     display: flex;
     align-items: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-decoration: none;
+    color: #000000;
 }
 
-.reviews-logo-cont,
-.sett-logo-cont,
-.reviews-logo-cont:visited,
-.sett-logo-cont:visited {
-    text-decoration: none;
-    color: #26323C;
+.dashboard-logo-cont:hover,
+.rooms-logo-cont:hover,
+.bookings-logo-cont:hover,
+.announce-logo-cont:hover,
+.reviews-logo-cont:hover,
+.reports-logo-cont:hover,
+.sett-logo-cont:hover,
+.logout-logo-cont:hover {
+    background-color: #3FA9DC;
+    color: #eefbff;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .sidebar-logout{
     flex: 1;
     margin: 25px 0px 0px 50px;
     font-size: 1.3rem;
+    
+    
+
 }
+
 .auth-logout-btn{
+    background: none;
     border: none;
+    transition: color 0.2s ease;
+}
+.auth-logout-btn:hover{
+    color: #eefbff;
+
 }
 
 
@@ -274,4 +298,16 @@ html { scroll-behavior: smooth; }
     .occupancy-alert-cont {
         flex: 1 1 100%;
     }
+}
+
+/*graph css*/
+.chart-container {
+    position: relative;
+    width: 90%;
+    height: 300px;
+    margin: 25px auto 0;
+}
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
 }

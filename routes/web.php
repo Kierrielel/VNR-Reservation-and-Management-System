@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAnnouncementController;
 use App\Http\Controllers\AnnouncementController;
 
+//temporary
+Route::get('/admin/include/rooms', function () {
+    return view('Admin.include.rooms');
+});
+
 Route::get('/', function () {
     $reviews = Review::latest()->take(3)->get();
     $reviewCount = Review::count();

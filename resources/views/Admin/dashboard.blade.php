@@ -56,7 +56,8 @@
 
     <main class="admin-dashboard">
         
-        @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*'))
+       @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*'))
+
             <div class="dashboard-content">
                 <div class="dashboard-info">
                     <span class="dashboard-title">ADMIN DASHBOARD</span>
@@ -108,11 +109,18 @@
                         <span class="occupancy-alert-title"> Occupancy Alert </span>
                         <br>
                         <span class="cottage-occupancy"> Cottage Occupancy</span>
+                        <br>
+                        <br>
+                        <span class="cottage-occupancy-value"> 00.00%</span>
+                        <br>
+                        <br>
+                        <span class="cottage-occupancy-review"> Review Allocations</span>
                     </div>
                 </div>
                 <div class="recent-book-cont">
                     <div class="recent-book-info">
                         <span class="recent-bookings"> Recent Bookings</span>
+                        <hr>
                     </div>
                 </div>
             </div>
@@ -125,6 +133,9 @@
         @if (request()->routeIs('admin.settings.*'))
             @include('Admin.include.settings')
         @endif
+         @if (request()->routeIs('admin.rooms.*'))
+            @include('Admin.include.rooms')
+        @endif
         
         @if (request()->routeIs('admin.announcements.*'))
             @include('Admin.include.announcements')
@@ -132,3 +143,113 @@
     </main>
 
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('revenueChart');
+
+    const chart = new Chart(ctx, {
+        type: 'line',
+
+        data: {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+
+            datasets: [{
+                label: 'Sales',
+                data: [4000, 2800, 2000, 3123, 1900, 2200, 3500],
+
+                borderColor: '#36A9E1',
+                borderWidth: 2,
+
+                backgroundColor: 'rgba(54, 169, 225, 0.25)',
+
+                fill: true,
+
+                tension: 0.4,
+
+                pointRadius: 0,
+                pointHoverRadius: 5,
+
+                pointBackgroundColor: '#36A9E1',
+                pointBorderColor: '#FFFFFF',
+                pointBorderWidth: 2
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            animation: {
+                duration: 2000,
+                easing: 'easeInOutQuart',
+
+                x: {
+                    duration: 2000,
+                    easing: 'linear'
+                },
+
+                y: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            },
+
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+
+            plugins: {
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+                    displayColors: false,
+
+                    callbacks: {
+                        title: function(context) {
+                            return context[0].label;
+                        },
+
+                        label: function(context) {
+                            return 'sales: ' + context.parsed.y;
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    grid: {
+                        display: false
+                    },
+
+                    border: {
+                        display: false
+                    }
+                },
+
+                y: {
+                    min: 0,
+                    max: 4000,
+
+                    ticks: {
+                        stepSize: 1000
+                    },
+
+                    grid: {
+                        color: 'rgba(120, 120, 120, 0.4)',
+                        borderDash: [3, 3]
+                    },
+
+                    border: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
+</script>
