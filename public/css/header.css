@@ -6,6 +6,18 @@
         font-family: 'Poppins', sans-serif;
     }
 
+    @media (min-width: 992px) {
+        .vnr-navbar .navbar-collapse {
+            position: static;
+        }
+
+        .vnr-navbar .vnr-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
     .vnr-navbar::after {
         content: "";
         position: absolute;

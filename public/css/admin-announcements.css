@@ -260,11 +260,22 @@
     transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
+.ann-modal-buttons .ann-btn-secondary {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+
 .ann-btn-secondary:hover {
     background: #3fa9db;
     color: #fff;
     box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
     transform: translateY(-1px);
+}
+
+.ann-modal-buttons .ann-btn-secondary:hover {
+    border-color: #dc3545;
+    background: #dc3545;
+    color: #fff;
 }
 
 .ann-empty {
@@ -369,7 +380,8 @@
     display: none;
     position: fixed;
     inset: 0;
-    z-index: 100;
+    /* Keep the backdrop above the sticky admin header as well as the page content. */
+    z-index: 1100;
     background: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
@@ -380,25 +392,35 @@
 }
 
 .ann-modal-box {
-    width: 480px;
-    max-width: 92%;
+    width: min(600px, calc(100vw - 32px));
+    max-width: 100%;
     max-height: 90vh;
     overflow-y: auto;
-    padding: 24px;
+    padding: 1.5rem;
     background: #fff;
-    border-radius: 8px;
+    border-radius: 20px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.2);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.ann-modal-box::-webkit-scrollbar {
+    display: none;
 }
 
 .ann-modal-box h2 {
-    margin: 0 0 16px;
+    margin: 0 0 1rem;
     font-family: 'Playfair Display', serif;
+    color: #42a9db;
 }
 
 .ann-modal-box label {
     display: block;
-    margin: 12px 0 4px;
-    font-size: 14px;
+    margin: 1rem 0 0.35rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
     font-weight: 600;
+    text-align: left;
 }
 
 .ann-modal-box input[type="text"],
@@ -406,22 +428,46 @@
 .ann-modal-box textarea,
 .ann-modal-box select {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #bbb;
-    border-radius: 4px;
-    font-family: inherit;
-    font-size: 14px;
+    min-height: 48px;
+    padding: 0.7rem 0.9rem;
+    border: 1px solid #d5dde3;
+    border-radius: 12px;
+    background-color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    color: #343a40;
+}
+
+.ann-modal-box textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.ann-modal-box input:focus,
+.ann-modal-box textarea:focus,
+.ann-modal-box select:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.2);
 }
 
 .ann-modal-box .ann-check {
     font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+
+.ann-modal-box .ann-check input {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.4rem;
+    accent-color: #42a9db;
 }
 
 .ann-modal-buttons {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 18px;
+    margin-top: 1.25rem;
 }
 
 .ann-modal-buttons .btn-save {
