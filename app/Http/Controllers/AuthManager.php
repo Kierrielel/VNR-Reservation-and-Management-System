@@ -10,38 +10,59 @@ use Illuminate\Support\Facades\Session;
 
 class AuthManager extends Controller
 {
-    function login() {
-        if(Auth::check()){
+    public function login()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
             return redirect(route('home'));
         }
+
         return view('LoginReg.login');
     }
 
-    function registration() {
-        if(Auth::check()){
+    public function registration()
+    {
+        if (Auth::check()) {
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
             return redirect(route('home'));
         }
+
         return view('LoginReg.registration');
     }
 
-    function loginPost(Request $request) {
+    public function loginPost(Request $request)
+    {
         $request->validate([
-          'email' => 'required',
-          'password' => 'required'
+            'email' => 'required',
+            'password' => 'required',
         ]);
 
         $credentials = $request->only('email', 'password');
-        if(Auth::attempt($credentials)){
-            return redirect()->intended(route('home'));
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            if ($user->role === 'admin') {
+                return redirect()->route('admin.dashboard');
+            }
+
+            return redirect()->route('home');
         }
-        return redirect(route('login'))->with("error", "Login details are not valid");
+
+        return redirect(route('login'))->with('error', 'Login details are not valid');
     }
 
-    function registrationPost(Request $request) {
+    public function registrationPost(Request $request)
+    {
         $request->validate([
-          'name' => 'required',
-          'email' => 'required|email|unique:users',
-          'password' => 'required|confirmed',
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
         ]);
 
         $data['name'] = $request->name;
@@ -50,15 +71,18 @@ class AuthManager extends Controller
         $data['role'] = 'guest';
         $user = User::create($data);
 
-        if(!$user){
-            return redirect(route('registration'))->with("error", "Registration failed, try again.");
+        if (! $user) {
+            return redirect(route('registration'))->with('error', 'Registration failed, try again.');
         }
-        return redirect(route('login'))->with("success", "Registration successful!");
+
+        return redirect(route('login'))->with('success', 'Registration successful!');
     }
 
-    function logout(){
+    public function logout()
+    {
         Session::flush();
         Auth::logout();
+
         return redirect(route('login'));
     }
 }
