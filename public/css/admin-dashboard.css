@@ -1,74 +1,73 @@
-html { scroll-behavior: smooth; }
+html {
+    scroll-behavior: smooth;
+}
 
-.admin-container{
+.admin-container {
     min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: row;
-    background-color: #FFFFFF;
-}     
+    background-color: #ffffff;
+}
 
-.admin-dashboard{
+.admin-dashboard {
     flex: 1;
     min-width: 0;
 }
-.dashboard-content{
-    display:flex;
+.dashboard-content {
+    display: flex;
     flex-direction: column;
 }
-.dashboard-info{
+.dashboard-info {
     display: flex;
     padding: 25px 50px 50px 50px;
     flex-direction: column;
 }
 
-.dashboard-title{
+.dashboard-title {
     font-weight: 700;
 }
-.dashboard-greet{
-    font-weight:600;
+.dashboard-greet {
+    font-weight: 600;
     font-style: SemiBold;
     font-size: 50px;
-    font-family: 'Times New Roman', Times, serif;
-    color: #368DB7;
+    font-family: "Times New Roman", Times, serif;
+    color: #368db7;
 }
-.dashboard-desc{
-    font-family: 'Poppins', sans-serif;
+.dashboard-desc {
+    font-family: "Poppins", sans-serif;
     font-size: 1rem;
-    color: #6B6B6B;
+    color: #6b6b6b;
     padding-left: 10px;
     padding-top: -5px;
 }
 
-.totals-cont{
+.totals-cont {
     margin-top: -40px;
     display: flex;
     flex-direction: row;
     gap: 20px;
     padding: 25px 40px 50px 40px;
     min-width: 0;
-
 }
-.info-cont{
-    
+.info-cont {
     padding: 15px 0px 15px 25px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
     min-height: 220px;
     min-width: 150px;
     flex: 1;
-    display:flex;
+    display: flex;
     flex-direction: column;
     font-weight: 600;
     overflow-wrap: break-word;
-
 }
-.info-cont .result{
+.info-cont .result {
     font-style: SemiBold;
     font-family: Playfair Display;
     font-size: 36px;
 }
 
-.analytics-cont{
+.analytics-cont {
     margin-top: -40px;
     display: flex;
     flex-direction: row;
@@ -76,7 +75,7 @@ html { scroll-behavior: smooth; }
     padding: 25px 50px 50px 40px;
     min-width: 0;
 }
-.rev-analytics-cont{
+.rev-analytics-cont {
     min-width: 0;
     flex: 2;
     min-height: 418px;
@@ -84,46 +83,44 @@ html { scroll-behavior: smooth; }
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
 }
-.analytics-title{
+.analytics-title {
     font-weight: 700;
     font-size: larger;
 }
-.occupancy-alert-cont{
+.occupancy-alert-cont {
     text-align: center;
     min-width: 0;
     flex: 1;
     min-height: 418px;
     padding: 15px 0px 15px 0px;
     border-radius: 10px;
-    background-color: #3779B2;
-    color: #FFFFFF;
+    background-color: #3779b2;
+    color: #ffffff;
 }
-.occupancy-alert-title{
+.occupancy-alert-title {
     font-size: 35px;
-    font-family: 'Times New Roman', Times, serif;
-
+    font-family: "Times New Roman", Times, serif;
 }
-.cottage-occupancy{
+.cottage-occupancy {
     font-size: larger;
     font-weight: 600;
 }
 
-.cottage-occupancy-value{
+.cottage-occupancy-value {
     font-family: Playfair Display;
     font-weight: 700;
     font-style: Bold;
     font-size: 96px;
-    color: #FFFFFF;
+    color: #ffffff;
 }
-.recent-book-cont{
+.recent-book-cont {
     margin-top: -40px;
     display: flex;
     flex-direction: row;
     padding: 25px 50px 50px 40px;
     min-width: 0;
-
 }
-.recent-book-info{
+.recent-book-info {
     min-width: 0;
     width: 100%;
     min-height: 363px;
@@ -131,15 +128,14 @@ html { scroll-behavior: smooth; }
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
 }
-.recent-bookings{
-    color: #368DB7;
+.recent-bookings {
+    color: #368db7;
     font-size: 35px;
-    font-family: 'Times New Roman', Times, serif;
-    
+    font-family: "Times New Roman", Times, serif;
 }
 
-.admin-sidebar{
-    background-color: #F0F0F0;
+.admin-sidebar {
+    background-color: #f0f0f0;
     box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
     width: 280px;
     flex: 0 0 280px;
@@ -151,25 +147,23 @@ html { scroll-behavior: smooth; }
     height: calc(100vh - 70px);
     overflow-y: auto;
 }
-.sidebar_content{
+.sidebar_content {
     min-height: calc(100vh - 70px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     text-align: left;
-    
-
 }
 
-.sidebar-title{
-    font-family: 'Poppins', sans-serif;
+.sidebar-title {
+    font-family: "Poppins", sans-serif;
     font-size: 1rem;
-    color: #6B6B6B;
+    color: #6b6b6b;
     line-height: 1;
 }
 .sidebar-options {
     text-decoration: none;
-    color: #26323C;
+    color: #26323c;
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
@@ -188,7 +182,9 @@ html { scroll-behavior: smooth; }
 .logout-logo-cont {
     display: flex;
     align-items: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
     text-decoration: none;
     color: #000000;
     text-decoration: none;
@@ -202,80 +198,64 @@ html { scroll-behavior: smooth; }
 .reports-logo-cont:hover,
 .sett-logo-cont:hover,
 .logout-logo-cont:hover {
-    background-color: #3FA9DC;
+    background-color: #3fa9dc;
     color: #eefbff;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.sidebar-logout{
+.sidebar-logout {
     flex: 1;
     margin: 25px 0px 0px 50px;
     font-size: 1.3rem;
-    
-    
-
 }
 
-.auth-logout-btn{
-    background: none;
+.auth-logout-btn {
     border: none;
-    transition: color 0.2s ease;
 }
-.auth-logout-btn:hover{
-    color: #eefbff;
-
-}
-
-
-
-
-
 
 /*SVG Floats*/
 
-.dashboard-logo{
+.dashboard-logo {
     width: 18px;
     height: 18px;
     margin-right: 20px;
 }
-.rooms-logo{
+.rooms-logo {
     width: 20px;
     height: 14px;
     margin-right: 20px;
 }
-.booking-logo{
+.booking-logo {
     width: 20px;
     height: 19.5px;
     margin-right: 20px;
 }
-.announce-logo{
+.announce-logo {
     width: 24px;
     height: 24px;
     margin-right: 15px;
 }
-.reviews-logo{
+.reviews-logo {
     width: 24px;
     height: 24px;
     margin-right: 15px;
 }
-.reports-logo{
+.reports-logo {
     width: 18.75px;
     height: 18.75px;
     margin-right: 20px;
 }
-.settings-logo{
+.settings-logo {
     width: 19.04px;
     height: 20px;
     margin-right: 20px;
 }
-.logout-logo{
+.logout-logo {
     width: 33px;
     height: 35px;
     margin-right: 20px;
 }
-
-
 
 /*Media Queries for Responsiveness*/
 

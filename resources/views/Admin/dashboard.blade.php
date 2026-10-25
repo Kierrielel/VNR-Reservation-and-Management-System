@@ -37,7 +37,7 @@
                     <span class="sidebar-title-reviews">Reviews</span>
                 </a>
                 
-                <a href="{{ route('admin.reports.index') }}" 
+                <a href="{{ route('admin.reports.index') }}"
                     class="reports-logo-cont {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
                     <img src="../images/reports.svg" class="reports-logo" alt="Reports Logo" width="18.75px" height="18.75px">
                     <span class="sidebar-title-reports">Reports</span>
@@ -50,7 +50,10 @@
             </div>
             <div class="sidebar-logout">
                 <div class="logout-logo-cont">
-                    <a href="{{ route('logout') }}" class="auth-logout-btn">
+                    <a href="{{ route('logout') }}" class="auth-logout-btn" data-confirm
+                        data-confirm-title="Log out?"
+                        data-confirm-message="Are you sure you want to log out of your account?"
+                        data-confirm-label="Yes, log out">
                         <img src="../images/Logout.svg" class="logout-logo" alt="Logout Logo" width="33px" height="35px">
                         Logout
                     </a>
@@ -59,7 +62,7 @@
         </div>
     </aside>
 
-    <main class="admin-dashboard"> 
+    <main class="admin-dashboard">
        @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*', 'admin.reports.*'))
             <div class="dashboard-content">
                 <div class="dashboard-info">
@@ -150,112 +153,87 @@
 
 </div>
 
+
+@include('shared.confirmation-modal')
+@include('shared.auto-dismiss-alerts')
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
     const ctx = document.getElementById('revenueChart');
 
-    const chart = new Chart(ctx, {
-        type: 'line',
-
-        data: {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-
-            datasets: [{
-                label: 'Sales',
-                data: [4000, 2800, 2000, 3123, 1900, 2200, 3500],
-
-                borderColor: '#36A9E1',
-                borderWidth: 2,
-
-                backgroundColor: 'rgba(54, 169, 225, 0.25)',
-
-                fill: true,
-
-                tension: 0.4,
-
-                pointRadius: 0,
-                pointHoverRadius: 5,
-
-                pointBackgroundColor: '#36A9E1',
-                pointBorderColor: '#FFFFFF',
-                pointBorderWidth: 2
-            }]
-        },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-
-            animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart',
-
-                x: {
-                    duration: 2000,
-                    easing: 'linear'
-                },
-
-                y: {
-                    duration: 2000,
-                    easing: 'easeOutQuart'
-                }
+    if (ctx) {
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [4000, 2800, 2000, 3123, 1900, 2200, 3500],
+                    borderColor: '#36A9E1',
+                    borderWidth: 2,
+                    backgroundColor: 'rgba(54, 169, 225, 0.25)',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 0,
+                    pointHoverRadius: 5,
+                    pointBackgroundColor: '#36A9E1',
+                    pointBorderColor: '#FFFFFF',
+                    pointBorderWidth: 2
+                }]
             },
-
-            interaction: {
-                mode: 'index',
-                intersect: false
-            },
-
-            plugins: {
-                legend: {
-                    display: false
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
                 },
-
-                tooltip: {
-                    displayColors: false,
-
-                    callbacks: {
-                        title: function(context) {
-                            return context[0].label;
+                interaction: {
+                    mode: 'index',
+                    intersect: false
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        displayColors: false,
+                        callbacks: {
+                            title: function(context) {
+                                return context[0].label;
+                            },
+                            label: function(context) {
+                                return 'Sales: ' + context[0].parsed.y;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: {
+                            display: false
                         },
-
-                        label: function(context) {
-                            return 'sales: ' + context.parsed.y;
+                        border: {
+                            display: false
+                        }
+                    },
+                    y: {
+                        min: 0,
+                        max: 4000,
+                        ticks: {
+                            stepSize: 1000
+                        },
+                        grid: {
+                            color: 'rgba(120, 120, 120, 0.4)',
+                            borderDash: [3, 3]
+                        },
+                        border: {
+                            display: false
                         }
                     }
                 }
-            },
-
-            scales: {
-                x: {
-                    grid: {
-                        display: false
-                    },
-
-                    border: {
-                        display: false
-                    }
-                },
-
-                y: {
-                    min: 0,
-                    max: 4000,
-
-                    ticks: {
-                        stepSize: 1000
-                    },
-
-                    grid: {
-                        color: 'rgba(120, 120, 120, 0.4)',
-                        borderDash: [3, 3]
-                    },
-
-                    border: {
-                        display: false
-                    }
-                }
             }
-        }
-    });
+        });
+    }
 </script>

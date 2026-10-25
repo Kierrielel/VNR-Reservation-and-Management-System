@@ -90,7 +90,7 @@
 
 .all-reviews-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 20px;
     padding: 24px;
 }
@@ -129,6 +129,7 @@
     display: block;
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
+    overflow-wrap: anywhere;
 }
 
 .all-review-top small {
@@ -163,6 +164,7 @@
 
 .all-review-response p {
     margin: 4px 0 0;
+    overflow-wrap: anywhere;
 }
 
 .all-reviews-empty {
@@ -176,11 +178,17 @@
     display: flex;
     justify-content: center;
     margin-top: 28px;
+    max-width: 100%;
+}
+
+.all-reviews-pages nav {
+    max-width: 100%;
+    overflow-x: auto;
 }
 
 @media (max-width: 900px) {
     .all-reviews-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     }
 }
 
@@ -189,5 +197,8 @@
     .all-reviews-title { font-size: 30px; }
     .all-reviews-number { font-size: 38px; }
     .all-reviews-stars { font-size: 24px; }
-    .all-reviews-grid { grid-template-columns: 1fr; padding: 16px; }
+    .all-reviews-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px; }
+    .all-review-item { padding: 16px; }
+    .all-reviews-card-header { padding: 14px 16px; }
+    .all-reviews-back { max-width: 100%; padding: 0.65rem 1rem; }
 }

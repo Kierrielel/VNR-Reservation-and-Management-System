@@ -33,7 +33,7 @@
                 <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
             </ul>
 
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 vnr-nav-actions">
                     @auth
                         <div class="dropdown vnr-bell">
                             <button class="vnr-bell-btn" type="button" data-bs-toggle="dropdown"
@@ -86,7 +86,10 @@
                         </div>
 
                         <span class="vnr-welcome">Welcome, {{ auth()->user()->name }}</span>
-                        <a href="{{ route('logout') }}" class="btn btn-vnr-outline">Logout</a>
+                        <a href="{{ route('logout') }}" class="btn btn-vnr-outline" data-confirm
+                            data-confirm-title="Log out?"
+                            data-confirm-message="Are you sure you want to log out of your account?"
+                            data-confirm-label="Yes, log out">Logout</a>
                     @else
                         <a href="{{ route('login') }}" class="btn btn-vnr-outline">Login</a>
                     @endauth
@@ -117,3 +120,5 @@
         }
     });
 </script>
+
+@include('shared.confirmation-modal')
