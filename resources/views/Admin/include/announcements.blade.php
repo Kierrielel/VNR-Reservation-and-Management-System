@@ -68,7 +68,9 @@
                                 <span class="ann-btn ann-btn-archived" aria-label="Announcement archived">Archived</span>
                             @endif
                             <form method="POST" action="{{ route('admin.announcements.destroy', $announcement) }}"
-                                  onsubmit="return confirm('Delete this announcement?')">
+                                  data-confirm data-confirm-title="Delete announcement?"
+                                  data-confirm-message="This announcement will be permanently deleted. This action cannot be undone."
+                                  data-confirm-label="Yes, delete">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn-delete">Delete</button>

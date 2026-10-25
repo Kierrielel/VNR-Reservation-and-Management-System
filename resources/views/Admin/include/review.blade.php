@@ -93,7 +93,9 @@
 
                     <div class="review-bottom">
                         <form action="{{ route('admin.reviews.destroy', $review) }}" method="POST"
-                              onsubmit="return confirm('Delete this review? This cannot be undone.')">
+                              data-confirm data-confirm-title="Delete review?"
+                              data-confirm-message="This review will be permanently deleted. This action cannot be undone."
+                              data-confirm-label="Yes, delete">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn-delete"><i class="bi bi-trash"></i> Delete</button>

@@ -161,7 +161,20 @@ html { scroll-behavior: smooth; }
     font-size: 1.3rem;
 }
 .auth-logout-btn{
+    display: inline-block;
     border: none;
+    padding: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.auth-logout-btn:hover,
+.auth-logout-btn:focus-visible{
+    color: inherit;
+    text-decoration: underline;
 }
 
 

@@ -17,6 +17,8 @@ html {
 }
 
 .main {
+    width: 100%;
+    min-width: 0;
     color: #fff;
     background:
         linear-gradient(rgba(66, 169, 219, 0.55), rgba(66, 169, 219, 0.55)),
@@ -59,6 +61,25 @@ html {
     font-size: 50px;
     font-weight: bold;
     text-shadow: 1px 1px 1px black;
+}
+
+@media (max-width: 600px) {
+    .main, .main-amenities, .main-accommodations, .main-events, .main-galleryy {
+        width: 100%;
+        min-width: 0;
+        min-height: calc(100svh - 70px);
+        padding: 2rem 1rem;
+    }
+
+    .main-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .main-content h1 {
+        font-size: clamp(2rem, 9vw, 3rem);
+        overflow-wrap: anywhere;
+    }
 }
 
 .about-divider {
