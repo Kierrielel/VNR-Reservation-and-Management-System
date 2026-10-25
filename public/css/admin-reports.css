@@ -47,8 +47,10 @@
 
 .report-card h2 {
     margin: 2px 0 0;
-    font-family: "Playfair Display", serif;
-    font-size: 66px;
+    font-family:"Poppins";
+    font-weight: 600;
+    font-style: SemiBold;
+    font-size: clamp(38px, 4vw, 66px);
     line-height: 1;
     color: #35b6df;
 }
@@ -79,11 +81,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 25px;
 }
 
 .revenue-circle {
     width: 88px;
     height: 88px;
+    flex: 0 0 88px;
     margin-right: 20px;
     border: 14px solid #42bfdf;
     border-right-color: #e9f0f2;

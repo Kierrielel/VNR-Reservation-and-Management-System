@@ -8,7 +8,9 @@ use App\Http\Middleware\AdminOnly;
 use App\Models\Review;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminAnnouncementController;
+use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminReportController;
+use App\Http\Controllers\AdminRoomsController;
 use App\Http\Controllers\AnnouncementController;
 
 //temporary
@@ -38,6 +40,12 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
     Route::get('/', function () {
         return view('Admin.dashboard');
     })->name('dashboard');
+
+     // for rooms/cottages
+    Route::get('/rooms', [AdminRoomsController::class, 'index'])->name('rooms.index');
+
+    // for bookings
+    Route::get('/bookings', [AdminBookingController::class, 'index'])->name('bookings.index');
     
     // for reports
     Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');

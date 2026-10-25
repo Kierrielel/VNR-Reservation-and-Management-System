@@ -147,6 +147,7 @@ html {
     height: calc(100vh - 70px);
     overflow-y: auto;
 }
+
 .sidebar_content {
     min-height: calc(100vh - 70px);
     display: flex;
@@ -161,53 +162,198 @@ html {
     color: #6b6b6b;
     line-height: 1;
 }
+
 .sidebar-options {
-    text-decoration: none;
-    color: #26323c;
     font-size: 1.3rem;
     display: flex;
     flex-direction: column;
     gap: 20px;
     min-height: calc(100vh - 200px);
-    margin: 25px 10px 0px 35px;
+    margin: 25px 10px 0 25px;
 }
 
+/* Sidebar options */
 .dashboard-logo-cont,
 .rooms-logo-cont,
 .bookings-logo-cont,
 .announce-logo-cont,
 .reviews-logo-cont,
 .reports-logo-cont,
-.sett-logo-cont,
-.logout-logo-cont {
+.sett-logo-cont {
     display: flex;
     align-items: center;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 8px 15px;
+
+    text-decoration: none;
+    color: #000000;
+
+    border-radius: 8px;
+
     transition:
         background-color 0.2s ease,
         color 0.2s ease;
-    text-decoration: none;
-    color: #000000;
-    text-decoration: none;
 }
 
+/* Normal text */
+.dashboard-logo-cont span,
+.rooms-logo-cont span,
+.bookings-logo-cont span,
+.announce-logo-cont span,
+.reviews-logo-cont span,
+.reports-logo-cont span,
+.sett-logo-cont span {
+    color: #000000;
+
+    transition: color 0.2s ease;
+}
+
+/* Hover */
 .dashboard-logo-cont:hover,
 .rooms-logo-cont:hover,
 .bookings-logo-cont:hover,
 .announce-logo-cont:hover,
 .reviews-logo-cont:hover,
 .reports-logo-cont:hover,
-.sett-logo-cont:hover,
-.logout-logo-cont:hover {
+.sett-logo-cont:hover {
     background-color: #3fa9dc;
-    color: #eefbff;
-    border-radius: 8px;
+    color: #ffffff;
     cursor: pointer;
 }
 
+/* Hover text */
+.dashboard-logo-cont:hover span,
+.rooms-logo-cont:hover span,
+.bookings-logo-cont:hover span,
+.announce-logo-cont:hover span,
+.reviews-logo-cont:hover span,
+.reports-logo-cont:hover span,
+.sett-logo-cont:hover span {
+    color: #ffffff;
+}
+
+/* Active/current page */
+.dashboard-logo-cont.active,
+.rooms-logo-cont.active,
+.bookings-logo-cont.active,
+.announce-logo-cont.active,
+.reviews-logo-cont.active,
+.reports-logo-cont.active,
+.sett-logo-cont.active {
+    background-color: #3fa9dc;
+    color: #ffffff;
+}
+
+/* Active text */
+.dashboard-logo-cont.active span,
+.rooms-logo-cont.active span,
+.bookings-logo-cont.active span,
+.announce-logo-cont.active span,
+.reviews-logo-cont.active span,
+.reports-logo-cont.active span,
+.sett-logo-cont.active span {
+    color: #ffffff;
+}
+
+/* SVGs - normal state */
+.dashboard-logo,
+.rooms-logo,
+.booking-logo,
+.announce-logo,
+.reviews-logo,
+.reports-logo,
+.settings-logo {
+    filter: none;
+
+    transition: filter 0.2s ease;
+}
+
+/* SVGs - hover state */
+.dashboard-logo-cont:hover img,
+.rooms-logo-cont:hover img,
+.bookings-logo-cont:hover img,
+.announce-logo-cont:hover img,
+.reviews-logo-cont:hover img,
+.reports-logo-cont:hover img,
+.sett-logo-cont:hover img {
+    filter: brightness(0) invert(1);
+}
+
+/* SVGs - active state */
+.dashboard-logo-cont.active img,
+.rooms-logo-cont.active img,
+.bookings-logo-cont.active img,
+.announce-logo-cont.active img,
+.reviews-logo-cont.active img,
+.reports-logo-cont.active img,
+.sett-logo-cont.active img {
+    filter: brightness(0) invert(1);
+}
+
+
+/* SVG spacing */
+.dashboard-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 20px;
+}
+
+.rooms-logo {
+    width: 20px;
+    height: 14px;
+    margin-right: 20px;
+}
+
+.booking-logo {
+    width: 20px;
+    height: 19.5px;
+    margin-right: 20px;
+}
+
+.announce-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+.reviews-logo {
+    width: 24px;
+    height: 24px;
+    margin-right: 15px;
+}
+
+.reports-logo {
+    width: 18.75px;
+    height: 18.75px;
+    margin-right: 20px;
+}
+
+.settings-logo {
+    width: 19.04px;
+    height: 20px;
+    margin-right: 20px;
+}
+
+
+/* Logout */
 .sidebar-logout {
     flex: 1;
-    margin: 25px 0px 0px 50px;
+    margin: 0px 10px 0 35px;
     font-size: 1.3rem;
+}
+
+.logout-logo-cont {
+    display: flex;
+    align-items: center;
+}
+
+.logout-logo-cont:hover {
+    color: #db0b00;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .auth-logout-btn {
@@ -221,9 +367,17 @@ html {
 }
 
 .auth-logout-btn:hover,
-.auth-logout-btn:focus-visible{
+.auth-logout-btn:focus-visible {
     color: inherit;
     text-decoration: underline;
+}
+
+.logout-logo {
+    filter: none;
+}
+
+.logout-logo-cont:hover .logout-logo {
+    filter: brightness(0) saturate(100%) invert(16%) sepia(98%) saturate(5314%) hue-rotate(355deg) brightness(91%) contrast(119%);
 }
 
 /*SVG Floats*/

@@ -1,0 +1,261 @@
+
+.admin-bookings {
+    padding: 45px 45px 60px;
+    min-height: calc(100vh - 70px);
+    background: #ffffff;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+.bookings-header h1 {
+    margin: 0 0 28px;
+    font-family: "Playfair Display", serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #111111;
+}
+
+
+/* =========================
+   BOOKINGS TABLE
+   ========================= */
+
+.bookings-table-container {
+    width: 100%;
+    max-width: 100%;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 3px 20px rgba(0, 0, 0, 0.174);
+    overflow: hidden;
+}
+
+.bookings-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+
+/* =========================
+   TABLE HEADER
+   ========================= */
+
+.bookings-table thead {
+    background-color: #fafafa;
+}
+
+.bookings-table th {
+    height: 52px;
+    padding: 0 24px;
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #26323c;
+    white-space: nowrap;
+}
+
+
+/* Column widths */
+
+.bookings-table th:nth-child(1),
+.bookings-table td:nth-child(1) {
+    width: 24%;
+}
+
+.bookings-table th:nth-child(2),
+.bookings-table td:nth-child(2) {
+    width: 20%;
+}
+
+.bookings-table th:nth-child(3),
+.bookings-table td:nth-child(3) {
+    width: 20%;
+}
+
+.bookings-table th:nth-child(4),
+.bookings-table td:nth-child(4) {
+    width: 20%;
+}
+
+.bookings-table th:nth-child(5),
+.bookings-table td:nth-child(5) {
+    width: 16%;
+    text-align: center;
+}
+
+/* =========================
+   TABLE BODY
+   ========================= */
+
+.bookings-table td {
+    height: 54px;
+    padding: 0 24px;
+    border-top: 1px solid #eeeeee;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: #111111;
+    white-space: nowrap;
+}
+
+.bookings-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.bookings-table tbody tr:hover {
+    background-color: #f8fcfe;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+
+.booking-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.booking-actions button {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.booking-actions img {
+    width: 17px;
+    height: 17px;
+    object-fit: contain;
+}
+
+.edit-booking img {
+    filter: invert(57%) sepia(91%) saturate(1065%)
+            hue-rotate(105deg) brightness(92%);
+}
+
+.delete-booking img {
+    filter: invert(16%) sepia(99%) saturate(4333%)
+            hue-rotate(348deg) brightness(91%);
+}
+
+.booking-actions button:hover {
+    transform: scale(1.12);
+}
+
+
+/* =========================
+   FOOTER
+   ========================= */
+
+.bookings-footer {
+    min-height: 58px;
+    padding: 0 24px;
+    border-top: 1px solid #bdbdbd;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.booking-results {
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: #222222;
+}
+
+
+/* =========================
+   PAGINATION
+   ========================= */
+
+.booking-pagination {
+    display: flex;
+    align-items: center;
+}
+
+.booking-pagination button {
+    width: 38px;
+    height: 34px;
+    border: 1px solid #bcbcbc;
+    border-left: none;
+    background-color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    color: #222222;
+    cursor: pointer;
+}
+
+.booking-pagination button:first-child {
+    border-left: 1px solid #bcbcbc;
+    border-radius: 6px 0 0 6px;
+}
+
+.booking-pagination button:last-child {
+    border-radius: 0 6px 6px 0;
+}
+
+.booking-pagination .active {
+    background-color: #b9e0ef;
+    color: #245c75;
+}
+
+.booking-pagination button:hover {
+    background-color: #e8f6fb;
+}
+
+.booking-pagination .active:hover {
+    background-color: #a9d9ea;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .admin-bookings {
+        padding: 35px 30px 50px;
+    }
+
+    .bookings-table-container {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .bookings-table {
+        min-width: 700px;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .admin-bookings {
+        padding: 25px 20px 40px;
+    }
+
+    .bookings-header h1 {
+        font-size: 34px;
+        margin-bottom: 22px;
+    }
+
+    .bookings-table-container {
+        overflow-x: auto;
+    }
+
+    .bookings-footer {
+        min-width: 700px;
+    }
+
+}
