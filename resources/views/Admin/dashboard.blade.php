@@ -48,7 +48,10 @@
             <div class="sidebar-logout">
                 <div class="logout-logo-cont">
                     <img src="../images/Logout.svg" class="logout-logo" alt="Logout Logo" width="33px" height="35px">
-                    <button type="logout" class="auth-logout-btn">Logout</button>
+                    <a href="{{ route('logout') }}" class="auth-logout-btn" data-confirm
+                        data-confirm-title="Log out?"
+                        data-confirm-message="Are you sure you want to log out of your account?"
+                        data-confirm-label="Yes, log out">Logout</a>
                 </div>
             </div>
         </div>
@@ -113,3 +116,6 @@
     </main>
 
 </div>
+
+@include('shared.confirmation-modal')
+@include('shared.auto-dismiss-alerts')

@@ -135,3 +135,55 @@
     .btn-vnr-fill:active {
         transform: translateY(0);
     }
+
+    @media (max-width: 991.98px) {
+        .vnr-navbar {
+            padding: 0.75rem 1rem;
+        }
+
+        .vnr-navbar .navbar-collapse {
+            flex-basis: 100%;
+            min-width: 0;
+        }
+
+        .vnr-navbar .navbar-nav {
+            width: 100%;
+        }
+
+        .vnr-navbar .vnr-nav-actions {
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100%;
+            padding-top: 0.5rem;
+        }
+
+        .vnr-welcome {
+            white-space: normal;
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .vnr-navbar .container-fluid {
+            padding-right: 0;
+            padding-left: 0;
+        }
+
+        .vnr-brand-text {
+            font-size: 1.7rem;
+        }
+
+        .vnr-navbar .vnr-nav-actions {
+            column-gap: 0.6rem !important;
+            row-gap: 0.5rem !important;
+        }
+
+        .vnr-welcome {
+            flex-basis: calc(100% - 58px);
+        }
+
+        .vnr-navbar .btn-vnr-outline,
+        .vnr-navbar .btn-vnr-fill {
+            padding: 0.45rem 1rem;
+        }
+    }

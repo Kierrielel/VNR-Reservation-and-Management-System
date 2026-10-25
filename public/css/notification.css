@@ -235,8 +235,8 @@
         left: 10px !important;
         right: 10px !important;
         bottom: auto !important;
-        width: auto;
-        max-width: none;
+        width: calc(100vw - 20px);
+        max-width: calc(100vw - 20px);
         margin: 0;
         transform: none !important;
         max-height: calc(100vh - var(--notif-top, 70px) - 12px);
