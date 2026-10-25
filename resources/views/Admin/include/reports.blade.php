@@ -15,7 +15,7 @@
             <div class="report-card customers-card">
                 <div class="report-card-content">
                     <p>Total Customers</p>
-                    <h2>105</h2>
+                    <h2 id="customerCount">105</h2>
                     <span>Overview of<br>Monthly Customers</span>
 
                     <div class="progress-line"></div>
@@ -25,7 +25,7 @@
             <div class="report-card revenue-card">
                 <div class="report-card-content">
                     <p>Net Revenue</p>
-                    <h2>₱203.4K</h2>
+                    <h2 id="revenueCount">₱203.4K</h2>
                     <span>Overview of<br>Monthly Income</span>
                 </div>
 
@@ -119,6 +119,8 @@
                     <div class="report-buttons">
                         <button type="button">PDF</button>
                         <button type="button">Excel</button>
+                        </div>
+
                     </div>
 
                 </div>
@@ -128,8 +130,6 @@
         </div>
 
     </div>
-
-</div>
 
 </section>
 
@@ -242,3 +242,4 @@
         }
     });
 </script>
+

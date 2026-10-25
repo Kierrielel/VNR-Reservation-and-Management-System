@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ asset('css/admin-settings.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin-announcements.css') }}">
 <link rel="stylesheet" href="{{ asset('css/admin-reports.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin-bookings.css') }}">
+<link rel="stylesheet" href="{{ asset('css/admin-rooms.css') }}">
 
 <div class="admin-container">
 
@@ -17,14 +19,16 @@
                     <img src="../images/dashboard.svg" class="dashboard-logo" alt="Dashboard Logo" width="18px" height="18px">
                     <span class="sidebar-title-dashboard">Dashboard</span>
                 </a>
-                <div class="rooms-logo-cont">
+                <a href="{{ route('admin.rooms.index') }}" 
+                    class="rooms-logo-cont {{ request()->routeIs('admin.rooms.*') ? 'active' : '' }}">
                     <img src="../images/rooms.svg" class="rooms-logo" alt="Rooms Logo" width="20px" height="14px">
                     <span class="sidebar-title-rooms">Rooms/Cottages</span>
-                </div>
-                <div class="bookings-logo-cont">
-                    <img src="../images/booking.svg" class="booking-logo" alt="Booking Logo" width="20px" height="19.5px">
+                </a>
+                <a href="{{ route('admin.bookings.index') }}"
+                    class="bookings-logo-cont {{ request()->routeIs('admin.bookings.*') ? 'active' : '' }}">
+                    <img src="../images/booking.svg" class="booking-logo" alt="Booking Logo"  width="20px" height="19.5px">
                     <span class="sidebar-title-bookings">Bookings</span>
-                </div>
+                </a>
                 <a href="{{ route('admin.announcements.index') }}"
                     class="announce-logo-cont {{ request()->routeIs('admin.announcements.*') ? 'active' : '' }}">
                     <img src="../images/announce.svg" class="announce-logo" alt="Announcement Logo" width="24px" height="24px">
@@ -63,7 +67,7 @@
     </aside>
 
     <main class="admin-dashboard">
-       @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*', 'admin.reports.*'))
+       @if (!request()->routeIs('admin.reviews.*', 'admin.settings.*', 'admin.announcements.*', 'admin.rooms.*', 'admin.reports.*', 'admin.bookings.*'))
             <div class="dashboard-content">
                 <div class="dashboard-info">
                     <span class="dashboard-title">ADMIN DASHBOARD</span>
@@ -148,6 +152,10 @@
 
         @if (request()->routeIs('admin.reports.*'))
             @include('Admin.include.reports')
+        @endif
+
+        @if (request()->routeIs('admin.bookings.*'))
+            @include('Admin.include.bookings')
         @endif
     </main>
 

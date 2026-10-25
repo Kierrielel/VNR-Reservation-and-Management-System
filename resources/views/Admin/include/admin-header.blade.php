@@ -11,7 +11,7 @@
 
 <nav class="navbar navbar-expand-lg admin-navbar">
     <div class="container-fluid">
-        <a class="vnr-brand" href="{{ url('/') }}">
+        <a class="vnr-brand" href="#">
             <span class="vnr-brand-text">Villa Natividad Resort & Events Place</span>
             <span class="vnr-brand-desc">Admin Portal</span>
         </a>
