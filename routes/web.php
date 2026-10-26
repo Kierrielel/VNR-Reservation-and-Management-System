@@ -12,6 +12,7 @@ use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\AdminRoomsController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CustomerSettingController;
 
 //temporary
 Route::get('/admin/include/rooms', function () {
@@ -34,6 +35,11 @@ Route::get('/logout', [AuthManager::class, 'logout'])->name('logout');
 Route::get('/book', function () {
     return view('LoginReg.booking');
 })->name('book');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/account/settings', [CustomerSettingController::class, 'index'])->name('account.settings');
+    Route::put('/account/settings', [CustomerSettingController::class, 'update'])->name('account.settings.update');
+});
 
 // Admin-only pages
 Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->group(function () {

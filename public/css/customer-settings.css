@@ -1,0 +1,140 @@
+.customer-settings-page {
+    background: #f7fbfc;
+    box-sizing: border-box;
+    min-height: calc(100vh - 78px);
+    padding: 3.5rem clamp(1rem, 5vw, 5rem);
+}
+
+.customer-settings-page *,
+.customer-settings-page *::before,
+.customer-settings-page *::after {
+    box-sizing: border-box;
+}
+
+.customer-settings-heading,
+.customer-settings-card,
+.customer-settings-alert {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 980px;
+}
+
+.customer-settings-heading { margin-bottom: 1.5rem; }
+
+.customer-settings-eyebrow {
+    color: #2699c2;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    margin: 0 0 0.5rem;
+    text-transform: uppercase;
+}
+
+.customer-settings-heading h1 {
+    color: #294d5d;
+    font-family: Georgia, serif;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    margin: 0;
+}
+
+.customer-settings-heading > p:last-child { color: #728b96; margin: 0.5rem 0 0; }
+
+.customer-settings-alert { border-radius: 0.45rem; margin-bottom: 1rem; padding: 0.8rem 1rem; }
+.customer-settings-alert-success { background: #e7f7ee; color: #207844; }
+.customer-settings-alert-error { background: #fff0f0; color: #ad3030; }
+.customer-settings-alert-error strong { display: block; margin-bottom: 0.25rem; }
+.customer-settings-alert-error ul { margin: 0; padding-left: 1.2rem; }
+
+.customer-settings-card {
+    background: #ffffff;
+    border: 1px solid #e3eef2;
+    border-radius: 0.7rem;
+    box-shadow: 0 0.4rem 1.2rem rgba(31, 73, 91, 0.08);
+    overflow: hidden;
+}
+
+.customer-settings-card-header {
+    align-items: center;
+    background: #f3f8fa;
+    border-bottom: 1px solid #e3eef2;
+    display: flex;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+}
+
+.customer-settings-card-header + .customer-settings-card-header { border-top: 1px solid #e3eef2; }
+
+.customer-settings-card-icon {
+    align-items: center;
+    background: #e3f5fa;
+    border-radius: 0.5rem;
+    color: #2699c2;
+    display: inline-flex;
+    flex-shrink: 0;
+    height: 2.5rem;
+    justify-content: center;
+    width: 2.5rem;
+}
+
+.customer-settings-card-icon svg { fill: currentColor; height: 1.35rem; width: 1.35rem; }
+.customer-settings-card-header h2 { color: #294d5d; font-size: 1.05rem; font-weight: 600; margin: 0; }
+.customer-settings-card-header p { color: #8196a0; font-size: 0.78rem; margin: 0.2rem 0 0; }
+.customer-settings-card-body { padding: 1.5rem; }
+
+.customer-settings-fields {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.customer-settings-password-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.customer-settings-field label {
+    color: #49636e;
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+}
+
+.customer-settings-field input {
+    background: #ffffff;
+    border: 1px solid #cbdde3;
+    border-radius: 0.35rem;
+    color: #294d5d;
+    font: inherit;
+    min-height: 2.75rem;
+    outline: none;
+    padding: 0.65rem 0.75rem;
+    width: 100%;
+}
+
+.customer-settings-field input:focus { border-color: #2699c2; box-shadow: 0 0 0 3px rgba(38, 153, 194, 0.14); }
+
+.customer-settings-card-footer {
+    border-top: 1px solid #e3eef2;
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 1.5rem;
+}
+
+.customer-settings-save {
+    background: #2fa6d1;
+    border: 2px solid #2fa6d1;
+    border-radius: 999px;
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    padding: 0.6rem 1.4rem;
+}
+
+.customer-settings-save:hover { background: #ffffff; color: #278bb9; }
+
+@media (max-width: 700px) {
+    .customer-settings-page { padding: 2rem 1rem; }
+    .customer-settings-fields,
+    .customer-settings-password-fields { grid-template-columns: 1fr; }
+    .customer-settings-card-footer { padding: 1rem; }
+    .customer-settings-save { width: 100%; }
+}
