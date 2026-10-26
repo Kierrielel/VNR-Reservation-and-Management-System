@@ -44,23 +44,42 @@
         text-decoration: none;
     }
 
-    .vnr-brand-icon {
-        width: 42px;
-        height: 42px;
+    .vnr-brand-logo {
+        width: 58px;
+        height: 58px;
         border-radius: 50%;
-        background: #35a7d1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: block;
         flex-shrink: 0;
+        object-fit: cover;
     }
 
-    .vnr-brand-icon svg { width: 22px; height: 22px; fill: #ffffff; }
+    .vnr-brand-logo,
+    .vnr-avatar svg,
+    .vnr-account-chevron,
+    .vnr-account-item-icon svg {
+        display: block;
+        flex-shrink: 0;
+    }
 
     .vnr-brand-text {
         font-family: 'Mrs Saint Delafield', cursive;
         font-size: 2rem;
         color: #1d6f86;
+        line-height: 1;
+        white-space: nowrap;
+    }
+
+    .vnr-brand-copy {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .vnr-brand-copy small {
+        color: #7a9cac;
+        font-size: 0.48rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
         line-height: 1;
         white-space: nowrap;
     }
@@ -97,6 +116,178 @@
         font-size: 0.9rem;
         font-weight: 500;
         white-space: nowrap;
+    }
+
+    .vnr-account-trigger {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        color: #2f4f60;
+        display: flex;
+        gap: 0.7rem;
+        padding: 0.15rem 0;
+        text-align: left;
+    }
+
+    .vnr-account-trigger:focus-visible {
+        border-radius: 0.5rem;
+        outline: 3px solid rgba(47, 166, 209, 0.3);
+        outline-offset: 4px;
+    }
+
+    .vnr-avatar {
+        align-items: center;
+        background: #35a7d1;
+        border-radius: 50%;
+        color: #ffffff;
+        display: inline-flex;
+        flex-shrink: 0;
+        height: 42px;
+        justify-content: center;
+        width: 42px;
+    }
+
+    .vnr-avatar svg {
+        fill: currentColor;
+        height: 22px;
+        width: 22px;
+    }
+
+    .vnr-account-summary {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.2;
+        min-width: 7.5rem;
+    }
+
+    .vnr-account-summary strong {
+        color: #2f4f60;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .vnr-account-summary small {
+        color: #7b919d;
+        font-size: 0.7rem;
+        margin-top: 0.15rem;
+    }
+
+    .vnr-account-chevron {
+        fill: #2699c2;
+        height: 0.9rem;
+        width: 0.9rem;
+    }
+
+    .vnr-account-menu {
+        border: 0;
+        border-radius: 0.8rem;
+        box-shadow: 0 0.7rem 2rem rgba(31, 73, 91, 0.16);
+        margin-top: 0.8rem !important;
+        min-width: 20rem;
+        overflow: hidden;
+        padding: 0;
+    }
+
+    .vnr-account-head {
+        align-items: center;
+        background: linear-gradient(135deg, #f4fbfd, #ffffff);
+        display: flex;
+        gap: 0.75rem;
+        padding: 1.1rem 1.2rem;
+    }
+
+    .vnr-avatar-large {
+        height: 44px;
+        width: 44px;
+    }
+
+    .vnr-account-head > div,
+    .vnr-account-item > span:last-child {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .vnr-account-head strong,
+    .vnr-account-item strong {
+        color: #2f4f60;
+        font-size: 0.84rem;
+        font-weight: 600;
+    }
+
+    .vnr-account-head small,
+    .vnr-account-item small {
+        color: #8499a3;
+        font-size: 0.7rem;
+        margin-top: 0.15rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .vnr-account-head small {
+        max-width: 14rem;
+    }
+
+    .vnr-account-links {
+        padding: 0.5rem 0;
+    }
+
+    .vnr-account-item {
+        align-items: center;
+        display: flex;
+        gap: 0.85rem;
+        padding: 0.7rem 1.2rem;
+        text-decoration: none;
+        transition: background 0.2s ease;
+    }
+
+    .vnr-account-item:hover {
+        background: #f1fafc;
+    }
+
+    .vnr-account-item-icon {
+        align-items: center;
+        background: #eef9fc;
+        border-radius: 0.55rem;
+        color: #2699c2;
+        display: inline-flex;
+        flex-shrink: 0;
+        height: 2.25rem;
+        justify-content: center;
+        width: 2.25rem;
+    }
+
+    .vnr-account-item-icon svg {
+        fill: currentColor;
+        height: 1.2rem;
+        width: 1.2rem;
+    }
+
+    .vnr-account-placeholder {
+        cursor: default;
+    }
+
+    .vnr-account-footer {
+        border-top: 1px solid #e8f0f3;
+        padding: 0.5rem 0;
+    }
+
+    .vnr-account-logout {
+        color: #dc5a5a;
+    }
+
+    .vnr-account-logout .vnr-account-item-icon {
+        background: #fff2f2;
+        color: #dc5a5a;
+    }
+
+    .vnr-account-logout strong {
+        color: #dc5a5a;
+    }
+
+    .vnr-account-logout:hover {
+        background: #fff7f7;
     }
 
     .btn-vnr-outline,
@@ -181,6 +372,31 @@
 
         .vnr-brand-text {
             font-size: 1.7rem;
+        }
+
+        .vnr-brand-logo {
+            height: 48px;
+            width: 48px;
+        }
+
+        .vnr-brand-copy small {
+            font-size: 0.4rem;
+        }
+
+        .vnr-account-summary {
+            min-width: 0;
+        }
+
+        .vnr-account-summary strong,
+        .vnr-account-summary small {
+            max-width: 8rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .vnr-account-menu {
+            min-width: min(20rem, calc(100vw - 2rem));
         }
 
         .vnr-navbar .vnr-nav-actions {
