@@ -70,6 +70,9 @@
                                             <div class="vnr-notif-body">
                                                 <div class="vnr-notif-title">
                                                     <strong>{{ $item->title }}</strong>
+                                                    @if ($item->updated_at->gt($item->created_at))
+                                                        <span class="vnr-notif-edited">Edited</span>
+                                                    @endif
                                                     @if ($item->is_high_priority)
                                                         <span class="vnr-notif-priority">Important</span>
                                                     @endif

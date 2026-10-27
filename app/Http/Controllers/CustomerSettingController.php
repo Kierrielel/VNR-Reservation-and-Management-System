@@ -20,6 +20,19 @@ class CustomerSettingController extends Controller
     {
         $user = $request->user();
 
+        if ($request->input('section') === 'password') {
+            $data = $request->validate([
+                'current_password' => ['required', 'current_password'],
+                'new_password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+
+            $user->update([
+                'password' => $data['new_password'],
+            ]);
+
+            return redirect()->route('account.settings')->with('success', 'Password updated successfully.');
+        }
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -28,20 +41,12 @@ class CustomerSettingController extends Controller
                 'max:255',
                 Rule::unique('users', 'email')->ignore($user->id),
             ],
-            'current_password' => ['nullable', 'required_with:new_password', 'current_password'],
-            'new_password' => ['nullable', 'string', 'min:8', 'confirmed'],
         ]);
 
         $user->update([
             'name' => $data['name'],
             'email' => $data['email'],
         ]);
-
-        if (! empty($data['new_password'])) {
-            $user->update([
-                'password' => $data['new_password'],
-            ]);
-        }
 
         return redirect()->route('account.settings')->with('success', 'Account settings updated.');
     }

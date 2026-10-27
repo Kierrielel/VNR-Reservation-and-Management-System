@@ -130,16 +130,31 @@
 .btn-save-settings {
     background: #3fa9db;
     color: #fff;
-    border: none;
+    border: 1px solid #3fa9db;
     padding: 10px 24px;
     border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-.btn-save-settings:hover{
-     background: #fff;
-     color: #3fa9db ;
-     border: 1px solid #3fa9db
+.btn-save-settings:hover {
+    background: #fff;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.btn-save-settings:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.btn-save-settings:active {
+    transform: translateY(0);
 }
 
 .settings-alert {

@@ -21,7 +21,24 @@
     </div>
 
     <div class="all-reviews-card">
-        <div class="all-reviews-card-header">Guest Reviews</div>
+        <div class="all-reviews-card-header all-reviews-card-header-filter">
+            <span>Guest Reviews</span>
+
+            <form action="{{ route('reviews.index') }}" method="GET" class="all-reviews-filter-form">
+                <label for="rating">Filter by rating</label>
+                <select id="rating" name="rating" onchange="this.form.submit()">
+                    <option value="">All ratings</option>
+                    @for ($rating = 5; $rating >= 1; $rating--)
+                        <option value="{{ $rating }}" @selected($selectedRating === $rating)>
+                            {{ $rating }} {{ Str::plural('star', $rating) }}
+                        </option>
+                    @endfor
+                </select>
+                <noscript>
+                    <button type="submit">Apply Filter</button>
+                </noscript>
+            </form>
+        </div>
 
         <div class="all-reviews-grid">
             @forelse ($reviews as $review)

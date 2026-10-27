@@ -31,12 +31,28 @@ class ReviewController extends Controller
     }
 
     // CUSTOMER: see all reviews (read only)
-    public function index()
+    public function index(Request $request)
     {
-        $reviews       = Review::latest()->paginate(12);
-        $reviewCount   = Review::count();
-        $reviewAverage = Review::avg('rating') ?? 0;
+        $validated = $request->validate([
+            'rating' => ['nullable', 'integer', 'between:1,5'],
+        ]);
 
-        return view('LoginReg.include.home.all-reviews', compact('reviews', 'reviewCount', 'reviewAverage'));
+        $reviewsQuery = Review::query();
+
+        if (isset($validated['rating'])) {
+            $reviewsQuery->where('rating', $validated['rating']);
+        }
+
+        $reviews       = $reviewsQuery->latest()->paginate(12)->withQueryString();
+        $reviewCount   = $reviewsQuery->count();
+        $reviewAverage = $reviewsQuery->avg('rating') ?? 0;
+        $selectedRating = isset($validated['rating']) ? (int) $validated['rating'] : null;
+
+        return view('LoginReg.include.home.all-reviews', compact(
+            'reviews',
+            'reviewCount',
+            'reviewAverage',
+            'selectedRating'
+        ));
     }
 }

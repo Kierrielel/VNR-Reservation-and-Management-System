@@ -3,7 +3,7 @@
     <div class="ann-top">
         <h1 class="ann-title">Announcements Management</h1>
         <button type="button" class="ann-create-btn"
-                onclick="document.querySelector('#annModal form').reset(); document.getElementById('annModal').classList.add('open')">
+                onclick="openCreateAnnouncementModal()">
             + Create Announcement
         </button>
     </div>
@@ -58,15 +58,15 @@
                         <span><span class="ann-badge ann-{{ $announcement->status }}">{{ ucfirst($announcement->status) }}</span></span>
 
                         <div class="ann-actions">
-                            @if ($announcement->status !== 'archived')
-                                <form method="POST" action="{{ route('admin.announcements.archive', $announcement) }}">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="ann-btn">Archive</button>
-                                </form>
-                            @else
-                                <span class="ann-btn ann-btn-archived" aria-label="Announcement archived">Archived</span>
-                            @endif
+                            <button type="button" class="ann-btn ann-edit-btn"
+                                    data-update-url="{{ route('admin.announcements.update', $announcement) }}"
+                                    data-title="{{ $announcement->title }}"
+                                    data-message="{{ $announcement->message }}"
+                                    data-category="{{ $announcement->category }}"
+                                    data-publish-at="{{ $announcement->publish_at?->format('Y-m-d\\TH:i') }}"
+                                    data-high-priority="{{ $announcement->is_high_priority ? '1' : '0' }}">
+                                Edit
+                            </button>
                             <form method="POST" action="{{ route('admin.announcements.destroy', $announcement) }}"
                                   data-confirm data-confirm-title="Delete announcement?"
                                   data-confirm-message="This announcement will be permanently deleted. This action cannot be undone."
@@ -141,8 +141,9 @@
                 <div class="flash flash-error">{{ $errors->first() }}</div>
             @endif
 
-            <form method="POST" action="{{ route('admin.announcements.store') }}">
+            <form id="announcementForm" method="POST" action="{{ route('admin.announcements.store') }}">
                 @csrf
+                <input type="hidden" name="_method" id="annMethod" value="">
 
                 <label for="annTitle">Title</label>
                 <input class="form-control" type="text" id="annTitle" name="title" value="{{ old('title') }}" required>
@@ -167,7 +168,7 @@
                 <div class="ann-modal-buttons">
                     <button type="button" class="ann-btn-secondary"
                             onclick="document.getElementById('annModal').classList.remove('open'); document.getElementById('annModal').setAttribute('aria-hidden', 'true')">Cancel</button>
-                    <button type="submit" class="btn-save">Post Announcement</button>
+                    <button type="submit" class="btn-save" id="annSubmitButton">Post Announcement</button>
                 </div>
             </form>
         </div>
@@ -180,10 +181,43 @@
             document.body.appendChild(announcementModal);
         }
 
-        // Quick templates: fill the popup, then open it
+        const announcementForm = document.getElementById('announcementForm');
+        const announcementMethod = document.getElementById('annMethod');
+        const announcementTitle = document.getElementById('annModalTitle');
+        const announcementSubmitButton = document.getElementById('annSubmitButton');
+
+        // admin can create announcemnt
+        function openCreateAnnouncementModal() {
+            announcementForm.reset();
+            announcementForm.action = "{{ route('admin.announcements.store') }}";
+            announcementMethod.value = '';
+            announcementTitle.textContent = 'Create Announcement';
+            announcementSubmitButton.textContent = 'Post Announcement';
+            announcementModal.classList.add('open');
+            announcementModal.setAttribute('aria-hidden', 'false');
+        }
+        // Admin can edit announcemnt
+        document.querySelectorAll('.ann-edit-btn').forEach(function (button) {
+            button.addEventListener('click', function () {
+                announcementForm.action = button.dataset.updateUrl;
+                announcementMethod.value = 'PUT';
+                announcementTitle.textContent = 'Edit Announcement';
+                announcementSubmitButton.textContent = 'Save Changes';
+                announcementForm.querySelector('[name="title"]').value = button.dataset.title;
+                announcementForm.querySelector('[name="message"]').value = button.dataset.message;
+                announcementForm.querySelector('[name="category"]').value = button.dataset.category;
+                announcementForm.querySelector('[name="publish_at"]').value = button.dataset.publishAt;
+                announcementForm.querySelector('[name="is_high_priority"]').checked = button.dataset.highPriority === '1';
+                announcementModal.classList.add('open');
+                announcementModal.setAttribute('aria-hidden', 'false');
+            });
+        });
+
+        // Quick templates: fill the template, then open it
         document.querySelectorAll('.ann-template').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            var modal = document.getElementById('annModal');
+            openCreateAnnouncementModal();
+            var modal = announcementModal;
             modal.querySelector('[name="title"]').value = btn.dataset.title;
             modal.querySelector('[name="message"]').value = btn.dataset.message;
             modal.querySelector('[name="category"]').value = btn.dataset.category;

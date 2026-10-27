@@ -24,9 +24,13 @@
         @endif
     </div>
 
-    <button type="button" class="btn-blue" data-bs-toggle="modal" data-bs-target="#reviewModal">
-        Write a Review
-    </button>
+    @auth
+        <button type="button" class="btn-blue" data-bs-toggle="modal" data-bs-target="#reviewModal">
+            Write a Review
+        </button>
+    @else
+        <a href="{{ route('login') }}" class="btn-blue">Log in to write a review</a>
+    @endauth
 </div>
 
 <div class="reviews-grid">
@@ -53,6 +57,7 @@
 
 <a href="{{ route('reviews.index') }}" class="btn-blue">See All Reviews</a>
 
+@auth
 <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content review-modal">
@@ -96,3 +101,4 @@
         </div>
     </div>
 </div>
+@endauth
