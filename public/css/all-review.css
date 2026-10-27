@@ -88,6 +88,60 @@
     font-weight: 700;
 }
 
+.all-reviews-card-header-filter {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.all-reviews-filter-form {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.all-reviews-filter-form label {
+    color: #555;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.all-reviews-filter-form select,
+.all-reviews-filter-form button {
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+    padding: 8px 10px;
+}
+
+.all-reviews-filter-form select {
+    background: #fff;
+    color: #333;
+    cursor: pointer;
+    min-width: 140px;
+}
+
+.all-reviews-filter-form select:focus-visible,
+.all-reviews-filter-form button:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.all-reviews-filter-form button {
+    background: #3fa9db;
+    color: #fff;
+    cursor: pointer;
+}
+
+.all-reviews-filter-form button:hover {
+    background: #fff;
+    color: #278bb9;
+}
+
 .all-reviews-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
@@ -200,5 +254,15 @@
     .all-reviews-grid { grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 12px; }
     .all-review-item { padding: 16px; }
     .all-reviews-card-header { padding: 14px 16px; }
+    .all-reviews-card-header-filter {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .all-reviews-filter-form {
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+    }
+    .all-reviews-filter-form select { width: 100%; }
     .all-reviews-back { max-width: 100%; padding: 0.65rem 1rem; }
 }

@@ -63,15 +63,32 @@ class AdminAnnouncementController extends Controller
             'publish_at'       => $request->publish_at ?? now(),
         ]);
 
-        return back()->with('success', 'Announcement created.');
+        return back()->with('success', 'Announcement Edited.');
     }
 
-    // Move an announcement to archived
-    public function archive(Announcement $announcement)
+    // Update an existing announcement
+    public function update(Request $request, Announcement $announcement)
     {
-        $announcement->update(['is_archived' => true]);
+        $data = $request->validate([
+            'title'      => 'required|string|max:100',
+            'message'    => 'required|string|max:1000',
+            'category'   => 'required|in:Maintenance,Event,Promotion,General',
+            'publish_at' => 'nullable|date',
+        ]);
 
-        return back()->with('success', 'Announcement archived.');
+        $announcement->update([
+            'title'            => $data['title'],
+            'message'          => $data['message'],
+            'category'         => $data['category'],
+            'is_high_priority' => $request->boolean('is_high_priority'),
+            'publish_at'       => $data['publish_at'] ?? now(),
+        ]);
+
+        DB::table('announcement_reads')
+            ->where('announcement_id', $announcement->id)
+            ->delete();
+
+        return back()->with('success', 'Announcement updated.');
     }
 
     // Delete an announcement

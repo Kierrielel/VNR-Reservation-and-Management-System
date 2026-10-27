@@ -32,6 +32,7 @@
     <form action="{{ route('account.settings.update') }}" method="POST" class="customer-settings-card">
         @csrf
         @method('PUT')
+        <input type="hidden" name="section" value="profile">
 
         <div class="customer-settings-card-header">
             <div class="customer-settings-card-icon" aria-hidden="true">
@@ -55,9 +56,19 @@
             </div>
         </div>
 
+        <div class="customer-settings-card-footer">
+            <button type="submit" class="customer-settings-save">Save Changes</button>
+        </div>
+    </form>
+
+    <form action="{{ route('account.settings.update') }}" method="POST" class="customer-settings-card">
+        @csrf
+        @method('PUT')
+        <input type="hidden" name="section" value="password">
+
         <div class="customer-settings-card-header">
             <div class="customer-settings-card-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4V6zm5 9h-2v2h-2v-2H9v-2h2v-2h2v2h2v2z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M17 8h-1V6a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8zm-7-2a2 2 0 0 1 4 0v2h-4V6zm5 9h-2v2h-2v-2H9v-2h2v-2h2v2h2v2z"/></svg>
             </div>
             <div>
                 <h2>Change Password</h2>
@@ -68,22 +79,22 @@
         <div class="customer-settings-card-body customer-settings-fields customer-settings-password-fields">
             <div class="customer-settings-field">
                 <label for="current_password">Current Password</label>
-                <input type="password" id="current_password" name="current_password" autocomplete="current-password">
+                <input type="password" id="current_password" name="current_password" autocomplete="current-password" required>
             </div>
 
             <div class="customer-settings-field">
                 <label for="new_password">New Password</label>
-                <input type="password" id="new_password" name="new_password" autocomplete="new-password">
+                <input type="password" id="new_password" name="new_password" autocomplete="new-password" required>
             </div>
 
             <div class="customer-settings-field">
                 <label for="new_password_confirmation">Confirm New Password</label>
-                <input type="password" id="new_password_confirmation" name="new_password_confirmation" autocomplete="new-password">
+                <input type="password" id="new_password_confirmation" name="new_password_confirmation" autocomplete="new-password" required>
             </div>
         </div>
 
         <div class="customer-settings-card-footer">
-            <button type="submit" class="customer-settings-save">Save Changes</button>
+            <button type="submit" class="customer-settings-save">Save Password</button>
         </div>
     </form>
 </main>

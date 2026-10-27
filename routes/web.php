@@ -68,14 +68,16 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
         // Thus is for announcemnet
     Route::get('/announcements', [AdminAnnouncementController::class, 'index'])->name('announcements.index');
     Route::post('/announcements', [AdminAnnouncementController::class, 'store'])->name('announcements.store');
-    Route::patch('/announcements/{announcement}/archive', [AdminAnnouncementController::class, 'archive'])->name('announcements.archive');
+    Route::put('/announcements/{announcement}', [AdminAnnouncementController::class, 'update'])->name('announcements.update');
     Route::delete('/announcements/{announcement}', [AdminAnnouncementController::class, 'destroy'])->name('announcements.destroy');
 
 });
 // REVIEW AUTH
 Route::get('/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 // CUSTOMER: submit a review
-Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+Route::post('/reviews', [ReviewController::class, 'store'])
+    ->middleware('auth')
+    ->name('reviews.store');
 
 // For user to get notifeid
 Route::post('/announcements/read', [AnnouncementController::class, 'markAllRead'])

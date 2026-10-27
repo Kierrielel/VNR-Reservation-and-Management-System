@@ -30,18 +30,16 @@ class CustomerSettingTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    public function test_customer_can_update_profile_and_password(): void
+    public function test_customer_can_update_profile(): void
     {
         $user = User::factory()->create([
             'password' => Hash::make('old-password'),
         ]);
 
         $response = $this->actingAs($user)->put(route('account.settings.update'), [
+            'section' => 'profile',
             'name' => 'Updated Guest',
             'email' => 'updated@example.com',
-            'current_password' => 'old-password',
-            'new_password' => 'new-password',
-            'new_password_confirmation' => 'new-password',
         ]);
 
         $response->assertRedirect(route('account.settings'));
@@ -50,6 +48,23 @@ class CustomerSettingTest extends TestCase
             'name' => 'Updated Guest',
             'email' => 'updated@example.com',
         ]);
+        $this->assertTrue(Hash::check('old-password', $user->refresh()->password));
+    }
+
+    public function test_customer_can_update_password(): void
+    {
+        $user = User::factory()->create([
+            'password' => Hash::make('old-password'),
+        ]);
+
+        $response = $this->actingAs($user)->put(route('account.settings.update'), [
+            'section' => 'password',
+            'current_password' => 'old-password',
+            'new_password' => 'new-password',
+            'new_password_confirmation' => 'new-password',
+        ]);
+
+        $response->assertRedirect(route('account.settings'));
         $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
     }
 
@@ -60,8 +75,7 @@ class CustomerSettingTest extends TestCase
         ]);
 
         $response = $this->actingAs($user)->from(route('account.settings'))->put(route('account.settings.update'), [
-            'name' => $user->name,
-            'email' => $user->email,
+            'section' => 'password',
             'new_password' => 'new-password',
             'new_password_confirmation' => 'new-password',
             'current_password' => 'wrong-password',

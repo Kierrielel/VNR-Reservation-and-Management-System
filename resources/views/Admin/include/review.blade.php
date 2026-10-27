@@ -40,6 +40,14 @@
                     <option value="responded" {{ request('status') == 'responded' ? 'selected' : '' }}>Responded</option>
                     <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Not Responded</option>
                 </select>
+                <select name="rating">
+                    <option value="">All Ratings</option>
+                    @for ($rating = 5; $rating >= 1; $rating--)
+                        <option value="{{ $rating }}" @selected((int) request('rating') === $rating)>
+                            {{ $rating }} {{ Str::plural('star', $rating) }}
+                        </option>
+                    @endfor
+                </select>
                 <button type="submit"><i class="bi bi-funnel"></i> Filter</button>
             </form>
         </div>

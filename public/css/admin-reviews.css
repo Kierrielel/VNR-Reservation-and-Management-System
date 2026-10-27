@@ -277,6 +277,13 @@ body {
     border-radius: 3px;
     font-family: inherit;
     font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.draft-box textarea:focus {
+    outline: none;
+    border-color: #3fa9db;
+    box-shadow: 0 0 0 3px rgba(63, 169, 219, 0.2);
 }
 
 .btn-delete {
