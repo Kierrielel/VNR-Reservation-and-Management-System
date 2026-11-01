@@ -6,43 +6,131 @@ use App\Models\Booking;
 use App\Models\Cottage;
 use App\Models\EventPackage;
 use App\Models\Setting;
+use App\Services\AvailabilityService;
+use App\Services\CheckInService;
+use App\Services\ReservationLockService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class ReservationController extends Controller
 {
-    // Only these statuses block a cottage or a date. Cancelled bookings free it up.
-    private const ACTIVE_STATUSES = ['pending', 'confirmed'];
+    public function __construct(
+        private readonly AvailabilityService $availability,
+        private readonly ReservationLockService $reservationLocks,
+    ) {}
+
+    public function create(Request $request)
+    {
+        return view('LoginReg.booking', [
+            'packages' => EventPackage::where('status', 'available')->orderBy('price')->get(),
+            'reservationFeePercent' => (float) Setting::getValue('reservation_fee_percent', 20),
+            'earliestBookingDate' => $this->earliestBookingDate($request)->toDateString(),
+            'walkIn' => $request->routeIs('walk-ins.create', 'admin.book'),
+        ]);
+    }
+
+    /**
+     * Return an array of date strings (Y-m-d) that should be disabled in the calendar.
+     *
+     * - Events: any date that already has an active event booking.
+     * - Public pool: any date where ALL eligible cottages are already booked.
+     */
+    public function disabledDates(Request $request)
+    {
+        $earliestDate = $this->earliestBookingDate($request);
+        $validated = $request->validate([
+            'reservation_type' => 'required|in:public,event',
+            'stay_type' => 'nullable|required_if:reservation_type,public|in:day_tour,overnight',
+        ]);
+
+        if ($validated['reservation_type'] === 'event') {
+            return response()->json(
+                $this->availability->activeBookings()->where('reservation_type', 'event')
+                    ->whereDate('check_in', '>=', $earliestDate)
+                    ->pluck('check_in')
+                    ->map(fn ($d) => Carbon::parse($d)->toDateString())
+                    ->unique()
+                    ->values()
+            );
+        }
+
+        // Public pool — find dates where zero cottages remain available.
+        // We only check dates touched by an existing booking (no bookings = all cottages free).
+        $stayType = $validated['stay_type'];
+
+        $candidateDates = $this->availability->activeBookings()
+            ->whereDate('check_out', '>=', $earliestDate)
+            ->get(['check_in', 'check_out'])
+            ->flatMap(function ($b) {
+                $dates = [];
+                $d = Carbon::parse($b->check_in);
+                $end = Carbon::parse($b->check_out);
+                while ($d->lte($end)) {
+                    $dates[] = $d->toDateString();
+                    $d->addDay();
+                }
+
+                return $dates;
+            })
+            ->unique()
+            ->filter(fn ($d) => Carbon::parse($d)->gte($earliestDate))
+            ->values();
+
+        $disabled = [];
+
+        foreach ($candidateDates as $date) {
+            [$checkIn, $checkOut] = $this->availability->resolveDates($date, $stayType);
+
+            if ($this->availability->availableCottages($checkIn, $checkOut, $stayType)->count() === 0) {
+                $disabled[] = $date;
+            }
+        }
+
+        return response()->json($disabled);
+    }
+
+    public function index()
+    {
+        $bookings = Booking::where('user_id', Auth::id())
+            ->with('cottages', 'eventPackage')
+            ->latest('check_in')
+            ->get();
+
+        return view('reservations.index', compact('bookings'));
+    }
 
     public function checkAvailability(Request $request)
     {
         $validated = $request->validate([
-            'check_in' => 'required|date|after_or_equal:today',
+            'check_in' => 'required|date|after_or_equal:'.$this->earliestBookingDate($request)->toDateString(),
             'stay_type' => 'required|in:day_tour,overnight',
         ]);
 
-        [$checkIn, $checkOut] = $this->resolveDates($validated['check_in'], $validated['stay_type']);
+        [$checkIn, $checkOut] = $this->availability->resolveDates($validated['check_in'], $validated['stay_type']);
 
         return response()->json(
-            $this->availableCottages($checkIn, $checkOut, $validated['stay_type'])->get()
+            $this->availability->availableCottages($checkIn, $checkOut, $validated['stay_type'])->get()
         );
     }
 
     public function store(Request $request)
     {
+        $walkIn = $request->routeIs('walk-ins.store');
         $validated = $request->validate([
             'reservation_type' => 'required|in:public,event',
             'stay_type' => 'required_if:reservation_type,public|nullable|in:day_tour,overnight',
             'cottage_ids' => 'required_if:reservation_type,public|nullable|array|min:1|max:2',
             'cottage_ids.*' => 'integer|distinct|exists:cottages,id',
             'event_package_id' => 'required_if:reservation_type,event|nullable|exists:event_packages,id',
-            'check_in' => 'required|date|after_or_equal:today',
+            'check_in' => 'required|date|after_or_equal:'.$this->earliestBookingDate($request)->toDateString(),
             'guest_count' => 'required|integer|min:1',
             'additional_message' => 'nullable|string|max:1000',
+            'guest_name' => $walkIn ? 'required|string|max:255' : 'exclude',
+            'guest_contact' => $walkIn ? 'required|string|max:50' : 'exclude',
+            'guest_email' => $walkIn ? 'nullable|email|max:255' : 'exclude',
         ]);
 
         $isEvent = $validated['reservation_type'] === 'event';
@@ -50,9 +138,13 @@ class ReservationController extends Controller
 
         // Check-out never comes from the form. Day tours and events end the same day,
         // overnight stays end the next day.
-        [$checkIn, $checkOut] = $this->resolveDates($validated['check_in'], $stayType ?? 'day_tour');
+        [$checkIn, $checkOut] = $this->availability->resolveDates($validated['check_in'], $stayType ?? 'day_tour');
 
-        $booking = DB::transaction(function () use ($validated, $isEvent, $stayType, $checkIn, $checkOut) {
+        $resources = $isEvent
+            ? ['event:venue']
+            : array_map(fn ($id): string => 'cottage:'.$id, $validated['cottage_ids']);
+
+        $booking = $this->reservationLocks->run($resources, function () use ($validated, $isEvent, $stayType, $checkIn, $checkOut, $walkIn) {
             $package = null;
 
             if ($isEvent) {
@@ -64,7 +156,7 @@ class ReservationController extends Controller
                     ]);
                 }
 
-                if ($this->eventDateTaken($checkIn)) {
+                if ($this->availability->eventDateTaken($checkIn)) {
                     throw ValidationException::withMessages([
                         'check_in' => 'That date is already booked for an event.',
                     ]);
@@ -73,7 +165,7 @@ class ReservationController extends Controller
                 $total = (float) $package->price;
             } else {
                 // Re-check availability here. The earlier check from the form can be stale.
-                $available = $this->availableCottages($checkIn, $checkOut, $stayType)->pluck('id')->all();
+                $available = $this->availability->availableCottages($checkIn, $checkOut, $stayType)->pluck('id')->all();
 
                 if (array_diff($validated['cottage_ids'], $available)) {
                     throw ValidationException::withMessages([
@@ -92,7 +184,11 @@ class ReservationController extends Controller
             $reservationFee = round($total * $feePercent / 100, 2);
 
             $booking = Booking::create([
-                'user_id' => Auth::id(),
+                'user_id' => $walkIn ? null : Auth::id(),
+                'guest_name' => $validated['guest_name'] ?? null,
+                'guest_contact' => $validated['guest_contact'] ?? null,
+                'guest_email' => $validated['guest_email'] ?? null,
+                'booked_by' => $walkIn ? Auth::id() : null,
                 'event_package_id' => $package?->id,
                 'reservation_type' => $validated['reservation_type'],
                 'stay_type' => $stayType,
@@ -106,6 +202,7 @@ class ReservationController extends Controller
                 'payment_status' => 'unpaid',
                 'reference_code' => $this->generateReferenceCode(),
                 'additional_message' => $validated['additional_message'] ?? null,
+                'expires_at' => now()->addMinutes(config('reservations.hold_minutes')),
             ]);
 
             if (! $isEvent) {
@@ -116,26 +213,41 @@ class ReservationController extends Controller
         });
 
         return redirect()
-            ->route('reservations.show', $booking)
+            ->route($walkIn ? 'walk-ins.show' : 'reservations.show', $booking)
             ->with('success', 'Reservation created.');
     }
 
-    public function show(Booking $booking)
+    public function show(Booking $booking, CheckInService $checkIn)
     {
         // A guest can only open their own booking.
         abort_unless($booking->user_id === Auth::id(), 403);
 
         return view('reservations.show', [
             'booking' => $booking->load('cottages', 'eventPackage'),
+            'canShowCheckInQr' => $checkIn->canIssueQr($booking),
         ]);
     }
 
-    private function calculateTotal(array $cottageIds, string $stayType, int $guestCount)
+    private function earliestBookingDate(Request $request): Carbon
+    {
+        return in_array($request->user()?->role, ['admin', 'staff'], true)
+            ? Carbon::today()
+            : Carbon::tomorrow();
+    }
+
+    private function calculateTotal(array $cottageIds, string $stayType, int $guestCount): float
     {
         $cottages = Cottage::whereIn('id', $cottageIds)->get();
 
         if ($cottages->count() !== count(array_unique($cottageIds))) {
             throw new \InvalidArgumentException('One or more selected cottages do not exist.');
+        }
+
+        $capacity = (int) $cottages->sum('capacity');
+        if ($guestCount > $capacity) {
+            throw ValidationException::withMessages([
+                'guest_count' => "The selected accommodations can hold a maximum of {$capacity} guests. Select another accommodation (up to 2 total) or reduce the number of guests.",
+            ]);
         }
 
         if ($stayType === 'overnight' && $cottages->contains(fn ($cottage) => $cottage->price_overnight === null)) {
@@ -156,45 +268,10 @@ class ReservationController extends Controller
         return (float) $cottagePrice + $guestPrice;
     }
 
-    private function availableCottages(string $checkIn, string $checkOut, string $stayType)
-    {
-        $query = Cottage::where('status', 'available')
-            ->whereDoesntHave('bookings', function ($q) use ($checkIn, $checkOut) {
-                // Inclusive comparison so a day tour (check_in = check_out) still blocks its own date.
-                // whereDate is used because SQLite stores dates as text and plain comparison can misfire.
-                $q->whereIn('bookings.status', self::ACTIVE_STATUSES)
-                    ->whereDate('bookings.check_in', '<=', $checkOut)
-                    ->whereDate('bookings.check_out', '>=', $checkIn);
-            });
-
-        // Nipa huts and umbrella cottages have no overnight price, so they cannot be booked overnight.
-        if ($stayType === 'overnight') {
-            $query->whereNotNull('price_overnight');
-        }
-
-        return $query;
-    }
-
-    private function eventDateTaken(string $date): bool
-    {
-        return Booking::where('reservation_type', 'event')
-            ->whereIn('status', self::ACTIVE_STATUSES)
-            ->whereDate('check_in', $date)
-            ->exists();
-    }
-
-    private function resolveDates(string $checkIn, string $stayType): array
-    {
-        $in = Carbon::parse($checkIn);
-        $out = $stayType === 'overnight' ? $in->copy()->addDay() : $in->copy();
-
-        return [$in->toDateString(), $out->toDateString()];
-    }
-
     private function generateReferenceCode(): string
     {
         do {
-            $code = 'VNR-' . strtoupper(Str::random(8));
+            $code = 'VNR-'.strtoupper(Str::random(8));
         } while (Booking::where('reference_code', $code)->exists());
 
         return $code;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Booking extends Model
 {
@@ -11,6 +12,10 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id',
+        'guest_name',
+        'guest_contact',
+        'guest_email',
+        'booked_by',
         'event_package_id',
         'reservation_type',
         'stay_type',
@@ -25,6 +30,9 @@ class Booking extends Model
         'payment_method',
         'reference_code',
         'additional_message',
+        'expires_at',
+        'checked_in_at',
+        'checked_in_by',
     ];
 
     protected $casts = [
@@ -33,11 +41,33 @@ class Booking extends Model
         'total_price' => 'decimal:2',
         'reservation_fee' => 'decimal:2',
         'balance' => 'decimal:2',
+        'expires_at' => 'datetime',
+        'checked_in_at' => 'datetime',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function checkedInBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'checked_in_by');
+    }
+
+    public function bookedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'booked_by');
+    }
+
+    public function getGuestDisplayNameAttribute(): string
+    {
+        return $this->guest_name ?? $this->user?->name ?? 'Guest';
+    }
+
+    public function getGuestDisplayEmailAttribute(): ?string
+    {
+        return $this->guest_email ?? $this->user?->email;
     }
 
     public function eventPackage()
@@ -48,5 +78,10 @@ class Booking extends Model
     public function cottages()
     {
         return $this->belongsToMany(Cottage::class, 'booking_cottage');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 }

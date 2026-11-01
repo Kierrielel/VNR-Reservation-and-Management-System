@@ -12,6 +12,125 @@
     color: #111111;
 }
 
+.report-filters,
+.report-export-actions,
+.report-print-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.report-filters label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.report-filters input {
+    padding: 10px;
+    border: 1px solid #b5c9d2;
+    border-radius: 6px;
+    font: inherit;
+}
+
+.report-filters button,
+.report-export-actions a,
+.report-print-controls button {
+    padding: 10px 16px;
+    border: 1px solid #245c75;
+    border-radius: 6px;
+    background: #245c75;
+    color: #ffffff;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.report-definition {
+    margin: 18px 0;
+    color: #555555;
+    font-size: 14px;
+}
+
+.report-error {
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background: #fceaea;
+    color: #922020;
+}
+
+.report-error ul {
+    margin: 0;
+}
+
+.report-card h2 {
+    overflow-wrap: anywhere;
+}
+
+.report-export-actions {
+    margin-top: 24px;
+}
+
+.report-table-container {
+    max-height: 440px;
+    overflow: auto;
+    margin-top: 24px;
+}
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.report-table caption {
+    text-align: left;
+    padding: 12px 0;
+    font-weight: 600;
+}
+
+.report-table th,
+.report-table td {
+    padding: 12px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.report-table th:last-child,
+.report-table td:last-child {
+    text-align: right;
+}
+
+.report-print {
+    max-width: 1000px;
+    margin: 32px auto;
+    padding: 0 24px;
+    font-family: Arial, sans-serif;
+}
+
+@media print {
+    .report-print-controls {
+        display: none;
+    }
+
+    .report-print {
+        margin: 0;
+        padding: 0;
+        color: #000000;
+        font-size: 11pt;
+    }
+
+    .report-table thead {
+        display: table-header-group;
+    }
+
+    .report-table tr {
+        break-inside: avoid;
+    }
+}
+
 .reports-layout {
     display: block;
 }

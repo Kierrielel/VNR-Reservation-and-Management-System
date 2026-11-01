@@ -17,6 +17,19 @@
     color: #111111;
 }
 
+.bookings-header-with-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.bookings-header.bookings-header-with-actions h1 {
+    margin: 0;
+}
+
 
 /* =========================
    BOOKINGS TABLE
@@ -172,6 +185,183 @@
     color: #222222;
 }
 
+.booking-filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.booking-filters label,
+.booking-payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    font: 14px "Poppins", sans-serif;
+}
+
+.booking-filters input,
+.booking-filters select,
+.booking-payment-form input,
+.booking-payment-form select {
+    min-height: 40px;
+    max-width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #bcbcbc;
+    border-radius: 6px;
+    background: #ffffff;
+    font: inherit;
+}
+
+.booking-button,
+.booking-details-link {
+    display: inline-block;
+    padding: 10px 14px;
+    border: 1px solid #245c75;
+    border-radius: 6px;
+    background: #245c75;
+    color: #ffffff;
+    font: 13px "Poppins", sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.booking-button-secondary {
+    background: #ffffff;
+    color: #245c75;
+}
+
+.booking-button-danger {
+    background: #a52626;
+    border-color: #a52626;
+}
+
+.booking-reference {
+    display: block;
+    color: #666666;
+    font-size: 11px;
+}
+
+.booking-back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #245c75;
+}
+
+.booking-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.booking-detail-card {
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+}
+
+.booking-detail-card h2 {
+    margin: 0 0 20px;
+    font-size: 23px;
+}
+
+.booking-detail-card h3 {
+    margin-top: 24px;
+    font-size: 18px;
+}
+
+.booking-data {
+    display: grid;
+    grid-template-columns: minmax(100px, 1fr) 2fr;
+    gap: 12px;
+    margin: 0;
+}
+
+.booking-data dt {
+    color: #555555;
+}
+
+.booking-data dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+.booking-message {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.booking-status-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.booking-history-scroll {
+    overflow-x: auto;
+}
+
+.booking-history {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.booking-history th,
+.booking-history td {
+    padding: 12px;
+    border-bottom: 1px solid #eeeeee;
+    overflow-wrap: anywhere;
+}
+
+.booking-alert {
+    padding: 16px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+}
+
+.booking-alert-success {
+    background: #e7f5eb;
+    color: #235c32;
+}
+
+.booking-alert-error {
+    background: #fceaea;
+    color: #922020;
+}
+
+.booking-alert ul {
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .booking-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .booking-filters label {
+        flex: 1 1 180px;
+    }
+}
+
+@media (max-width: 650px) {
+    .booking-detail-card {
+        padding: 18px;
+    }
+
+    .booking-data {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .booking-data dd {
+        margin-bottom: 10px;
+    }
+}
+
 
 /* =========================
    PAGINATION
@@ -182,7 +372,13 @@
     align-items: center;
 }
 
-.booking-pagination button {
+.booking-pagination a,
+.booking-pagination span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-decoration: none;
     width: 38px;
     height: 34px;
     border: 1px solid #bcbcbc;
@@ -194,12 +390,12 @@
     cursor: pointer;
 }
 
-.booking-pagination button:first-child {
+.booking-pagination > :first-child {
     border-left: 1px solid #bcbcbc;
     border-radius: 6px 0 0 6px;
 }
 
-.booking-pagination button:last-child {
+.booking-pagination > :last-child {
     border-radius: 0 6px 6px 0;
 }
 
@@ -208,12 +404,21 @@
     color: #245c75;
 }
 
-.booking-pagination button:hover {
+.booking-pagination a:hover {
     background-color: #e8f6fb;
 }
 
 .booking-pagination .active:hover {
     background-color: #a9d9ea;
+}
+
+.booking-pagination span {
+    cursor: default;
+}
+
+.booking-pagination [aria-disabled="true"] {
+    color: #888888;
+    background-color: #f5f5f5;
 }
 
 
