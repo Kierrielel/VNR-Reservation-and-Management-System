@@ -76,6 +76,8 @@ html {
     min-width: 0;
 }
 .rev-analytics-cont {
+    display: flex;
+    flex-direction: column;
     min-width: 0;
     flex: 2;
     min-height: 418px;
@@ -83,16 +85,34 @@ html {
     border-radius: 10px;
     box-shadow: 0px 0px 10px 5px rgba(174, 174, 174, 0.3);
 }
+
+.rev-analytics-cont .chart-container {
+    flex: 1;
+    min-height: 300px;
+    height: auto;
+}
+
+.rev-analytics-cont .chart-container canvas,
+.occupancy-donut canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+}
 .analytics-title {
     font-weight: 700;
     font-size: larger;
 }
 .occupancy-alert-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
     text-align: center;
     min-width: 0;
     flex: 1;
     min-height: 418px;
-    padding: 15px 0px 15px 0px;
+    padding: 20px;
     border-radius: 10px;
     background-color: #3779b2;
     color: #ffffff;
@@ -107,11 +127,85 @@ html {
 }
 
 .cottage-occupancy-value {
-    font-family: Playfair Display;
+    font-family: "Playfair Display", Georgia, serif;
     font-weight: 700;
-    font-style: Bold;
-    font-size: 96px;
+    font-size: clamp(26px, 2.8vw, 40px);
     color: #ffffff;
+    line-height: 1.15;
+    font-variant-numeric: tabular-nums;
+}
+
+.occupancy-donut {
+    position: relative;
+    width: min(100%, 230px);
+    aspect-ratio: 1;
+    margin: 8px 0;
+}
+
+.occupancy-donut-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    pointer-events: none;
+}
+
+.occupancy-donut-total {
+    font-size: 12px;
+    color: #e4f1fc;
+}
+
+.occupancy-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 16px;
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+    font-size: 12px;
+}
+
+.occupancy-legend li {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.occupancy-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.occupancy-legend-dot-0 {
+    background: #f7ca6a;
+}
+
+.occupancy-legend-dot-1 {
+    background: #c6edf8;
+}
+
+.occupancy-legend-dot-2 {
+    background: #6b9bc3;
+}
+
+.cottage-occupancy-review {
+    margin-top: auto;
+    color: #ffffff;
+    text-underline-offset: 4px;
+}
+
+.cottage-occupancy-review:hover {
+    color: #c6edf8;
+}
+
+.occupancy-empty {
+    margin: 0 0 8px;
+    font-size: 13px;
 }
 .recent-book-cont {
     margin-top: -40px;
@@ -457,4 +551,57 @@ html {
 .chart-container canvas {
     width: 100% !important;
     height: 100% !important;
+}
+
+/* Recent Bookings Table */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.dashboard-table thead th {
+    text-align: left;
+    padding: 12px 16px;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    border-bottom: 2px solid #e5e5e5;
+}
+
+.dashboard-table tbody td {
+    padding: 14px 16px;
+    font-family: "Poppins", sans-serif;
+    font-size: 13.5px;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.dashboard-table tbody tr:hover {
+    background-color: #f9fbfd;
+}
+
+.dashboard-status-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed, .status-approved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled, .status-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
 }

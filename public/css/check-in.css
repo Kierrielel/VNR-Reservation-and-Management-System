@@ -1,0 +1,191 @@
+body {
+    margin: 0;
+    background: #f3f6f8;
+    color: #1c2c38;
+    font: 16px/1.5 system-ui, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.checkin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 20px 28px;
+    color: #ffffff;
+    background: #245c75;
+}
+
+.checkin-header span,
+.checkin-header strong {
+    display: block;
+}
+
+.checkin-header nav,
+.checkin-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.checkin-header a {
+    color: #ffffff;
+}
+
+main {
+    max-width: 1200px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+h1,
+h2 {
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+.checkin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.checkin-card {
+    min-width: 0;
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid #d9e1e7;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.checkin-video {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    background: #162632;
+    margin-bottom: 16px;
+    aspect-ratio: 4 / 3;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+button {
+    padding: 11px 16px;
+    border: 0;
+    border-radius: 6px;
+    background: #245c75;
+    color: #ffffff;
+    font: inherit;
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: default;
+}
+
+label {
+    display: block;
+    margin: 18px 0 8px;
+    font-weight: 600;
+}
+
+textarea,
+input {
+    max-width: 100%;
+    font: inherit;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #a9bbc8;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    resize: vertical;
+}
+
+#scan-status {
+    padding: 14px 18px;
+    border-radius: 8px;
+    background: #e3edf5;
+}
+
+#scan-status[data-state="error"] {
+    color: #8a2020;
+    background: #fbe4e4;
+}
+
+#scan-status[data-state="success"] {
+    color: #1e6639;
+    background: #e0f3e6;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: 130px minmax(0, 1fr);
+    gap: 12px;
+}
+
+dt {
+    font-weight: 600;
+}
+
+dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+}
+
+#manage-booking {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.checkin-table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #d9e1e7;
+}
+
+@media (max-width: 750px) {
+    .checkin-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    dl {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    dd {
+        margin-bottom: 12px;
+    }
+}

@@ -35,4 +35,11 @@ return [
         ],
     ],
 
+    'paymongo' => [
+        'secret' => env('PAYMONGO_SECRET_KEY'),
+        'public' => env('PAYMONGO_PUBLIC_KEY'),
+        'webhook_secret' => env('PAYMONGO_WEBHOOK_SECRET'),
+        'webhook_livemode' => env('PAYMONGO_LIVE_MODE', str_starts_with((string) env('PAYMONGO_SECRET_KEY', ''), 'sk_live_')),
+    ],
+
 ];

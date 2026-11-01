@@ -130,7 +130,7 @@
                                         </span>
                                         <span><strong>My Profile</strong><small>View your personal information</small></span>
                                     </a>
-                                    <a href="#" class="vnr-account-item vnr-account-placeholder" aria-disabled="true">
+                                    <a href="{{ route('reservations.index') }}" class="vnr-account-item">
                                         <span class="vnr-account-item-icon">
                                             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm-2 7h14v10H5V9zm2 2v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/></svg>
                                         </span>

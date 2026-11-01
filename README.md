@@ -11,7 +11,7 @@ A web-based reservation and management system for Villa Natividad Resort & Event
 ## Features
 
 - Guest-facing reservation system with real-time availability
-- QR code check-in/check-out
+- QR code check-in
 - Admin portal for booking, room/cottage, and event package management
 - Automated financial and occupancy reports
 
