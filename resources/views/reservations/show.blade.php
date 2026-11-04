@@ -1,102 +1,290 @@
+
 @extends('LoginReg.layout')
 
 @section('title', 'Reservation ' . $booking->reference_code . ' | Villa Natividad')
 
-@section('content')
-    <section class="reservation-summary">
-        <h1>Reservation Summary</h1>
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/reservation-details.css') }}">
+@endpush
 
+@section('content')
+    <section class="reservation-details">
+
+        {{-- PAGE HEADER --}}
+        <div class="details-page-header">
+            <div> 
+                <h1>Reservation Details</h1>
+                <p>Review your booking information and payment status.</p>
+            </div>
+
+            <a href="{{ route('reservations.index') }}" class="details-back-button">
+                Back to My Reservations
+            </a>
+        </div>
+
+        {{-- ALERT MESSAGES --}}
         @if (session('success'))
-            <p class="alert-success">{{ session('success') }}</p>
+            <div class="details-alert alert-success">
+                {{ session('success') }}
+            </div>
         @endif
 
         @if (session('error'))
-            <p class="alert-danger">{{ session('error') }}</p>
+            <div class="details-alert alert-error">
+                {{ session('error') }}
+            </div>
         @endif
 
-        <p>Reference code: <strong>{{ $booking->reference_code }}</strong></p>
-        <p>Status: {{ ucfirst($booking->status) }} | Payment: {{ ucfirst($booking->payment_status) }}</p>
-        @if ($booking->status === 'pending' && $booking->payment_status !== 'paid' && $booking->expires_at)
-            <p>Pay the reservation fee by {{ $booking->expires_at->format('M d, Y H:i') }} ({{ config('app.timezone') }}) to keep your dates.</p>
-            @if ($booking->expires_at->lte(now()))
-                <p>The payment window has ended. Any existing checkout is being verified before the dates are released.</p>
-            @endif
-        @endif
+        {{-- TWO-COLUMN LAYOUT --}}
+        <div class="reservation-details-grid">
 
-        <h2>Details</h2>
-        <ul>
-            <li>
-                Type:
-                {{ $booking->reservation_type === 'event' ? 'Events & Celebrations' : 'Public Pool and Cottages' }}
-            </li>
+            {{-- LEFT COLUMN: RESERVATION INFORMATION --}}
+            <div class="details-column">
 
-            @if ($booking->stay_type)
-                <li>Stay type: {{ ucwords(str_replace('_', ' ', $booking->stay_type)) }}</li>
-            @endif
+                {{-- RESERVATION OVERVIEW --}}
+                <div class="reservation-overview">
+                    <div class="overview-reference">
+                        <div>
+                            <span class="details-label">REFERENCE NUMBER</span>
+                            <h2>{{ $booking->reference_code }}</h2>
+                        </div>
 
-            <li>Check-in: {{ $booking->check_in->format('F j, Y') }}</li>
-            <li>Check-out: {{ $booking->check_out->format('F j, Y') }}</li>
-            <li>Guests: {{ $booking->guest_count }}</li>
+                        <span class="reservation-status status-{{ strtolower($booking->status) }}">
+                            {{ ucfirst($booking->status) }}
+                        </span>
+                    </div>
 
-            @if ($booking->eventPackage)
-                <li>Package: {{ $booking->eventPackage->name }}</li>
-            @endif
+                    <div class="overview-grid">
+                        <div class="overview-item">
+                            <span class="details-label">RESERVATION TYPE</span>
+                            <strong>
+                                {{ $booking->reservation_type === 'event' ? 'Events & Celebrations' : 'Public Pool and Cottages' }}
+                            </strong>
+                        </div>
 
-            @foreach ($booking->cottages as $cottage)
-                <li>Cottage: {{ $cottage->name }}</li>
-            @endforeach
+                        @if ($booking->stay_type)
+                            <div class="overview-item">
+                                <span class="details-label">STAY TYPE</span>
+                                <strong>{{ ucwords(str_replace('_', ' ', $booking->stay_type)) }}</strong>
+                            </div>
+                        @endif
 
-            @if ($booking->additional_message)
-                <li>Message: {{ $booking->additional_message }}</li>
-            @endif
-        </ul>
+                        <div class="overview-item">
+                            <span class="details-label">CHECK-IN</span>
+                            <strong>{{ $booking->check_in->format('F j, Y') }}</strong>
+                        </div>
 
-        <h2>Payment</h2>
-        <ul>
-            <li>Total: ₱{{ number_format($booking->total_price, 2) }}</li>
-            <li>Reservation fee: ₱{{ number_format($booking->reservation_fee, 2) }}</li>
-            <li>Balance payable upon arrival: ₱{{ number_format($booking->balance, 2) }}</li>
-        </ul>
-        @if ($booking->payment_status !== 'paid' && in_array($booking->status, ['pending', 'confirmed'], true) && (! $booking->expires_at || $booking->expires_at->isFuture()))
-        <form
-            id="payment-form"
-            action="{{ route('payment.store', $booking) }}"
-            method="POST"
-        >
-            @csrf
-            <label for="payment-method">Payment method</label>
-            <select id="payment-method" name="method" required>
-                <option value="gcash">GCash</option>
-                <option value="paymaya">Maya</option>
-                <option value="qrph">QR Ph</option>
-            </select>
+                        <div class="overview-item">
+                            <span class="details-label">CHECK-OUT</span>
+                            <strong>{{ $booking->check_out->format('F j, Y') }}</strong>
+                        </div>
 
-            <button id="paylater-submit" type="submit">Pay now</button>
-        </form>
-        @endif
-        @if ($booking->status === 'expired')
-            <p>This unpaid reservation expired. Please make a new reservation to choose available dates.</p>
-            <a href="{{ route('book') }}">Make a new reservation</a>
-        @elseif ($booking->status === 'cancelled')
-            <p>This reservation has been cancelled. Contact the resort about any recorded payments.</p>
-        @elseif ($booking->payment_status === 'paid')
-            @if ($booking->checked_in_at)
-                <p>Checked in on {{ $booking->checked_in_at->format('M d, Y H:i') }} ({{ config('app.timezone') }}).</p>
-            @elseif ($canShowCheckInQr)
-                <section aria-labelledby="reservation-checkin-title">
-                    <h2 id="reservation-checkin-title">Your check-in QR code</h2>
-                    <p>Present this code to resort staff on {{ $booking->check_in->format('F j, Y') }}. Keep it private.</p>
-                    <img src="{{ route('reservations.qr', $booking) }}" width="280" height="280" alt="Check-in QR code for reservation {{ $booking->reference_code }}">
-                    <p><a href="{{ route('reservations.qr', ['booking' => $booking, 'download' => 1]) }}">Download check-in QR code</a></p>
-                    @if ($booking->balance > 0)
-                        <p>Please settle your remaining balance at the resort before staff confirm check-in.</p>
+                        <div class="overview-item">
+                            <span class="details-label">NUMBER OF GUESTS</span>
+                            <strong>{{ $booking->guest_count }} Guests</strong>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- BOOKING INFORMATION --}}
+                <div class="details-section">
+                    <div class="details-section-header">
+                        <h2>Booking Information</h2>
+                    </div>
+
+                    <div class="booking-information">
+                        @if ($booking->eventPackage)
+                            <div class="information-row">
+                                <span>Event Package</span>
+                                <strong>{{ $booking->eventPackage->name }}</strong>
+                            </div>
+                        @endif
+
+                        @if ($booking->cottages->isNotEmpty())
+                            <div class="information-row">
+                                <span>Selected Cottages</span>
+                                <div class="cottage-list">
+                                    @foreach ($booking->cottages as $cottage)
+                                        <strong>{{ $cottage->name }}</strong>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+
+                        @if ($booking->additional_message)
+                            <div class="information-row message-row">
+                                <span>Additional Message</span>
+                                <p>{{ $booking->additional_message }}</p>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+            </div>
+
+            {{-- RIGHT COLUMN: PAYMENT INFORMATION --}}
+            <div class="details-column">
+
+                {{-- PAYMENT SUMMARY --}}
+                <div class="details-section">
+                    <div class="details-section-header">
+                        <h2>Payment Summary</h2>
+
+                        <span class="reservation-status payment-{{ strtolower($booking->payment_status) }}">
+                            {{ ucfirst($booking->payment_status) }}
+                        </span>
+                    </div>
+
+                    <div class="payment-summary">
+                        <div class="payment-row">
+                            <span>Total Reservation Cost</span>
+                            <strong>₱{{ number_format($booking->total_price, 2) }}</strong>
+                        </div>
+
+                        <div class="payment-row">
+                            <span>Reservation Fee</span>
+                            <strong>₱{{ number_format($booking->reservation_fee, 2) }}</strong>
+                        </div>
+
+                        <div class="payment-row">
+                            <span>Balance Payable Upon Arrival</span>
+                            <strong>₱{{ number_format($booking->balance, 2) }}</strong>
+                        </div>
+
+                        <div class="payment-total">
+                            <span>Amount to Pay Now</span>
+                            <strong>₱{{ number_format($booking->reservation_fee, 2) }}</strong>
+                        </div>
+                    </div>
+
+                    {{-- PAYMENT DEADLINE --}}
+                    @if ($booking->status === 'pending' && $booking->payment_status !== 'paid' && $booking->expires_at)
+                        <div class="payment-deadline">
+                            <strong>Payment Deadline</strong>
+                            <p>
+                                Please pay your reservation fee by
+                                {{ $booking->expires_at->format('M d, Y H:i') }}
+                                ({{ config('app.timezone') }}).
+                            </p>
+
+                            @if ($booking->expires_at->lte(now()))
+                                <p class="deadline-warning">
+                                    The payment window has ended. Any existing checkout is being verified before the dates are released.
+                                </p>
+                            @endif
+                        </div>
                     @endif
-                </section>
-            @endif
-        @else
-            <p>Your reservation is not confirmed until the reservation fee is paid.</p>
-        @endif
 
-        <a href="{{ route('home') }}">Back to home</a>
+                    {{-- PAY NOW FORM --}}
+                    @if ($booking->payment_status !== 'paid' && in_array($booking->status, ['pending', 'confirmed'], true) && (! $booking->expires_at || $booking->expires_at->isFuture()))
+
+                        <div class="payment-action">
+                            <h3>Complete Your Payment</h3>
+                            <p>Select your preferred payment method to pay your reservation fee.</p>
+
+                            <form
+                                id="payment-form"
+                                action="{{ route('payment.store', $booking) }}"
+                                method="POST"
+                            >
+                                @csrf
+
+                                <label for="payment-method">Payment Method</label>
+
+                                <select id="payment-method" name="method" required>
+                                    <option value="gcash">GCash</option>
+                                    <option value="paymaya">Maya</option>
+                                    <option value="qrph">QR Ph</option>
+                                </select>
+
+                                <button id="paylater-submit" type="submit">
+                                    Pay ₱{{ number_format($booking->reservation_fee, 2) }} Now
+                                </button>
+                            </form>
+                        </div>
+
+                    @endif
+                </div>
+
+                {{-- RESERVATION STATUS MESSAGES --}}
+                @if ($booking->status === 'expired')
+
+                    <div class="reservation-notice notice-error">
+                        <h3>Reservation Expired</h3>
+                        <p>This unpaid reservation has expired. Please make a new reservation to choose available dates.</p>
+                        <a href="{{ route('book') }}" class="details-primary-button">
+                            Make a New Reservation
+                        </a>
+                    </div>
+
+                @elseif ($booking->status === 'cancelled')
+
+                    <div class="reservation-notice notice-error">
+                        <h3>Reservation Cancelled</h3>
+                        <p>This reservation has been cancelled. Contact the resort about any recorded payments.</p>
+                    </div>
+
+                @elseif ($booking->payment_status === 'paid')
+
+                    <div class="reservation-notice notice-success">
+                        <h3>Payment Completed</h3>
+
+                        @if ($booking->checked_in_at)
+                            <p>
+                                You checked in on
+                                {{ $booking->checked_in_at->format('M d, Y H:i') }}
+                                ({{ config('app.timezone') }}).
+                            </p>
+
+                        @elseif ($canShowCheckInQr)
+                            <div class="checkin-qr-section">
+                                <h4>Your Check-in QR Code</h4>
+                                <p>
+                                    Present this QR code to resort staff on
+                                    {{ $booking->check_in->format('F j, Y') }}.
+                                    Keep it private.
+                                </p>
+
+                                <div class="checkin-qr-image">
+                                    <img
+                                        src="{{ route('reservations.qr', $booking) }}"
+                                        width="280"
+                                        height="280"
+                                        alt="Check-in QR code for reservation {{ $booking->reference_code }}"
+                                    >
+                                </div>
+
+                                <a href="{{ route('reservations.qr', ['booking' => $booking, 'download' => 1]) }}"
+                                   class="details-primary-button">
+                                    Download Check-in QR Code
+                                </a>
+
+                                @if ($booking->balance > 0)
+                                    <p class="remaining-balance-note">
+                                        Please settle your remaining balance at the resort before staff confirm check-in.
+                                    </p>
+                                @endif
+                            </div>
+                        @endif
+                    </div>
+
+                @else
+
+                    <div class="reservation-notice notice-pending">
+                        <h3>Payment Required</h3>
+                        <p>Your reservation is not confirmed until the reservation fee is paid.</p>
+                    </div>
+
+                @endif
+
+            </div>
+
+        </div>
+
+        {{-- FOOTER ACTION --}}
+        <div class="details-footer">
+            <a href="{{ route('home') }}">Back to Home</a>
+        </div>
+
     </section>
 @endsection

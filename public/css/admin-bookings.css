@@ -1,33 +1,40 @@
 
+/* =========================
+   MAIN CONTAINER
+   ========================= */
+
 .admin-bookings {
     padding: 45px 45px 60px;
     min-height: calc(100vh - 70px);
     background: #ffffff;
 }
 
+
 /* =========================
    HEADER
    ========================= */
-
-.bookings-header h1 {
-    margin: 0 0 28px;
-    font-family: "Playfair Display", serif;
-    font-size: 44px;
-    font-weight: 700;
-    color: #111111;
-}
 
 .bookings-header-with-actions {
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 15px;
     margin-bottom: 28px;
 }
 
-.bookings-header.bookings-header-with-actions h1 {
+.bookings-header h1 {
     margin: 0;
+    font-family: "Playfair Display", serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #111111;
+}
+
+.booking-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 
@@ -99,6 +106,7 @@
     text-align: center;
 }
 
+
 /* =========================
    TABLE BODY
    ========================= */
@@ -153,12 +161,12 @@
 
 .edit-booking img {
     filter: invert(57%) sepia(91%) saturate(1065%)
-            hue-rotate(105deg) brightness(92%);
+        hue-rotate(105deg) brightness(92%);
 }
 
 .delete-booking img {
     filter: invert(16%) sepia(99%) saturate(4333%)
-            hue-rotate(348deg) brightness(91%);
+        hue-rotate(348deg) brightness(91%);
 }
 
 .booking-actions button:hover {
@@ -184,6 +192,11 @@
     font-size: 13px;
     color: #222222;
 }
+
+
+/* =========================
+   FILTERS
+   ========================= */
 
 .booking-filters {
     display: flex;
@@ -214,28 +227,50 @@
     font: inherit;
 }
 
+
+/* =========================
+   BUTTONS AND LINKS
+   ========================= */
+
 .booking-button,
 .booking-details-link {
     display: inline-block;
     padding: 10px 14px;
-    border: 1px solid #245c75;
+    border: 1px solid #278bb9;
     border-radius: 6px;
-    background: #245c75;
+    background: #278bb9;
     color: #ffffff;
     font: 13px "Poppins", sans-serif;
     text-decoration: none;
     cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.booking-button:hover,
+.booking-details-link:hover {
+    background: #207ba5;
+    color: #ffffff;
 }
 
 .booking-button-secondary {
     background: #ffffff;
-    color: #245c75;
+    color: #278bb9;
+}
+
+.booking-button-secondary:hover {
+    background: #e8f6fb;
+    color: #278bb9;
 }
 
 .booking-button-danger {
     background: #a52626;
     border-color: #a52626;
 }
+
+
+/* =========================
+   BOOKING DETAILS
+   ========================= */
 
 .booking-reference {
     display: block;
@@ -299,6 +334,11 @@
     flex-wrap: wrap;
 }
 
+
+/* =========================
+   BOOKING HISTORY
+   ========================= */
+
 .booking-history-scroll {
     overflow-x: auto;
 }
@@ -315,6 +355,11 @@
     border-bottom: 1px solid #eeeeee;
     overflow-wrap: anywhere;
 }
+
+
+/* =========================
+   ALERTS
+   ========================= */
 
 .booking-alert {
     padding: 16px;
@@ -334,32 +379,6 @@
 
 .booking-alert ul {
     margin: 0;
-}
-
-@media (max-width: 900px) {
-    .booking-detail-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
-    }
-
-    .booking-filters label {
-        flex: 1 1 180px;
-    }
-}
-
-@media (max-width: 650px) {
-    .booking-detail-card {
-        padding: 18px;
-    }
-
-    .booking-data {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 5px;
-    }
-
-    .booking-data dd {
-        margin-bottom: 10px;
-    }
 }
 
 
@@ -401,7 +420,7 @@
 
 .booking-pagination .active {
     background-color: #b9e0ef;
-    color: #245c75;
+    color: #278bb9;
 }
 
 .booking-pagination a:hover {
@@ -441,6 +460,15 @@
         min-width: 700px;
     }
 
+    .booking-detail-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+    }
+
+    .booking-filters label {
+        flex: 1 1 180px;
+    }
+
 }
 
 
@@ -450,9 +478,31 @@
         padding: 25px 20px 40px;
     }
 
+    .bookings-header-with-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
     .bookings-header h1 {
         font-size: 34px;
-        margin-bottom: 22px;
+    }
+
+    .booking-header-actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .booking-detail-card {
+        padding: 18px;
+    }
+
+    .booking-data {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 5px;
+    }
+
+    .booking-data dd {
+        margin-bottom: 10px;
     }
 
     .bookings-table-container {

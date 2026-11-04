@@ -32,9 +32,9 @@
     justify-content: center;
     min-height: 44px;
     padding: 10px 16px;
-    border: 1px solid #245c75;
+    border: 1px solid #278bb9;
     border-radius: 6px;
-    background: #245c75;
+    background: #278bb9;
     color: #ffffff;
     font: 13px "Poppins", sans-serif;
     text-decoration: none;
@@ -43,13 +43,13 @@
 
 .room-button-secondary {
     background: #ffffff;
-    color: #245c75;
+    color:#278bb9;
 }
 
 .room-back {
     display: inline-block;
     margin-bottom: 20px;
-    color: #245c75;
+    color: #278bb9;
 }
 
 .room-form {

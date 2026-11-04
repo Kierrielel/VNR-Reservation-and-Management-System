@@ -3,105 +3,127 @@
 @section('title', 'Book Your Stay | Villa Natividad')
 
 @push('styles')
-    <link href="{{ asset('css/book.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/books.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
+<main class="booking">
     @include('LoginReg.include.home.book')
-    <section>
-        <form action="{{ route($walkIn ? 'walk-ins.store' : 'reservations.store') }}" method="post">
+
+    <form action="{{ route($walkIn ? 'walk-ins.store' : 'reservations.store') }}" method="post">
         @csrf
-            @if ($walkIn)
-                <h1>Walk-in booking</h1>
-                <p><a href="{{ route('check-in.index') }}">Back to staff check-in</a></p>
-                <p>Enter the guest's details. No customer account is required. Payment is recorded after creating the booking.</p>
-                <div>
-                    <label for="guest_name">Guest name</label>
-                    <input id="guest_name" name="guest_name" value="{{ old('guest_name') }}" maxlength="255" required>
-                </div>
-                <div>
-                    <label for="guest_contact">Contact number</label>
-                    <input id="guest_contact" name="guest_contact" type="tel" value="{{ old('guest_contact') }}" maxlength="50" required>
-                </div>
-                <div>
-                    <label for="guest_email">Email (optional)</label>
-                    <input id="guest_email" name="guest_email" type="email" value="{{ old('guest_email') }}" maxlength="255">
-                </div>
-            @endif
-            @if ($errors->any())
-                <div role="alert">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div>
-                <label for="reservation_type">Select Reservation type</label>
-                <select name="reservation_type" id="reservation_type" required>
-                    <option value="" disabled selected>Select a reservation type</option>
-                    <option value="public" @selected(old('reservation_type') === 'public')>Public Pool</option>
-                    <option value="event" @selected(old('reservation_type') === 'event')>Event</option>
-                </select>
-            </div>
+        <div class="booking__grid">
 
-            {{-- Only shown for public pool reservations --}}
-            <div id="stay-type-group" style="display:none;">
-                <label for="stay_type">Stay Type</label>
-                <select name="stay_type" id="stay_type">
-                    <option value="" disabled selected>Select stay type</option>
-                    <option value="day_tour" @selected(old('stay_type') === 'day_tour')>Day Tour</option>
-                    <option value="overnight" @selected(old('stay_type') === 'overnight')>Overnight</option>
-                </select>
-            </div>
-
-            <div id="event-package-group" hidden>
-                <label for="event_package_id">Event Package</label>
-                <select name="event_package_id" id="event_package_id" disabled>
-                    <option value="">Select an event package</option>
-                    @foreach ($packages as $package)
-                        <option value="{{ $package->id }}" data-price="{{ $package->price }}"
-                            @selected((string) old('event_package_id') === (string) $package->id)>
-                            {{ $package->name }} — ₱{{ number_format($package->price, 2) }} ({{ $package->hours }} hours)
-                        </option>
-                    @endforeach
-                </select>
-                @if ($packages->isEmpty())
-                    <p>No event packages are currently available.</p>
+            {{-- LEFT: reservation options --}}
+            <section class="panel">
+                @if ($walkIn)
+                    <h1>Walk-in booking</h1>
+                    <p class="walkin-note">
+                        <a href="{{ route('check-in.index') }}">Back to staff check-in</a><br>
+                        Enter the guest's details. No customer account is required. Payment is recorded after creating the booking.
+                    </p>
+                    <div class="field">
+                        <label for="guest_name">Guest name</label>
+                        <input class="input" id="guest_name" name="guest_name" value="{{ old('guest_name') }}" maxlength="255" required>
+                    </div>
+                    <div class="field">
+                        <label for="guest_contact">Contact number</label>
+                        <input class="input" id="guest_contact" name="guest_contact" type="tel" value="{{ old('guest_contact') }}" maxlength="50" required>
+                    </div>
+                    <div class="field">
+                        <label for="guest_email">Email (optional)</label>
+                        <input class="input" id="guest_email" name="guest_email" type="email" value="{{ old('guest_email') }}" maxlength="255">
+                    </div>
+                @else
+                    <h2>Reservation details</h2>
                 @endif
-                <dl id="event-price-summary" aria-live="polite" hidden>
-                    <dt>Package price</dt><dd id="event-total"></dd>
-                    <dt>Reservation fee ({{ $reservationFeePercent }}%)</dt><dd id="event-fee"></dd>
-                    <dt>Remaining balance</dt><dd id="event-balance"></dd>
-                </dl>
+
+                @if ($errors->any())
+                    <div class="errors" role="alert">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                <div class="field">
+                    <label for="reservation_type">Reservation type</label>
+                    <select class="select" name="reservation_type" id="reservation_type" required>
+                        <option value="" disabled selected>Select a reservation type</option>
+                        <option value="public" @selected(old('reservation_type') === 'public')>Public Pool</option>
+                        <option value="event" @selected(old('reservation_type') === 'event')>Event</option>
+                    </select>
+                </div>
+
+                {{-- Only shown for public pool reservations --}}
+                <div class="field" id="stay-type-group" style="display:none;">
+                    <label for="stay_type">Stay type</label>
+                    <select class="select" name="stay_type" id="stay_type">
+                        <option value="" disabled selected>Select stay type</option>
+                        <option value="day_tour" @selected(old('stay_type') === 'day_tour')>Day Tour</option>
+                        <option value="overnight" @selected(old('stay_type') === 'overnight')>Overnight</option>
+                    </select>
+                </div>
+
+                <div class="field" id="event-package-group" hidden>
+                    <label for="event_package_id">Event package</label>
+                    <select class="select" name="event_package_id" id="event_package_id" disabled>
+                        <option value="">Select an event package</option>
+                        @foreach ($packages as $package)
+                            <option value="{{ $package->id }}" data-price="{{ $package->price }}"
+                                @selected((string) old('event_package_id') === (string) $package->id)>
+                                {{ $package->name }} — ₱{{ number_format($package->price, 2) }} ({{ $package->hours }} hours)
+                            </option>
+                        @endforeach
+                    </select>
+                    @if ($packages->isEmpty())
+                        <p class="status">No event packages are currently available.</p>
+                    @endif
+                    <dl class="price-card" id="event-price-summary" aria-live="polite" hidden>
+                        <dt>Package price</dt><dd id="event-total"></dd>
+                        <dt>Reservation fee ({{ $reservationFeePercent }}%)</dt><dd id="event-fee"></dd>
+                        <dt>Remaining balance</dt><dd id="event-balance"></dd>
+                    </dl>
+                </div>
+
+                <div class="field">
+                    <label for="guest_count">Number of guests</label>
+                    <input class="input" type="number" name="guest_count" id="guest_count" value="{{ old('guest_count') }}" min="1" placeholder="Enter number of guests" required>
+                </div>
+
+                <div class="field" id="availability-results" style="display:none;">
+                    <span class="label">Available cottages</span>
+                    <div class="cottages" id="cottage-list"></div>
+                    <p class="status" id="cottage-selection-status" role="status" aria-live="polite">Choose up to 2 accommodations.</p>
+                </div>
+
+                <div class="field">
+                    <label for="additional_message">Additional message <span style="color:var(--muted);font-weight:400">(optional)</span></label>
+                    <textarea class="textarea" name="additional_message" id="additional_message" rows="3" placeholder="Any special requests...">{{ old('additional_message') }}</textarea>
+                </div>
+
+                <button class="btn" type="submit" id="book-btn" disabled>{{ $walkIn ? 'Create walk-in booking' : 'Book now' }}</button>
+            </section>
+
+            {{-- RIGHT: always-visible calendar --}}
+            <div class="side">
+                <section class="panel cal" aria-label="Availability calendar">
+                    <h2><label for="check_in">Select date</label></h2>
+                    {{-- flatpickr (inline) draws the calendar right after this input; the input stays in the form and holds the Y-m-d value --}}
+                    <input class="cal__input" type="text" name="check_in" id="check_in" value="{{ old('check_in') }}" placeholder="Select Date..." required>
+                    <p class="status" id="calendar-status" role="status">Pick a reservation type to see available dates.</p>
+                    <div class="legend">
+                        <span><i class="l-sel"></i>Your date</span>
+                        <span><i class="l-booked"></i>Unavailable</span>
+                    </div>
+                </section>
             </div>
 
-            <div>
-                <label for="check_in">Select Date</label>
-                <input type="text" name="check_in" id="check_in" value="{{ old('check_in') }}" placeholder="Select Date..." required>
-                <p id="calendar-status" role="status"></p>
-            </div>
-
-            <div>
-                <label for="guest_count">Number of Guests</label>
-                <input type="number" name="guest_count" id="guest_count" value="{{ old('guest_count') }}" min="1" placeholder="Enter number of guests" required>
-            </div>
-
-            <div id="availability-results" style="display:none;">
-                <label>Available Cottages</label>
-                <div id="cottage-list"></div>
-                <p id="cottage-selection-status" role="status" aria-live="polite">Choose up to 2 accommodations.</p>
-            </div>
-
-            <div>
-                <label for="additional_message">Additional Message (optional)</label>
-                <textarea name="additional_message" id="additional_message" rows="3" placeholder="Any special requests...">{{ old('additional_message') }}</textarea>
-            </div>
-
-            <button type="submit" id="book-btn" disabled>{{ $walkIn ? 'Create walk-in booking' : 'Book Now' }}</button>
-        </form>
-    </section>
+        </div>
+    </form>
+</main>
 @endsection
 
 @push('scripts')
@@ -122,6 +144,7 @@
             const calendarStatus = document.getElementById('calendar-status');
             const feePercent = @json($reservationFeePercent);
             const currency = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' });
+            const IDLE_MSG = 'Pick a reservation type to see available dates.';
             let calendarReady = false;
             let calendarRequest = 0;
 
@@ -176,9 +199,9 @@
 
             packageSelect.addEventListener('change', updatePackageSummary);
 
+            // CHANGED: inline calendar is always visible (no altInput needed)
             const picker = flatpickr("#check_in", {
-                altInput: true,
-                altFormat: "F j, Y",
+                inline: true,
                 dateFormat: "Y-m-d",
                 minDate: @json($earliestBookingDate),
                 onChange: function() {
@@ -197,7 +220,7 @@
                 calendarRequest++;
                 picker.set('disable', []);
                 stayType.value = '';
-                calendarStatus.textContent = '';
+                calendarStatus.textContent = IDLE_MSG;
                 updateReservationFields();
 
                 if (this.value === 'event') {
@@ -298,7 +321,7 @@
                     cottageList.innerHTML = '';
 
                     if (cottages.length === 0) {
-                        cottageList.innerHTML = '<p>No cottages available for the selected date.</p>';
+                        cottageList.innerHTML = '<p class="status">No cottages available for the selected date.</p>';
                         bookBtn.disabled = true;
                         resultsDiv.style.display = '';
                         return;
@@ -306,16 +329,26 @@
 
                     cottages.forEach(cottage => {
                         const price = stay === 'overnight' ? cottage.price_overnight : cottage.price_day;
+                        // CHANGED: each cottage is a selectable card (same checkbox name/value/capacity as before)
                         const label = document.createElement('label');
-                        label.style.display = 'block';
+                        label.className = 'cottage';
                         const checkbox = document.createElement('input');
                         checkbox.type = 'checkbox';
                         checkbox.name = 'cottage_ids[]';
                         checkbox.value = cottage.id;
                         checkbox.dataset.capacity = cottage.capacity;
-                        label.append(checkbox, document.createTextNode(
-                            `${cottage.name} — ₱${parseFloat(price).toLocaleString()} (capacity: ${cottage.capacity} guests)`
-                        ));
+                        const info = document.createElement('span');
+                        const name = document.createElement('span');
+                        name.className = 'cottage__name';
+                        name.textContent = cottage.name;
+                        const meta = document.createElement('span');
+                        meta.className = 'cottage__meta';
+                        meta.textContent = `Capacity: ${cottage.capacity} guests`;
+                        info.append(name, meta);
+                        const cost = document.createElement('span');
+                        cost.className = 'cottage__price';
+                        cost.textContent = `₱${parseFloat(price).toLocaleString()}`;
+                        label.append(checkbox, info, cost);
                         cottageList.appendChild(label);
                     });
 
@@ -326,7 +359,7 @@
                     if (reservationType.value !== 'public' || checkInInput.value !== date || stayType.value !== stay) return;
                     bookBtn.disabled = true;
                     console.error('Availability check failed:', err);
-                    cottageList.innerHTML = '<p>Could not check availability. Please try again.</p>';
+                    cottageList.innerHTML = '<p class="status">Could not check availability. Please try again.</p>';
                 });
             }
 

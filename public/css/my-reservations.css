@@ -1,0 +1,259 @@
+
+/* ================================
+   MY RESERVATIONS
+================================ */
+
+.reservation-summary {
+    padding: 45px 45px 60px;
+    min-height: calc(100vh - 70px);
+    background: #ffffff;
+    font-family: "Poppins", sans-serif;
+    color: #1d2f3f;
+}
+
+/* HEADER */
+
+.reservation-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+
+.reservation-header h1 {
+    margin: 0 0 8px;
+    color: #111111;
+    font-family: "Playfair Display", serif;
+    font-size: 44px;
+    font-weight: 700;
+}
+
+.reservation-header p {
+    margin: 0;
+    color: #71808d;
+    font-size: 14px;
+}
+
+/* BUTTONS */
+
+.reservation-book-button,
+.reservation-view-button {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #278bb9;
+    border-radius: 6px;
+    background: #278bb9;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.reservation-book-button:hover,
+.reservation-view-button:hover {
+    background: #207ba5;
+    border-color: #207ba5;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* SUCCESS MESSAGE */
+
+.reservation-alert-success {
+    margin-bottom: 22px;
+    padding: 13px 18px;
+    border: 1px solid #b8e5ca;
+    border-radius: 6px;
+    background: #effaf3;
+    color: #247344;
+    font-size: 13px;
+}
+
+/* EMPTY STATE */
+
+.reservation-empty {
+    padding: 65px 25px;
+    border: 1px solid #e2eaf0;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.reservation-empty h2 {
+    margin-bottom: 12px;
+    color: #1d2f3f;
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+}
+
+.reservation-empty p {
+    margin-bottom: 24px;
+    color: #71808d;
+    font-size: 14px;
+}
+
+/* TABLE CONTAINER */
+
+.reservation-table-container {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #edf1f4;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* TABLE */
+
+.reservation-table {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: collapse;
+    font-family: "Poppins", sans-serif;
+}
+
+.reservation-table thead {
+    background: #f4f8fb;
+}
+
+.reservation-table th {
+    padding: 17px 15px;
+    border-bottom: 1px solid #e4ebf0;
+    color: #526575;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+.reservation-table td {
+    padding: 17px 15px;
+    border-bottom: 1px solid #edf1f4;
+    color: #526575;
+    font-size: 12px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.reservation-table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.reservation-table tbody tr:hover {
+    background: #f8fcfe;
+}
+
+.reservation-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reservation-reference {
+    color: #278bb9;
+    font-weight: 600;
+}
+
+.reservation-total {
+    color: #1d2f3f !important;
+    font-weight: 600;
+}
+
+/* STATUS BADGES */
+
+.reservation-status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* RESERVATION STATUS */
+
+.status-pending {
+    background: #fff4d9;
+    color: #9a6b00;
+}
+
+.status-confirmed {
+    background: #e2f4ff;
+    color: #1673a5;
+}
+
+.status-completed {
+    background: #e4f7e9;
+    color: #287c43;
+}
+
+.status-cancelled,
+.status-expired {
+    background: #fde8e8;
+    color: #b33a3a;
+}
+
+/* PAYMENT STATUS */
+
+.payment-pending {
+    background: #fff4d9;
+    color: #9a6b00;
+}
+
+.payment-paid {
+    background: #e4f7e9;
+    color: #287c43;
+}
+
+.payment-partial {
+    background: #e2f4ff;
+    color: #1673a5;
+}
+
+.payment-refunded,
+.payment-failed {
+    background: #fde8e8;
+    color: #b33a3a;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .reservation-summary {
+        padding: 35px 25px 50px;
+    }
+
+    .reservation-header h1 {
+        font-size: 38px;
+    }
+}
+
+@media (max-width: 650px) {
+    .reservation-summary {
+        padding: 30px 16px 40px;
+    }
+
+    .reservation-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .reservation-header h1 {
+        font-size: 32px;
+    }
+
+    .reservation-book-button {
+        width: 100%;
+    }
+
+    .reservation-empty {
+        padding: 45px 18px;
+    }
+}
