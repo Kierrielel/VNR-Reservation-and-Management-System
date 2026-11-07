@@ -51,7 +51,7 @@ class BookingExpiryService
 
             $paidId = $this->checkout->paidPaymentId($session);
             if ($paidId !== null) {
-                $this->confirmation->confirm($payment, $paidId);
+                $this->confirmation->confirm($payment, $paidId, $this->checkout->paidPaymentTime($session, $paidId));
 
                 return 'confirmed';
             }
@@ -61,7 +61,7 @@ class BookingExpiryService
                     ?? $this->checkout->retrieve($payment->checkout_session_id);
                 $paidId = $session === null ? null : $this->checkout->paidPaymentId($session);
                 if ($paidId !== null) {
-                    $this->confirmation->confirm($payment, $paidId);
+                    $this->confirmation->confirm($payment, $paidId, $this->checkout->paidPaymentTime($session, $paidId));
 
                     return 'confirmed';
                 }

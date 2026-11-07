@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Carbon\CarbonImmutable;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -30,6 +31,24 @@ class PayMongoCheckoutService
                 && is_string($payment['id'] ?? null)) {
                 return $payment['id'];
             }
+        }
+
+        return null;
+    }
+
+    public function paidPaymentTime(array $session, string $paymentId): ?CarbonImmutable
+    {
+        foreach ($session['attributes']['payments'] ?? [] as $payment) {
+            if (($payment['id'] ?? null) !== $paymentId
+                || ($payment['attributes']['status'] ?? $payment['status'] ?? null) !== 'paid') {
+                continue;
+            }
+            $timestamp = $payment['attributes']['paid_at'] ?? null;
+            if (! is_int($timestamp) || $timestamp <= 0 || $timestamp > now()->getTimestamp()) {
+                return null;
+            }
+
+            return CarbonImmutable::createFromTimestamp($timestamp, config('app.timezone'));
         }
 
         return null;

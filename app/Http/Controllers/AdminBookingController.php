@@ -44,7 +44,7 @@ class AdminBookingController extends Controller
     public function show(Booking $booking): View
     {
         return view('Admin.dashboard', [
-            'booking' => $booking->load('user', 'cottages', 'eventPackage', 'payments', 'checkedInBy', 'bookedBy'),
+            'booking' => $booking->load('user', 'cottages', 'eventPackage', 'payments', 'checkedInBy', 'bookedBy', 'refundDecidedBy', 'refunds'),
         ]);
     }
 

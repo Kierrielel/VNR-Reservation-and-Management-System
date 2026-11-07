@@ -54,7 +54,7 @@ class BookingExpiryTest extends TestCase
             'check_in' => today()->addDay()->toDateString(), 'stay_type' => 'day_tour',
         ]))->assertOk()->assertJsonCount(1);
         $this->getJson(route('reservations.disabled-dates', ['reservation_type' => 'event']))->assertOk()->assertExactJson([]);
-        $this->get(route('reservations.show', $booking))->assertOk()->assertSee('This unpaid reservation expired.')
+        $this->get(route('reservations.show', $booking))->assertOk()->assertSee('This unpaid reservation has expired.')
             ->assertDontSee('id="payment-form"', false);
         Http::assertNothingSent();
         $this->artisan('reservations:expire')->expectsOutput('Expired: 0; confirmed: 0; deferred: 0.')->assertSuccessful();

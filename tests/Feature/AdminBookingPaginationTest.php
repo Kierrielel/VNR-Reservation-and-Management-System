@@ -33,19 +33,19 @@ class AdminBookingPaginationTest extends TestCase
 
         $first = $this->actingAs($admin)->get(route('admin.bookings.index'));
         $first->assertOk()
-            ->assertSee('Showing 1 to 5 of 7 results')
             ->assertSee('Pagination Guest 7')
             ->assertDontSee('Pagination Guest 1')
             ->assertSee('aria-label="Previous page"', false)
             ->assertSee('rel="next"', false);
+        $this->assertStringContainsString('Showing 1 to 5 of 7 results', preg_replace('/\s+/', ' ', strip_tags($first->getContent())));
 
         $second = $this->get(route('admin.bookings.index', ['page' => 2]));
         $second->assertOk()
-            ->assertSee('Showing 6 to 7 of 7 results')
             ->assertSee('Pagination Guest 1')
             ->assertDontSee('Pagination Guest 7')
             ->assertSee('rel="prev"', false)
             ->assertDontSee('rel="next"', false);
+        $this->assertStringContainsString('Showing 6 to 7 of 7 results', preg_replace('/\s+/', ' ', strip_tags($second->getContent())));
 
         $ids = $first->viewData('recentBooking')->pluck('id')
             ->merge($second->viewData('recentBooking')->pluck('id'));
@@ -56,10 +56,10 @@ class AdminBookingPaginationTest extends TestCase
     {
         $admin = User::factory()->create(['role' => 'admin']);
 
-        $this->actingAs($admin)->get(route('admin.bookings.index'))
+        $response = $this->actingAs($admin)->get(route('admin.bookings.index'))
             ->assertOk()
-            ->assertSee('Showing 0 to 0 of 0 results')
             ->assertSee('No recent bookings')
             ->assertDontSee('aria-label="Booking pagination"', false);
+        $this->assertStringContainsString('Showing 0 to 0 of 0 results', preg_replace('/\s+/', ' ', strip_tags($response->getContent())));
     }
 }

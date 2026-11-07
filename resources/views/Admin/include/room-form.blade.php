@@ -1,5 +1,4 @@
 <section class="admin-rooms">
-    <a href="{{ route('admin.rooms.index') }}" class="room-back">&larr; Back to rooms and cottages</a>
     <div class="rooms-header">
         <h1>{{ $cottage->exists ? 'Edit '.$cottage->name : 'Add Room or Cottage' }}</h1>
     </div>

@@ -167,7 +167,7 @@ class PaymentController extends Controller
 
         $paymongoPaymentId = $checkout->paidPaymentId($session);
         if ($paymongoPaymentId !== null) {
-            $this->confirmation->confirm($payment, $paymongoPaymentId);
+            $this->confirmation->confirm($payment, $paymongoPaymentId, $checkout->paidPaymentTime($session, $paymongoPaymentId));
 
             return redirect()->route('reservations.show', $booking)
                 ->with('success', in_array($booking->fresh()->status, ['cancelled', 'expired'], true)
@@ -183,7 +183,7 @@ class PaymentController extends Controller
      * Handle PayMongo webhooks for async payment confirmation.
      * This is a fallback in case the user closes the browser before returning.
      */
-    public function webhook(Request $request)
+    public function webhook(Request $request, PayMongoCheckoutService $checkout)
     {
         $payload = $request->all();
 
@@ -209,7 +209,8 @@ class PaymentController extends Controller
         $paymentsArray = $sessionData['attributes']['payments'] ?? [];
         $paymongoPaymentId = $paymentsArray[0]['id'] ?? null;
 
-        $this->confirmation->confirm($payment, $paymongoPaymentId);
+        $this->confirmation->confirm($payment, $paymongoPaymentId,
+            is_string($paymongoPaymentId) ? $checkout->paidPaymentTime($sessionData, $paymongoPaymentId) : null);
 
         Log::info('Webhook: Payment confirmed', [
             'booking_id' => $payment->booking_id,

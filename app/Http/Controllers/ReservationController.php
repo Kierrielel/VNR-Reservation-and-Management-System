@@ -7,6 +7,8 @@ use App\Models\Cottage;
 use App\Models\EventPackage;
 use App\Models\Setting;
 use App\Services\AvailabilityService;
+use App\Services\BookingCancellationService;
+use App\Services\BookingRefundService;
 use App\Services\CheckInService;
 use App\Services\ReservationLockService;
 use Carbon\Carbon;
@@ -217,7 +219,7 @@ class ReservationController extends Controller
             ->with('success', 'Reservation created.');
     }
 
-    public function show(Booking $booking, CheckInService $checkIn)
+    public function show(Booking $booking, CheckInService $checkIn, BookingCancellationService $cancellation, BookingRefundService $refunds)
     {
         // A guest can only open their own booking.
         abort_unless($booking->user_id === Auth::id(), 403);
@@ -225,6 +227,8 @@ class ReservationController extends Controller
         return view('reservations.show', [
             'booking' => $booking->load('cottages', 'eventPackage'),
             'canShowCheckInQr' => $checkIn->canIssueQr($booking),
+            'canCancelReservation' => $cancellation->canCancel($booking),
+            'refundPreview' => $cancellation->canCancel($booking) ? $refunds->assess($booking, now()) : null,
         ]);
     }
 

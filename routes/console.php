@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
 
 Schedule::command('reservations:expire')->everyMinute()->withoutOverlapping(10);
+Schedule::command('refunds:reconcile')->everyMinute()->withoutOverlapping(10);
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());

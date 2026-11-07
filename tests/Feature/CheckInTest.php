@@ -8,6 +8,7 @@ use App\Services\CheckInService;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\TestWith;
 use Tests\TestCase;
 
 class CheckInTest extends TestCase
@@ -26,7 +27,7 @@ class CheckInTest extends TestCase
         $guest = User::factory()->create();
         $booking = $this->booking($guest);
 
-        $this->actingAs($guest)->get(route('reservations.show', $booking))->assertOk()->assertSee('Your check-in QR code');
+        $this->actingAs($guest)->get(route('reservations.show', $booking))->assertOk()->assertSee('Your Check-in QR Code');
         $image = $this->get(route('reservations.qr', $booking));
         $image->assertOk()->assertHeader('Content-Type', 'image/svg+xml; charset=UTF-8')->assertSee('<svg', false);
         $this->assertStringContainsString('no-store', $image->headers->get('Cache-Control'));
@@ -154,18 +155,32 @@ class CheckInTest extends TestCase
         $this->assertSame('cancelled', $booking->fresh()->status);
     }
 
-    public function test_checked_in_booking_cannot_be_cancelled_and_customer_sees_arrival_record(): void
+    #[TestWith(['admin'])]
+    #[TestWith(['staff'])]
+    public function test_checked_in_booking_cannot_be_cancelled_and_customer_sees_arrival_record(string $role): void
     {
         $this->travelTo(Carbon::parse('2026-11-01 12:00:00'));
         $admin = User::factory()->create(['role' => 'admin']);
+        $operator = $role === 'admin' ? $admin : User::factory()->create(['role' => 'staff']);
         $guest = User::factory()->create();
         $booking = $this->booking($guest);
 
-        $this->actingAs($admin)->postJson(route('check-in.store'), ['token' => app(CheckInService::class)->token($booking)])->assertOk();
-        $this->patchJson(route('admin.bookings.update', $booking), ['status' => 'cancelled'])
+        $this->actingAs($guest)->get(route('reservations.show', $booking))->assertOk()
+            ->assertSee('action="'.route('reservations.cancel', $booking).'"', false);
+        $this->actingAs($operator)->postJson(route('check-in.store'), ['token' => app(CheckInService::class)->token($booking)])->assertOk();
+        $this->actingAs($admin)->patchJson(route('admin.bookings.update', $booking), ['status' => 'cancelled'])
             ->assertUnprocessable()->assertJsonValidationErrors('status');
-        $this->actingAs($guest)->get(route('reservations.show', $booking))->assertOk()->assertSee('Checked in on')
-            ->assertDontSee('Your check-in QR code');
+        $this->actingAs($guest)->get(route('reservations.show', $booking))->assertOk()->assertSee('You checked in on')
+            ->assertDontSee('Your Check-in QR Code')
+            ->assertDontSee('action="'.route('reservations.cancel', $booking).'"', false);
+        $this->postJson(route('reservations.cancel', $booking), ['confirm_cancellation' => 1, 'cancellation_reason' => 'Plans changed.'])
+            ->assertUnprocessable()->assertJsonValidationErrors('confirm_cancellation');
+        $booking->refresh();
+        $this->assertSame('confirmed', $booking->status);
+        $this->assertSame($operator->id, $booking->checked_in_by);
+        $this->assertNotNull($booking->checked_in_at);
+        $this->assertNull($booking->cancelled_at);
+        $this->assertNull($booking->refund_status);
         $this->get(route('reservations.qr', $booking))->assertStatus(409);
     }
 
@@ -192,7 +207,7 @@ class CheckInTest extends TestCase
         $unpaid = $this->booking($guest, ['status' => 'pending', 'payment_status' => 'unpaid']);
         $future = $this->booking($guest, ['check_in' => '2026-11-02', 'check_out' => '2026-11-02', 'reference_code' => 'VNR-FUTURE']);
 
-        $this->actingAs($guest)->get(route('reservations.show', $unpaid))->assertOk()->assertDontSee('Your check-in QR code');
+        $this->actingAs($guest)->get(route('reservations.show', $unpaid))->assertOk()->assertDontSee('Your Check-in QR Code');
         $this->get(route('reservations.qr', $unpaid))->assertStatus(409);
         $this->get(route('reservations.qr', $future))->assertOk()->assertSee('<svg', false);
     }

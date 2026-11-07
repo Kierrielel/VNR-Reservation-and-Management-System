@@ -47,7 +47,80 @@
                 <dt>Fee status</dt><dd>{{ $booking->payment_status === 'paid' ? 'Paid' : ucfirst($booking->payment_status) }}</dd>
                 <dt>Recorded payments</dt><dd>₱{{ number_format($booking->payments->where('status', 'paid')->sum('amount'), 2) }}</dd>
                 <dt>Balance after fee</dt><dd>₱{{ number_format($booking->balance, 2) }}</dd>
+                @if ($booking->cancelled_at)
+                    <dt>Guest cancelled at</dt><dd>{{ $booking->cancelled_at->format('M d, Y H:i:s') }} ({{ config('app.timezone') }})</dd>
+                    <dt>Cancellation reason</dt><dd>{{ $booking->cancellation_reason ?? 'Not provided for this older cancellation.' }}</dd>
+                    <dt>Refund status</dt>
+                    <dd>
+                        @if ($booking->refund_status === 'pending_approval')
+                            ₱{{ number_format($booking->refund_amount, 2) }} eligible, awaiting admin approval. No refund has been submitted yet.
+                        @elseif ($booking->refund_status === 'processing')
+                            Approved. PayMongo is processing the refund of ₱{{ number_format($booking->refund_amount, 2) }}.
+                        @elseif ($booking->refund_status === 'refunded')
+                            PayMongo reports the refund of ₱{{ number_format($booking->refund_amount, 2) }} is complete.
+                        @elseif ($booking->refund_status === 'rejected')
+                            Refund disapproved. No refund will be submitted for this request.
+                        @elseif ($booking->refund_status === 'failed')
+                            The refund could not be completed. Review the payment and PayMongo status before taking further action.
+                        @elseif ($booking->refund_status === 'needs_review')
+                            Refund status needs review. Check the existing refund before submitting another request.
+                        @elseif ($booking->refund_status === 'not_eligible')
+                            Non-refundable: cancelled more than 24 hours after the reservation fee was paid.
+                        @elseif ($booking->refund_status === 'not_required')
+                            No completed payment is recorded to refund.
+                        @else
+                            Contact the resort administrator to review this older refund request.
+                        @endif
+                    </dd>
+                    @if ($booking->refund_deadline_at)
+                        <dt>Refund eligibility deadline</dt><dd>{{ $booking->refund_deadline_at->format('M d, Y H:i:s') }} ({{ config('app.timezone') }})</dd>
+                    @endif
+                    @if ($booking->refund_decided_at)
+                        <dt>Reviewed at</dt><dd>{{ $booking->refund_decided_at->format('M d, Y H:i:s') }} ({{ config('app.timezone') }})</dd>
+                        <dt>Reviewed by</dt><dd>{{ $booking->refundDecidedBy?->name ?? 'Former administrator' }}</dd>
+                    @endif
+                    @if ($booking->refund_rejection_reason)
+                        <dt>Reason for disapproval</dt><dd>{{ $booking->refund_rejection_reason }}</dd>
+                    @endif
+                @endif
             </dl>
+
+            @if ($booking->status === 'cancelled' && $booking->refund_status === 'pending_approval')
+                <h3>Review refund request</h3>
+                <p>Approval submits the eligible refund through PayMongo. Refund completion is confirmed separately.</p>
+                <form method="POST" action="{{ route('admin.bookings.refund', $booking) }}" class="booking-payment-form">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="decision" value="approve">
+                    <button type="submit" class="booking-button">Approve refund</button>
+                </form>
+                <form method="POST" action="{{ route('admin.bookings.refund', $booking) }}" class="booking-payment-form">
+                    @csrf
+                    @method('PATCH')
+                    <input type="hidden" name="decision" value="reject">
+                    <label for="refund-rejection-reason">Reason for disapproval</label>
+                    <textarea id="refund-rejection-reason" name="rejection_reason" rows="3" maxlength="1000" required>{{ old('rejection_reason') }}</textarea>
+                    <button type="submit" class="booking-button booking-button-danger">Disapprove refund</button>
+                </form>
+            @elseif ($booking->status === 'cancelled' && in_array($booking->refund_status, ['processing', 'needs_review'], true))
+                <form method="POST" action="{{ route('admin.bookings.refund.refresh', $booking) }}">
+                    @csrf
+                    <button type="submit" class="booking-button">Check PayMongo refund status</button>
+                </form>
+            @endif
+
+            @if ($booking->refunds->isNotEmpty())
+                <h3>PayMongo refund records</h3>
+                <ul>
+                    @foreach ($booking->refunds as $refund)
+                        <li>
+                            ₱{{ number_format($refund->amount, 2) }} — {{ ucwords(str_replace('_', ' ', $refund->status)) }}
+                            @if ($refund->gateway_refund_id) ({{ $refund->gateway_refund_id }}) @endif
+                            @if ($refund->error)<p>{{ $refund->error }}</p>@endif
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
 
             @if ($booking->status === 'confirmed' && $booking->payment_status === 'paid' && $booking->balance > 0)
                 <h3>Record remaining balance</h3>
@@ -99,7 +172,7 @@
                     <button class="booking-button booking-button-danger" type="submit">Cancel booking</button>
                 </form>
             @elseif ($booking->status === 'cancelled')
-                <p>This booking is cancelled. Payment records are retained; no automatic refund has been issued.</p>
+                <p>This booking is cancelled. Payment records are retained. See the refund status above for the current result.</p>
             @elseif ($booking->status === 'expired')
                 <p>This unpaid reservation expired and its dates have been released. Records are retained.</p>
             @elseif ($booking->checked_in_at && $booking->status !== 'completed')

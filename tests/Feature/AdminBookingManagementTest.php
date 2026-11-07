@@ -220,10 +220,12 @@ class AdminBookingManagementTest extends TestCase
         $query = ['search' => 'Filtered Guest', 'status' => 'confirmed'];
 
         $first = $this->actingAs($admin)->get(route('admin.bookings.index', $query));
-        $first->assertOk()->assertSee('Showing 1 to 5 of 6 results')->assertDontSee('VNR-EXCLUDED');
+        $first->assertOk()->assertDontSee('VNR-EXCLUDED');
+        $this->assertStringContainsString('Showing 1 to 5 of 6 results', preg_replace('/\s+/', ' ', strip_tags($first->getContent())));
         $next = $first->viewData('recentBooking')->nextPageUrl();
-        $this->get($next)->assertOk()->assertSee('Showing 6 to 6 of 6 results')
+        $second = $this->get($next)->assertOk()
             ->assertSee('VNR-FILTER-1')->assertDontSee('VNR-EXCLUDED');
+        $this->assertStringContainsString('Showing 6 to 6 of 6 results', preg_replace('/\s+/', ' ', strip_tags($second->getContent())));
     }
 
     private function booking(User $guest, array $attributes = []): Booking

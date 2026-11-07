@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Booking extends Model
 {
@@ -33,6 +34,15 @@ class Booking extends Model
         'expires_at',
         'checked_in_at',
         'checked_in_by',
+        'cancelled_at',
+        'cancelled_by',
+        'refund_status',
+        'refund_amount',
+        'refund_deadline_at',
+        'cancellation_reason',
+        'refund_decided_at',
+        'refund_decided_by',
+        'refund_rejection_reason',
     ];
 
     protected $casts = [
@@ -43,6 +53,10 @@ class Booking extends Model
         'balance' => 'decimal:2',
         'expires_at' => 'datetime',
         'checked_in_at' => 'datetime',
+        'cancelled_at' => 'datetime',
+        'refund_amount' => 'decimal:2',
+        'refund_deadline_at' => 'datetime',
+        'refund_decided_at' => 'datetime',
     ];
 
     public function user()
@@ -58,6 +72,16 @@ class Booking extends Model
     public function bookedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'booked_by');
+    }
+
+    public function refundDecidedBy(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'refund_decided_by');
+    }
+
+    public function refunds(): HasMany
+    {
+        return $this->hasMany(PaymentRefund::class);
     }
 
     public function getGuestDisplayNameAttribute(): string

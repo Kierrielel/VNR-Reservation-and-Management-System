@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminAnnouncementController;
 use App\Http\Controllers\AdminBookingController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminRefundController;
 use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\AdminReviewController;
 use App\Http\Controllers\AdminRoomsController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\AuthManager;
 use App\Http\Controllers\CheckInController;
 use App\Http\Controllers\CustomerSettingController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationCancellationController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\WalkInController;
@@ -54,6 +56,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/reservations/availability', [ReservationController::class, 'checkAvailability'])->name('reservations.availability');
     Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
     Route::get('/reservations/{booking}', [ReservationController::class, 'show'])->name('reservations.show');
+    Route::post('/reservations/{booking}/cancel', [ReservationCancellationController::class, 'store'])->name('reservations.cancel');
     Route::get('/reservations/{booking}/qr-code', [CheckInController::class, 'qr'])->name('reservations.qr');
 
     // Payments
@@ -99,6 +102,8 @@ Route::middleware(['auth', AdminOnly::class])->prefix('admin')->name('admin.')->
     Route::get('/bookings/{booking}', [AdminBookingController::class, 'show'])->name('bookings.show');
     Route::patch('/bookings/{booking}', [AdminBookingController::class, 'update'])->name('bookings.update');
     Route::post('/bookings/{booking}/balance', [AdminBookingController::class, 'settleBalance'])->name('bookings.balance');
+    Route::patch('/bookings/{booking}/refund', [AdminRefundController::class, 'update'])->name('bookings.refund');
+    Route::post('/bookings/{booking}/refund/refresh', [AdminRefundController::class, 'refresh'])->name('bookings.refund.refresh');
     Route::get('/book', [ReservationController::class, 'create'])->name('book');
 
     // Reports

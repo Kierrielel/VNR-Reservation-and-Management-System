@@ -35,6 +35,12 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="details-alert alert-error" role="alert">
+                <ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>
+            </div>
+        @endif
+
         {{-- TWO-COLUMN LAYOUT --}}
         <div class="reservation-details-grid">
 
@@ -221,7 +227,29 @@
 
                     <div class="reservation-notice notice-error">
                         <h3>Reservation Cancelled</h3>
-                        <p>This reservation has been cancelled. Contact the resort about any recorded payments.</p>
+                        @if ($booking->cancellation_reason)
+                            <p>Cancellation reason: {{ $booking->cancellation_reason }}</p>
+                        @endif
+                        @if ($booking->refund_status === 'pending_approval')
+                            <p>Your recorded payment of ₱{{ number_format($booking->refund_amount, 2) }} is eligible for a refund and is awaiting the resort administrator's approval. No refund has been submitted yet.</p>
+                        @elseif ($booking->refund_status === 'processing')
+                            <p>Your refund of ₱{{ number_format($booking->refund_amount, 2) }} has been approved and is being verified or processed with PayMongo. The time before it appears in your account depends on the payment provider.</p>
+                        @elseif ($booking->refund_status === 'refunded')
+                            <p>PayMongo reports that your refund of ₱{{ number_format($booking->refund_amount, 2) }} is complete. Your payment provider may take additional time to display the credit.</p>
+                        @elseif ($booking->refund_status === 'rejected')
+                            <p>The resort administrator has disapproved your refund request.</p>
+                            @if ($booking->refund_rejection_reason)
+                                <p>Reason for disapproval: {{ $booking->refund_rejection_reason }}</p>
+                            @endif
+                        @elseif (in_array($booking->refund_status, ['failed', 'needs_review'], true))
+                            <p>Your refund could not yet be confirmed. The resort administrator must check its PayMongo status. Contact the resort for an update.</p>
+                        @elseif ($booking->refund_status === 'not_eligible')
+                            <p>You cancelled more than 24 hours after paying the reservation fee. Your payment is non-refundable.</p>
+                        @elseif ($booking->refund_status === 'not_required')
+                            <p>No completed payment is recorded to refund. If you paid through an open checkout, contact the resort so it can verify the payment.</p>
+                        @else
+                            <p>This reservation has been cancelled. Contact the resort about any recorded payments.</p>
+                        @endif
                     </div>
 
                 @elseif ($booking->payment_status === 'paid')
@@ -280,6 +308,8 @@
             </div>
 
         </div>
+
+        @include('reservations.cancellation')
 
         {{-- FOOTER ACTION --}}
         <div class="details-footer">
