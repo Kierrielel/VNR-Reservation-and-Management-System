@@ -1,5 +1,5 @@
 @if ($canCancelReservation)
-    <section class="details-section">
+    <section class="details-section cancellation-section">
         <div class="details-section-header"><h2>Cancel Reservation</h2></div>
         <p>You can cancel before check-in. Paid reservations qualify for a refund only within 24 hours of paying the reservation fee. Later cancellations are non-refundable because the resort has reserved the accommodation.</p>
         @if ($refundPreview['deadline'])
@@ -16,11 +16,11 @@
             @csrf
             <label for="cancellation_reason">Reason for cancellation</label>
             <textarea id="cancellation_reason" name="cancellation_reason" rows="3" maxlength="1000" required>{{ old('cancellation_reason') }}</textarea>
-            <label>
+            <label class="cancellation-confirmation">
                 <input type="checkbox" name="confirm_cancellation" value="1" required>
                 I understand the refund policy and want to permanently cancel this reservation.
             </label>
-            <button type="submit" class="details-primary-button">Cancel Reservation</button>
+            <button type="submit" class="details-danger-button">Cancel Reservation</button>
         </form>
     </section>
 @endif

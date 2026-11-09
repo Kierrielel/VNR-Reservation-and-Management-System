@@ -94,9 +94,20 @@
                 </div>
 
                 <div class="field" id="availability-results" style="display:none;">
-                    <span class="label">Available cottages</span>
+                    <div class="availability-heading">
+                        <div>
+                            <span class="label">Choose your accommodation</span>
+                            <p class="status">Select up to 2 accommodations that fit your group.</p>
+                        </div>
+                        <span class="availability-count" id="cottage-count" aria-live="polite"></span>
+                    </div>
+                    <div class="cottage-filters" aria-label="Filter accommodations">
+                        <label class="filter-control filter-control--search"><span class="sr-only">Search accommodations</span><input class="input" type="search" id="cottage-search" placeholder="Search by name..." autocomplete="off"></label>
+                        <label class="filter-control"><span class="sr-only">Filter by capacity</span><select class="select" id="cottage-capacity-filter"><option value="all">Any capacity</option><option value="4">4+ guests</option><option value="6">6+ guests</option><option value="9">9+ guests</option><option value="16">16+ guests</option></select></label>
+                        <label class="filter-control"><span class="sr-only">Sort accommodations</span><select class="select" id="cottage-sort"><option value="recommended">Recommended</option><option value="price-low">Price: low to high</option><option value="price-high">Price: high to low</option><option value="capacity">Capacity: high to low</option></select></label>
+                    </div>
                     <div class="cottages" id="cottage-list"></div>
-                    <p class="status" id="cottage-selection-status" role="status" aria-live="polite">Choose up to 2 accommodations.</p>
+                    <p class="status cottage-selection-status" id="cottage-selection-status" role="status" aria-live="polite">Choose up to 2 accommodations.</p>
                 </div>
 
                 <div class="field">
@@ -137,6 +148,10 @@
             const cottageList    = document.getElementById('cottage-list');
             const guestCount = document.getElementById('guest_count');
             const selectionStatus = document.getElementById('cottage-selection-status');
+            const cottageCount = document.getElementById('cottage-count');
+            const cottageSearch = document.getElementById('cottage-search');
+            const cottageCapacity = document.getElementById('cottage-capacity-filter');
+            const cottageSort = document.getElementById('cottage-sort');
             const bookBtn        = document.getElementById('book-btn');
             const packageGroup = document.getElementById('event-package-group');
             const packageSelect = document.getElementById('event_package_id');
@@ -147,6 +162,7 @@
             const IDLE_MSG = 'Pick a reservation type to see available dates.';
             let calendarReady = false;
             let calendarRequest = 0;
+            let availableCottages = [];
 
             function updatePackageSummary() {
                 const option = packageSelect.selectedOptions[0];
@@ -194,8 +210,42 @@
                     || selected.length > 2 || !guestCount.checkValidity();
             }
 
+            function renderCottages() {
+                const search = cottageSearch.value.trim().toLowerCase();
+                const minimumCapacity = cottageCapacity.value === 'all' ? 0 : Number(cottageCapacity.value);
+                const sort = cottageSort.value;
+                const selectedIds = new Set([...cottageList.querySelectorAll('input:checked')].map(input => String(input.value)));
+                const filtered = availableCottages.filter(cottage => selectedIds.has(String(cottage.id)) || (cottage.name.toLowerCase().includes(search) && Number(cottage.capacity) >= minimumCapacity));
+                filtered.sort((a, b) => {
+                    if (sort === 'price-low') return Number(a.display_price) - Number(b.display_price);
+                    if (sort === 'price-high') return Number(b.display_price) - Number(a.display_price);
+                    if (sort === 'capacity') return Number(b.capacity) - Number(a.capacity);
+                    return Number(a.id) - Number(b.id);
+                });
+                cottageCount.textContent = `${filtered.length} of ${availableCottages.length} available`;
+                cottageList.replaceChildren();
+                if (!filtered.length) {
+                    cottageList.innerHTML = '<p class="status cottage-empty">No accommodations match your filters. Try a different search or capacity.</p>';
+                    return;
+                }
+                filtered.forEach(cottage => {
+                    const label = document.createElement('label');
+                    label.className = 'cottage';
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox'; checkbox.name = 'cottage_ids[]'; checkbox.value = cottage.id; checkbox.dataset.capacity = cottage.capacity; checkbox.checked = selectedIds.has(String(cottage.id));
+                    const info = document.createElement('span'); info.className = 'cottage__info';
+                    const name = document.createElement('span'); name.className = 'cottage__name'; name.textContent = cottage.name;
+                    const meta = document.createElement('span'); meta.className = 'cottage__meta'; meta.textContent = `Up to ${cottage.capacity} guests`;
+                    info.append(name, meta);
+                    const cost = document.createElement('span'); cost.className = 'cottage__price'; cost.textContent = currency.format(cottage.display_price);
+                    label.append(checkbox, info, cost); cottageList.appendChild(label);
+                });
+                updateCottageSelection();
+            }
+
             cottageList.addEventListener('change', updateCottageSelection);
             guestCount.addEventListener('input', updateCottageSelection);
+            [cottageSearch, cottageCapacity, cottageSort].forEach(control => control.addEventListener('input', renderCottages));
 
             packageSelect.addEventListener('change', updatePackageSummary);
 
@@ -303,6 +353,7 @@
 
             function fetchAvailableCottages(date, stay) {
                 cottageList.replaceChildren();
+                availableCottages = [];
                 updateCottageSelection();
                 const url = `{{ route('reservations.availability') }}?check_in=${date}&stay_type=${stay}`;
 
@@ -327,6 +378,10 @@
                         return;
                     }
 
+                    availableCottages = cottages.map(cottage => ({
+                        ...cottage,
+                        display_price: stay === 'overnight' ? cottage.price_overnight : cottage.price_day,
+                    }));
                     cottages.forEach(cottage => {
                         const price = stay === 'overnight' ? cottage.price_overnight : cottage.price_day;
                         // CHANGED: each cottage is a selectable card (same checkbox name/value/capacity as before)
@@ -351,9 +406,8 @@
                         label.append(checkbox, info, cost);
                         cottageList.appendChild(label);
                     });
-
                     resultsDiv.style.display = '';
-                    updateCottageSelection();
+                    renderCottages();
                 })
                 .catch(err => {
                     if (reservationType.value !== 'public' || checkInInput.value !== date || stayType.value !== stay) return;
