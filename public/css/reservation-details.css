@@ -48,26 +48,55 @@
 /* BUTTONS */
 
 .details-back-button,
-.details-primary-button {
+.details-primary-button,
+.details-danger-button {
     display: inline-block;
     padding: 10px 16px;
-    border: 1px solid #278bb9;
+    border: 1px solid #3fa9db;
     border-radius: 6px;
-    background: #278bb9;
+    background: #3fa9db;
     color: #ffffff;
     font-size: 13px;
     font-weight: 500;
     text-decoration: none;
     text-align: center;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
 .details-back-button:hover,
 .details-primary-button:hover {
-    background: #207ba5;
-    border-color: #207ba5;
-    color: #ffffff;
-    transform: translateY(-2px);
+    background: #ffffff;
+    border-color: #3fa9db;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.details-danger-button {
+    border-color: #c94b4b;
+    background: #c94b4b;
+}
+
+.details-danger-button:hover {
+    border-color: #c94b4b;
+    background: #ffffff;
+    color: #b33a3a;
+    box-shadow: 0 4px 9px rgba(179, 58, 58, 0.2);
+    transform: translateY(-1px);
+}
+
+.details-back-button:focus-visible,
+.details-primary-button:focus-visible,
+.details-danger-button:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.details-back-button:active,
+.details-primary-button:active,
+.details-danger-button:active {
+    transform: translateY(0);
 }
 
 /* ALERTS */
@@ -480,6 +509,102 @@
     color: #806b3d;
 }
 
+/* CANCELLATION PANEL */
+
+.cancellation-section {
+    position: relative;
+    overflow: hidden;
+    margin-top: 28px;
+    border-color: #f0caca;
+    background: linear-gradient(135deg, #fffafa 0%, #fff5f5 100%);
+    box-shadow: 0 4px 18px rgba(179, 58, 58, 0.08);
+}
+
+.cancellation-section::before {
+    display: none;
+}
+
+.cancellation-section .details-section-header {
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #f2dada;
+}
+
+.cancellation-section .details-section-header h2 {
+    color: #a93434;
+}
+
+.cancellation-section > p {
+    max-width: none;
+    margin: 0 0 10px;
+    color: #704f4f;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.cancellation-section > p strong {
+    color: #a93434;
+}
+
+.cancellation-section form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+    max-width: none;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f2dada;
+}
+
+.cancellation-section form > label:first-child {
+    color: #583f3f;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cancellation-section textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 104px;
+    padding: 12px 14px;
+    border: 1px solid #e1baba;
+    border-radius: 7px;
+    outline: none;
+    background: #ffffff;
+    color: #263b4b;
+    font-family: "Poppins", sans-serif;
+    font-size: 13px;
+    resize: vertical;
+}
+
+.cancellation-section textarea:focus {
+    border-color: #c94b4b;
+    box-shadow: 0 0 0 3px rgba(201, 75, 75, 0.14);
+}
+
+.cancellation-confirmation {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    color: #704f4f;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.cancellation-confirmation input {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 auto;
+    margin-top: 2px;
+    accent-color: #c94b4b;
+}
+
+.cancellation-section .details-danger-button {
+    margin-top: 7px;
+}
+
 /* CHECK-IN QR */
 
 .checkin-qr-section {
@@ -523,16 +648,36 @@
     margin-top: 30px;
 }
 
-.details-footer a {
+.details-home-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    padding: 10px 18px;
+    border: 1px solid #3fa9db;
+    border-radius: 6px;
+    background: #ffffff;
     color: #278bb9;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
     text-decoration: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
-.details-footer a:hover {
-    color: #207ba5;
-    text-decoration: underline;
+.details-home-button:hover {
+    background: #3fa9db;
+    color: #ffffff;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
+}
+
+.details-home-button:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.details-home-button:active {
+    transform: translateY(0);
 }
 
 /* RESPONSIVE */
@@ -623,6 +768,10 @@
     }
 
     .payment-action button {
+        width: 100%;
+    }
+
+    .cancellation-section .details-danger-button {
         width: 100%;
     }
 }

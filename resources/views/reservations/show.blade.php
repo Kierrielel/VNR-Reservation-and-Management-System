@@ -313,7 +313,7 @@
 
         {{-- FOOTER ACTION --}}
         <div class="details-footer">
-            <a href="{{ route('home') }}">Back to Home</a>
+            <a href="{{ route('home') }}" class="details-home-button">Back to Home</a>
         </div>
 
     </section>

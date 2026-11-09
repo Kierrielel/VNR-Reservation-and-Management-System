@@ -32,18 +32,42 @@
     justify-content: center;
     min-height: 44px;
     padding: 10px 16px;
-    border: 1px solid #278bb9;
+    border: 1px solid #3fa9db;
     border-radius: 6px;
-    background: #278bb9;
+    background: #3fa9db;
     color: #ffffff;
     font: 13px "Poppins", sans-serif;
     text-decoration: none;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.room-button:hover {
+    background: #ffffff;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
 }
 
 .room-button-secondary {
     background: #ffffff;
-    color:#278bb9;
+    color: #278bb9;
+}
+
+.room-button-secondary:hover {
+    background: #3fa9db;
+    color: #ffffff;
+    border-color: #3fa9db;
+}
+
+.room-button:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.room-button:active {
+    transform: translateY(0);
 }
 
 .room-back {

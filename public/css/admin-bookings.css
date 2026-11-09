@@ -1,18 +1,15 @@
 
-/* =========================
-   MAIN CONTAINER
-   ========================= */
 
 .admin-bookings {
-    padding: 45px 45px 60px;
+    width: 100%;
+    max-width: 1500px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 42px clamp(24px, 3.5vw, 56px) 60px;
     min-height: calc(100vh - 70px);
     background: #ffffff;
 }
 
-
-/* =========================
-   HEADER
-   ========================= */
 
 .bookings-header-with-actions {
     display: flex;
@@ -26,8 +23,9 @@
 .bookings-header h1 {
     margin: 0;
     font-family: "Playfair Display", serif;
-    font-size: 44px;
+    font-size: clamp(34px, 3vw, 44px);
     font-weight: 700;
+    line-height: 1.15;
     color: #111111;
 }
 
@@ -38,9 +36,6 @@
 }
 
 
-/* =========================
-   BOOKINGS TABLE
-   ========================= */
 
 .bookings-table-container {
     width: 100%;
@@ -58,9 +53,6 @@
 }
 
 
-/* =========================
-   TABLE HEADER
-   ========================= */
 
 .bookings-table thead {
     background-color: #fafafa;
@@ -78,7 +70,6 @@
 }
 
 
-/* Column widths */
 
 .bookings-table th:nth-child(1),
 .bookings-table td:nth-child(1) {
@@ -107,9 +98,6 @@
 }
 
 
-/* =========================
-   TABLE BODY
-   ========================= */
 
 .bookings-table td {
     height: 54px;
@@ -128,11 +116,6 @@
 .bookings-table tbody tr:hover {
     background-color: #f8fcfe;
 }
-
-
-/* =========================
-   ACTION BUTTONS
-   ========================= */
 
 .booking-actions {
     display: flex;
@@ -174,10 +157,6 @@
 }
 
 
-/* =========================
-   FOOTER
-   ========================= */
-
 .bookings-footer {
     min-height: 58px;
     padding: 0 24px;
@@ -194,9 +173,6 @@
 }
 
 
-/* =========================
-   FILTERS
-   ========================= */
 
 .booking-filters {
     display: flex;
@@ -228,28 +204,30 @@
 }
 
 
-/* =========================
-   BUTTONS AND LINKS
-   ========================= */
 
 .booking-button,
 .booking-details-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 10px 14px;
-    border: 1px solid #278bb9;
+    border: 1px solid #3fa9db;
     border-radius: 6px;
-    background: #278bb9;
+    background: #3fa9db;
     color: #ffffff;
     font: 13px "Poppins", sans-serif;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
 }
 
 .booking-button:hover,
 .booking-details-link:hover {
-    background: #207ba5;
-    color: #ffffff;
+    background: #ffffff;
+    color: #278bb9;
+    box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16);
+    transform: translateY(-1px);
 }
 
 .booking-button-secondary {
@@ -258,8 +236,20 @@
 }
 
 .booking-button-secondary:hover {
-    background: #e8f6fb;
-    color: #278bb9;
+    background: #3fa9db;
+    color: #ffffff;
+    border-color: #3fa9db;
+}
+
+.booking-button:focus-visible,
+.booking-details-link:focus-visible {
+    outline: 3px solid rgba(63, 169, 219, 0.3);
+    outline-offset: 2px;
+}
+
+.booking-button:active,
+.booking-details-link:active {
+    transform: translateY(0);
 }
 
 .booking-button-danger {
@@ -267,10 +257,13 @@
     border-color: #a52626;
 }
 
+.booking-button-danger:hover {
+    background: #ffffff;
+    color: #a52626;
+    border-color: #a52626;
+}
 
-/* =========================
-   BOOKING DETAILS
-   ========================= */
+
 
 .booking-reference {
     display: block;
@@ -280,52 +273,123 @@
 
 .booking-back {
     display: inline-block;
-    margin-bottom: 18px;
-    color: #245c75;
+    margin-bottom: 14px;
+    color: #278bb9;
+    font: 14px "Poppins", sans-serif;
+    text-underline-offset: 3px;
+}
+
+.booking-back:hover {
+    color: #0b6e99;
 }
 
 .booking-detail-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    grid-template-columns: minmax(0, 1.08fr) minmax(360px, 0.92fr);
+    align-items: start;
+    gap: 22px;
 }
 
 .booking-detail-card {
-    padding: 24px;
-    margin-bottom: 24px;
+    min-width: 0;
+    padding: 28px;
+    margin-bottom: 22px;
     border: 1px solid #dddddd;
-    border-radius: 8px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 .booking-detail-card h2 {
-    margin: 0 0 20px;
-    font-size: 23px;
+    margin: 0 0 24px;
+    font: 600 22px/1.25 "Poppins", sans-serif;
+    color: #26323c;
 }
 
 .booking-detail-card h3 {
-    margin-top: 24px;
-    font-size: 18px;
+    margin: 28px 0 10px;
+    font: 600 17px/1.35 "Poppins", sans-serif;
+    color: #26323c;
 }
 
 .booking-data {
     display: grid;
-    grid-template-columns: minmax(100px, 1fr) 2fr;
-    gap: 12px;
+    grid-template-columns: minmax(138px, 0.78fr) minmax(0, 1.22fr);
+    gap: 14px 20px;
     margin: 0;
+    font: 14px/1.45 "Poppins", sans-serif;
 }
 
 .booking-data dt {
-    color: #555555;
+    font-weight: 600;
+    color: #4c5963;
 }
 
 .booking-data dd {
     margin: 0;
     overflow-wrap: anywhere;
+    color: #1f2933;
 }
 
 .booking-message {
+    margin: 0;
+    padding: 14px 16px;
+    border-left: 3px solid #3fa9db;
+    border-radius: 0 6px 6px 0;
+    background: #f5fbfe;
+    color: #34424d;
+    font: 14px/1.55 "Poppins", sans-serif;
     white-space: pre-wrap;
     overflow-wrap: anywhere;
+}
+
+.booking-detail-card p {
+    color: #4c5963;
+    font: 14px/1.55 "Poppins", sans-serif;
+}
+
+.booking-payment-form {
+    width: 100%;
+    margin-top: 16px;
+}
+
+.booking-payment-form label {
+    color: #26323c;
+    font-weight: 500;
+}
+
+.booking-payment-form input,
+.booking-payment-form select,
+.booking-payment-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font: 14px "Poppins", sans-serif;
+}
+
+.booking-payment-form textarea {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.booking-payment-form .booking-button {
+    align-self: flex-start;
+    margin-top: 4px;
+}
+
+.booking-status-card {
+    margin-top: 0;
+}
+
+.booking-status-card h2 {
+    margin-bottom: 16px;
+}
+
+.booking-status-actions form {
+    margin: 0;
+}
+
+.booking-status-actions p {
+    margin: 0;
 }
 
 .booking-status-actions {
